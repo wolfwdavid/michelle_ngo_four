@@ -18,18 +18,22 @@ const validRecord = {
 
 describe.skip('schema accepts valid records', () => {
   it('canonical schema accepts a valid record', async () => {
+    // @ts-expect-error — module exists after Plan 02-01
     const { VideoSchema } = await import('./schema');
     expect(VideoSchema.safeParse(validRecord).success).toBe(true);
   });
 
   it('optional fields (duration_seconds, description) parse when absent', async () => {
+    // @ts-expect-error — module exists after Plan 02-01
     const { VideoSchema } = await import('./schema');
     const result = VideoSchema.safeParse(validRecord);
     expect(result.success).toBe(true);
   });
 
   it('accepts all 8 canonical categories', async () => {
+    // @ts-expect-error — module exists after Plan 02-01
     const { VideoSchema } = await import('./schema');
+    // @ts-expect-error — module exists after Plan 02-01
     const { CATEGORIES } = await import('./categories');
     for (const cat of CATEGORIES) {
       const r = VideoSchema.safeParse({ ...validRecord, category: cat });
@@ -40,6 +44,7 @@ describe.skip('schema accepts valid records', () => {
 
 describe.skip('schema rejects bad data', () => {
   it('rejects a missing required field', async () => {
+    // @ts-expect-error — module exists after Plan 02-01
     const { VideoSchema } = await import('./schema');
     const bad: Record<string, unknown> = { ...validRecord };
     delete bad.title;
@@ -47,11 +52,13 @@ describe.skip('schema rejects bad data', () => {
   });
 
   it('rejects a non-ISO date', async () => {
+    // @ts-expect-error — module exists after Plan 02-01
     const { VideoSchema } = await import('./schema');
     expect(VideoSchema.safeParse({ ...validRecord, published: '04/13/2018' }).success).toBe(false);
   });
 
   it('rejects an unknown category', async () => {
+    // @ts-expect-error — module exists after Plan 02-01
     const { VideoSchema } = await import('./schema');
     expect(
       VideoSchema.safeParse({ ...validRecord, category: 'PBS American Portraits' }).success
@@ -59,16 +66,19 @@ describe.skip('schema rejects bad data', () => {
   });
 
   it('rejects an unknown extra field', async () => {
+    // @ts-expect-error — module exists after Plan 02-01
     const { VideoSchema } = await import('./schema');
     expect(VideoSchema.safeParse({ ...validRecord, evil_extra: true }).success).toBe(false);
   });
 
   it('rejects an empty title', async () => {
+    // @ts-expect-error — module exists after Plan 02-01
     const { VideoSchema } = await import('./schema');
     expect(VideoSchema.safeParse({ ...validRecord, title: '' }).success).toBe(false);
   });
 
   it('rejects an unknown source', async () => {
+    // @ts-expect-error — module exists after Plan 02-01
     const { VideoSchema } = await import('./schema');
     expect(VideoSchema.safeParse({ ...validRecord, source: 'tiktok' }).success).toBe(false);
   });
@@ -76,6 +86,7 @@ describe.skip('schema rejects bad data', () => {
 
 describe.skip('VideoArraySchema validates the canonical file', () => {
   it('parses an array of valid records', async () => {
+    // @ts-expect-error — module exists after Plan 02-01
     const { VideoArraySchema } = await import('./schema');
     const result = VideoArraySchema.safeParse([validRecord, validRecord]);
     expect(result.success).toBe(true);

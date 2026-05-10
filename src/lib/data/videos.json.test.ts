@@ -5,7 +5,9 @@ import { describe, expect, it } from 'vitest';
 
 describe.skip('canonical videos.json', () => {
   it('canonical videos.json validates', async () => {
+    // @ts-expect-error — module exists after Plan 02-01
     const { VideoArraySchema } = await import('./schema');
+    // @ts-expect-error — file exists after Plan 02-02
     const videosJson = (await import('./videos.json')).default;
     const result = VideoArraySchema.safeParse(videosJson);
     if (!result.success) {
@@ -15,13 +17,16 @@ describe.skip('canonical videos.json', () => {
   });
 
   it('exactly 56 videos', async () => {
+    // @ts-expect-error — file exists after Plan 02-02
     const videosJson = (await import('./videos.json')).default;
     expect(Array.isArray(videosJson)).toBe(true);
     expect((videosJson as unknown[]).length).toBe(56);
   });
 
   it('unique IDs per source', async () => {
+    // @ts-expect-error — module exists after Plan 02-01
     const { VideoArraySchema } = await import('./schema');
+    // @ts-expect-error — file exists after Plan 02-02
     const videosJson = (await import('./videos.json')).default;
     const parsed = VideoArraySchema.parse(videosJson);
     const keys = parsed.map((v: { source: string; id: string }) => `${v.source}:${v.id}`);
@@ -29,7 +34,9 @@ describe.skip('canonical videos.json', () => {
   });
 
   it('contains the producer reel (vimeo:264677021)', async () => {
+    // @ts-expect-error — module exists after Plan 02-01
     const { VideoArraySchema } = await import('./schema');
+    // @ts-expect-error — file exists after Plan 02-02
     const videosJson = (await import('./videos.json')).default;
     const parsed = VideoArraySchema.parse(videosJson);
     const reel = parsed.find(
@@ -39,7 +46,9 @@ describe.skip('canonical videos.json', () => {
   });
 
   it('category counts match D-04 (PBS:18, Promos:12, Branded:8, Doc:5, Reel:4, Personal:3, Edu:3, Other:3)', async () => {
+    // @ts-expect-error — module exists after Plan 02-01
     const { VideoArraySchema } = await import('./schema');
+    // @ts-expect-error — file exists after Plan 02-02
     const videosJson = (await import('./videos.json')).default;
     const parsed = VideoArraySchema.parse(videosJson);
     const counts: Record<string, number> = {};
