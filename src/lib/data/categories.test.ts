@@ -1,11 +1,10 @@
 import { describe, expect, it } from 'vitest';
-// NOTE: imports for ./categories are lazy (`await import(...)`) inside each `it()` body
-// so this file loads cleanly in Wave 0 even though the module doesn't exist yet.
-// Plan 02-01 creates ./categories.ts and removes `.skip` to turn the suite GREEN.
+// Wave 0 used lazy `await import(...)` so this file would load before the module
+// existed. Plan 02-01 created ./categories.ts and removed `.skip` from each
+// describe block; the dynamic imports now resolve normally and the suite is GREEN.
 
-describe.skip('CATEGORIES array', () => {
+describe('CATEGORIES array', () => {
   it('contains exactly 8 entries from _prep/04-categories.md', async () => {
-    // @ts-expect-error — module exists after Plan 02-01
     const { CATEGORIES } = await import('./categories');
     expect(CATEGORIES).toEqual([
       'PBS American Portrait',
@@ -20,9 +19,8 @@ describe.skip('CATEGORIES array', () => {
   });
 });
 
-describe.skip('categoryToSlug', () => {
+describe('categoryToSlug', () => {
   it('derives kebab-case slugs single-rule (D-03)', async () => {
-    // @ts-expect-error — module exists after Plan 02-01
     const { categoryToSlug } = await import('./categories');
     expect(categoryToSlug('PBS American Portrait')).toBe('pbs-american-portrait');
     expect(categoryToSlug('Promos & Trailers')).toBe('promos-trailers');
@@ -35,16 +33,14 @@ describe.skip('categoryToSlug', () => {
   });
 
   it('produces unique slugs for all 8 categories (no collisions)', async () => {
-    // @ts-expect-error — module exists after Plan 02-01
     const { CATEGORIES, categoryToSlug } = await import('./categories');
     const slugs = CATEGORIES.map((c: (typeof CATEGORIES)[number]) => categoryToSlug(c));
     expect(new Set(slugs).size).toBe(slugs.length);
   });
 });
 
-describe.skip('slugToCategory', () => {
+describe('slugToCategory', () => {
   it('round-trips every category', async () => {
-    // @ts-expect-error — module exists after Plan 02-01
     const { CATEGORIES, categoryToSlug, slugToCategory } = await import('./categories');
     for (const cat of CATEGORIES) {
       expect(slugToCategory(categoryToSlug(cat))).toBe(cat);
@@ -52,7 +48,6 @@ describe.skip('slugToCategory', () => {
   });
 
   it('returns undefined for an unknown slug', async () => {
-    // @ts-expect-error — module exists after Plan 02-01
     const { slugToCategory } = await import('./categories');
     expect(slugToCategory('does-not-exist')).toBeUndefined();
   });
