@@ -14,6 +14,7 @@ A producer can land on the site, watch the reel, click any video, and immediatel
 
 - [x] **Buildable foundation** — SvelteKit 2 + TS strict + Tailwind v4 scaffold, lint/format/build green (Validated in Phase 1: Foundation)
 - [x] **Static deploy target with staging URL on push** — GitHub Pages auto-deploy via `.github/workflows/deploy.yml`, live at https://wolfwdavid.github.io/michelle_ngo_four/ (Validated in Phase 1: Foundation; D-05 Cloudflare Pages overridden — see Key Decisions)
+- [x] **Single video data source: `videos.json` checked into the repo, edited via PR** — 56 videos in `src/lib/data/videos.json`, validated by Zod schema at build time via Vite plugin; closed 8-category taxonomy from `_prep/04-categories.md` is the source of truth; typed loader exposes `$lib/data` surface for all routes (Validated in Phase 2: Data Layer — DATA-01..04)
 
 ### Active
 
@@ -26,7 +27,6 @@ A producer can land on the site, watch the reel, click any video, and immediatel
 - [ ] About page with bio, headshot, contact info, IMDb + LinkedIn links
 - [ ] Contact surface (email + phone + socials in footer; About page mirrors it)
 - [ ] Responsive grid (2-col mobile / 3-col tablet / 4-col desktop or similar standard breakpoints)
-- [ ] Single video data source: `videos.json` checked into the repo, edited via PR
 
 ### Out of Scope
 
@@ -76,7 +76,7 @@ A producer can land on the site, watch the reel, click any video, and immediatel
 |----------|-----------|---------|
 | SvelteKit + TS + Tailwind | Locked in kickoff prompt; aligns with 2026 filmmaker portfolios that need motion + static performance | ✓ Validated in Phase 1 — SvelteKit 2.59 + Svelte 5.55 + TS 5.9 strict + Tailwind v4.3 builds clean |
 | **D-05 override: GitHub Pages instead of Cloudflare Pages** | User directive at execution time; pipeline-in-repo (workflow file) was preferred over dashboard-managed Git integration | ✓ Validated in Phase 1 — auto-deploy proven on push to main; carries `BASE_PATH=/<repo>` until Phase 7 cutover |
-| `videos.json` in repo as source of truth | 56 items is small; PR-based edits acceptable; eliminates CMS hosting + runtime fetch | — Pending |
+| `videos.json` in repo as source of truth | 56 items is small; PR-based edits acceptable; eliminates CMS hosting + runtime fetch | ✓ Validated in Phase 2 — `src/lib/data/videos.json` (56 records) + Zod schema + Vite build-fail plugin; `import { videos, ... } from '$lib/data'` is the single read path |
 | Click-to-filter via routing (not modal) | Deep-linkable, SEO-friendly, matches YouTube-style mental model the user described | — Pending |
 | PBS American Portrait gets dedicated page + category tag | 18 of 56 videos and her flagship — warrants both a project landing AND filter inclusion | — Pending |
 | Press as first-class section | HBO Max, PBS, Hulu, U2 Sphere, Amazon credits are commercial differentiators for the hiring-producer audience | — Pending |
@@ -103,7 +103,8 @@ This document evolves at phase transitions and milestone boundaries.
 ## Current State
 
 - **Phase 1 (Foundation): Complete** — buildable SvelteKit scaffold + auto-deploying GitHub Pages staging URL at https://wolfwdavid.github.io/michelle_ngo_four/
-- Next: Phase 2 (data-layer)
+- **Phase 2 (Data Layer): Complete** — typed videos.json (56 records) + Zod schema + Vite plugin that fails `pnpm build` on schema violation + `$lib/data` public surface (`videos`, `producerReelId`, `getById`, `getByCategory`, category helpers); DATA-01..04 satisfied
+- Next: Phase 3 (Grid, Filter & Watch)
 
 ---
-*Last updated: 2026-05-10 after Phase 1 completion*
+*Last updated: 2026-05-10 after Phase 2 completion*
