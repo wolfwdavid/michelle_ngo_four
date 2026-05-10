@@ -27,15 +27,15 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Depends on**: Nothing (first phase)
 **Requirements**: FOUND-01, FOUND-02
 **Success Criteria** (what must be TRUE):
-  1. Running `npm run build` produces a clean static build with TypeScript strict mode and no runtime errors
+  1. Running `pnpm build` produces a clean static build with TypeScript strict mode and no runtime errors
   2. Tailwind utility classes render correctly in a smoke-test route (e.g., `/`)
   3. Pushing to `main` triggers a Cloudflare Pages deploy and the site is reachable at a public `*.pages.dev` URL
   4. The staging URL serves the smoke-test route over HTTPS within seconds of build completion
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: Scaffold SvelteKit + TypeScript (strict) + Tailwind, lock versions, smoke-test route
-- [ ] 01-02: Configure Cloudflare Pages deployment from `main` with adapter-static (or adapter-cloudflare)
+- [ ] 01-01-scaffold-PLAN.md — Scaffold SvelteKit 2 + Svelte 5 + TypeScript (strict + noUncheckedIndexedAccess + noImplicitOverride) + Tailwind v4 (Vite plugin) + ESLint flat config + Prettier + husky/lint-staged pre-commit hook + branded splash placeholder at `/` (Wave 1, addresses FOUND-01)
+- [ ] 01-02-cloudflare-pages-PLAN.md — Configure Cloudflare Pages deploy from `main` with `@sveltejs/adapter-static`, set `NODE_VERSION=22` + `PNPM_VERSION` env vars, verify end-to-end auto-deploy on the `*.pages.dev` URL (Wave 2, depends on 01-01, addresses FOUND-02)
 
 ### Phase 2: Data Layer
 **Goal**: Every video record on the site is loaded from a single repo-checked `videos.json` validated against a TypeScript schema, with categories drawn from the locked taxonomy.
@@ -141,7 +141,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/2 | Not started | - |
+| 1. Foundation | 0/2 | Planned | - |
 | 2. Data Layer | 0/3 | Not started | - |
 | 3. Grid, Filter & Watch | 0/4 | Not started | - |
 | 4. Reel-Led Home | 0/2 | Not started | - |
@@ -151,4 +151,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 ---
 *Roadmap created: 2026-05-10*
+*Phase 1 plans created: 2026-05-10*
 *Coverage: 30/30 v1 requirements mapped — no orphans, no duplicates*
