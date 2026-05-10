@@ -27,7 +27,7 @@ const BACKUP = resolve(REPO_ROOT, 'src/lib/data/videos.json.smoke-backup');
 if (!existsSync(VIDEOS_JSON)) {
   console.error(
     `[test-build-fails] FATAL: ${VIDEOS_JSON} does not exist yet. ` +
-      `This script can only run after Plan 02-02 authors videos.json AND Plan 02-03 wires the Vite plugin.`,
+      `This script can only run after Plan 02-02 authors videos.json AND Plan 02-03 wires the Vite plugin.`
   );
   process.exit(2); // distinct from 1 (build-passed-bug) and 0 (success)
 }
@@ -75,13 +75,13 @@ try {
   if (exitCode === 0) {
     console.error(
       '[test-build-fails] FAIL: pnpm build PASSED on corrupted videos.json. ' +
-        'The Vite validation plugin is not wired correctly — DATA-03 is not enforced at the build pipeline.',
+        'The Vite validation plugin is not wired correctly — DATA-03 is not enforced at the build pipeline.'
     );
     process.exit(1);
   }
 
   console.log(
-    '[test-build-fails] PASS: pnpm build correctly rejected corrupted videos.json (DATA-03 enforced).',
+    '[test-build-fails] PASS: pnpm build correctly rejected corrupted videos.json (DATA-03 enforced).'
   );
   process.exit(0);
 } finally {

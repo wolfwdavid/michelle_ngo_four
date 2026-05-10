@@ -16,6 +16,7 @@
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "test:data": "vitest run src/lib/data/",
+    "test:build-fails": "node scripts/test-build-fails.mjs",
     "lint": "eslint .",
     "format": "prettier --write .",
     "prepare": "husky"
