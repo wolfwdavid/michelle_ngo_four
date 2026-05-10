@@ -12,7 +12,8 @@ A producer can land on the site, watch the reel, click any video, and immediatel
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] **Buildable foundation** — SvelteKit 2 + TS strict + Tailwind v4 scaffold, lint/format/build green (Validated in Phase 1: Foundation)
+- [x] **Static deploy target with staging URL on push** — GitHub Pages auto-deploy via `.github/workflows/deploy.yml`, live at https://wolfwdavid.github.io/michelle_ngo_four/ (Validated in Phase 1: Foundation; D-05 Cloudflare Pages overridden — see Key Decisions)
 
 ### Active
 
@@ -26,7 +27,6 @@ A producer can land on the site, watch the reel, click any video, and immediatel
 - [ ] Contact surface (email + phone + socials in footer; About page mirrors it)
 - [ ] Responsive grid (2-col mobile / 3-col tablet / 4-col desktop or similar standard breakpoints)
 - [ ] Single video data source: `videos.json` checked into the repo, edited via PR
-- [ ] Static deploy target (Cloudflare Pages or Vercel) with staging URL during build
 
 ### Out of Scope
 
@@ -74,7 +74,8 @@ A producer can land on the site, watch the reel, click any video, and immediatel
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| SvelteKit + TS + Tailwind | Locked in kickoff prompt; aligns with 2026 filmmaker portfolios that need motion + static performance | — Pending |
+| SvelteKit + TS + Tailwind | Locked in kickoff prompt; aligns with 2026 filmmaker portfolios that need motion + static performance | ✓ Validated in Phase 1 — SvelteKit 2.59 + Svelte 5.55 + TS 5.9 strict + Tailwind v4.3 builds clean |
+| **D-05 override: GitHub Pages instead of Cloudflare Pages** | User directive at execution time; pipeline-in-repo (workflow file) was preferred over dashboard-managed Git integration | ✓ Validated in Phase 1 — auto-deploy proven on push to main; carries `BASE_PATH=/<repo>` until Phase 7 cutover |
 | `videos.json` in repo as source of truth | 56 items is small; PR-based edits acceptable; eliminates CMS hosting + runtime fetch | — Pending |
 | Click-to-filter via routing (not modal) | Deep-linkable, SEO-friendly, matches YouTube-style mental model the user described | — Pending |
 | PBS American Portrait gets dedicated page + category tag | 18 of 56 videos and her flagship — warrants both a project landing AND filter inclusion | — Pending |
@@ -99,5 +100,10 @@ This document evolves at phase transitions and milestone boundaries.
 3. Audit Out of Scope — reasons still valid?
 4. Update Context with current state
 
+## Current State
+
+- **Phase 1 (Foundation): Complete** — buildable SvelteKit scaffold + auto-deploying GitHub Pages staging URL at https://wolfwdavid.github.io/michelle_ngo_four/
+- Next: Phase 2 (data-layer)
+
 ---
-*Last updated: 2026-05-10 after initialization*
+*Last updated: 2026-05-10 after Phase 1 completion*
