@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Phase 2 context gathered
-last_updated: "2026-05-10T20:28:17.311Z"
+stopped_at: Completed 02-data-layer/02-00-vitest-wave0-PLAN.md
+last_updated: "2026-05-10T21:50:26.042Z"
 progress:
   total_phases: 7
   completed_phases: 1
-  total_plans: 2
-  completed_plans: 2
+  total_plans: 6
+  completed_plans: 3
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-10)
 
 **Core value:** A producer can land on the site, watch the reel, click any video, and immediately see "more like this" — every interaction reinforces the depth and breadth of her video work.
-**Current focus:** Phase 01 — foundation
+**Current focus:** Phase 02 — data-layer
 
 ## Current Position
 
-Phase: 2
-Plan: Not started
+Phase: 02 (data-layer) — EXECUTING
+Plan: 2 of 4
 
 ## Performance Metrics
 
@@ -47,6 +47,7 @@ Plan: Not started
 
 *Updated after each plan completion*
 | Phase 01-foundation P01-scaffold | 13m | 2 tasks | 24 files |
+| Phase 02-data-layer P00-vitest-wave0 | 14m | 3 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -63,6 +64,8 @@ Recent decisions affecting current work:
 - [Phase 01-foundation]: Pinned every load-bearing dep with -E (no caret/tilde). Locked pnpm@11.0.9 in packageManager + plan 01-02 PNPM_VERSION env var
 - [Phase 01-foundation]: Omitted compilerOptions.runes from svelte.config.js (RESEARCH.md Pitfall 5) — runes are default in Svelte 5; global enforcement risks breaking third-party libs
 - [Phase 01-foundation]: Added @types/node@22.19.18 (Rule 3 deviation) — required for vite/kit type defs to compile under svelte-check
+- [Phase 02-data-layer]: Skipped pnpm dlx sv add vitest in favor of pnpm add -D -E vitest@4.1.5 @vitest/coverage-v8@4.1.5: avoids jsdom + playwright bloat we do not need (schema/loader tests run in node, not browser)
+- [Phase 02-data-layer]: Lazy await import() in test stubs + // @ts-expect-error: lets Wave 0 vitest run + svelte-check both exit 0 while preserving downstream pnpm vitest run -t "<name>" contract; downstream plans flip describe.skip -> describe (one-rule rename) and drop the now-unused @ts-expect-error
 
 ### Pending Todos
 
@@ -74,6 +77,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-10T20:28:17.304Z
-Stopped at: Phase 2 context gathered
-Resume file: .planning/phases/02-data-layer/02-CONTEXT.md
+Last session: 2026-05-10T21:50:26.031Z
+Stopped at: Completed 02-data-layer/02-00-vitest-wave0-PLAN.md
+Resume file: None
