@@ -14,9 +14,9 @@
 ### Data
 
 - [ ] **DATA-01**: Site renders 56 videos sourced from `videos.json` checked into the repo
-- [ ] **DATA-02**: Each video record exposes source (youtube/vimeo), id, title, uploader, thumbnail URL, embed URL, category, duration, published date, and description
-- [ ] **DATA-03**: Video data validates against a TypeScript schema at build time; build fails on schema violations
-- [ ] **DATA-04**: Categories are a closed canonical list (no free-text), locked from the user-approved taxonomy in `_prep/04-categories.md`
+- [x] **DATA-02**: Each video record exposes source (youtube/vimeo), id, title, uploader, thumbnail URL, embed URL, category, duration, published date, and description
+- [x] **DATA-03**: Video data validates against a TypeScript schema at build time; build fails on schema violations
+- [x] **DATA-04**: Categories are a closed canonical list (no free-text), locked from the user-approved taxonomy in `_prep/04-categories.md`
 
 ### Hero
 
@@ -113,9 +113,9 @@ Updated during roadmap creation.
 | FOUND-02 | Phase 1 | Complete |
 | FOUND-03 | Phase 7 | Pending |
 | DATA-01 | Phase 2 | Pending |
-| DATA-02 | Phase 2 | Pending |
-| DATA-03 | Phase 2 | Pending |
-| DATA-04 | Phase 2 | Pending |
+| DATA-02 | Phase 2 | Complete |
+| DATA-03 | Phase 2 | Complete |
+| DATA-04 | Phase 2 | Complete |
 | HERO-01 | Phase 4 | Pending |
 | HERO-02 | Phase 4 | Pending |
 | HERO-03 | Phase 4 | Pending |
