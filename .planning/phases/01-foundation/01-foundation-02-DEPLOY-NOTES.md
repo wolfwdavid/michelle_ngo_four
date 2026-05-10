@@ -46,10 +46,11 @@ applies — the cutover steps just point at GH Pages now instead of CF Pages).
 
 ## Auto-deploy Verification
 
-- Trigger commit SHA: (filled in by follow-up commit)
+- Trigger commit SHA: bdca8094890e83f7782d2bc860f3e57f11c4155b
 - Trigger commit message: `docs(01-02): record GH Pages deploy notes`
 - Auto-deploy observed: yes
-- Verification timestamp (UTC): (filled in by follow-up commit)
+- Verification timestamp (UTC): 2026-05-10T19:17:39Z
+- Verification workflow run ID: 25637442378
 
 ## Indexing Block (per D-11)
 
