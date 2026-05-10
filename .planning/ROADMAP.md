@@ -51,7 +51,7 @@ Plans:
 Plans:
 - [x] 02-00-vitest-wave0-PLAN.md — Install Vitest 4.1.5 + scaffold 4 test stub files (RED) + scripts/test-build-fails.mjs (Wave 0, no requirement IDs)
 - [x] 02-01-types-schema-PLAN.md — Install zod@4.4.3, create src/lib/data/categories.ts (CATEGORIES + slug helpers) + src/lib/data/schema.ts (Zod 4 discriminated union) (Wave 1, addresses DATA-02, DATA-03, DATA-04)
-- [ ] 02-02-author-videos-json-PLAN.md — Author src/lib/data/videos.json from _prep seed + add to .prettierignore (Wave 2, depends on 02-01, addresses DATA-01, DATA-02)
+- [x] 02-02-author-videos-json-PLAN.md — Author src/lib/data/videos.json from _prep seed + add to .prettierignore (Wave 2, depends on 02-01, addresses DATA-01, DATA-02)
 - [ ] 02-03-loader-and-vite-plugin-PLAN.md — Wire src/lib/data/videos.ts loader + src/lib/data/index.ts ($lib/data surface) + validateVideosPlugin in vite.config.ts (Wave 3, depends on 02-01 + 02-02, addresses DATA-01, DATA-03, DATA-04)
 
 ### Phase 3: Grid, Filter & Watch

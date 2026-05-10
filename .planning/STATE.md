@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 02-data-layer/02-01-types-schema-PLAN.md
-last_updated: "2026-05-10T22:02:07.861Z"
+stopped_at: Completed 02-data-layer/02-02-author-videos-json-PLAN.md
+last_updated: "2026-05-10T22:10:38.292Z"
 progress:
   total_phases: 7
   completed_phases: 1
   total_plans: 6
-  completed_plans: 4
+  completed_plans: 5
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-05-10)
 ## Current Position
 
 Phase: 02 (data-layer) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 
 ## Performance Metrics
 
@@ -49,6 +49,7 @@ Plan: 3 of 4
 | Phase 01-foundation P01-scaffold | 13m | 2 tasks | 24 files |
 | Phase 02-data-layer P00-vitest-wave0 | 14m | 3 tasks | 8 files |
 | Phase 02-data-layer P01-types-schema | 7m | 2 tasks | 7 files |
+| Phase 02-data-layer P02-author-videos-json | 5m | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,9 @@ Recent decisions affecting current work:
 - [Phase 02-data-layer]: CATEGORIES array stored in seed-proposal order NOT D-04 display order: display order is computed dynamically by getCategoriesInDisplayOrder() in Plan 02-03 loader; pre-sorting the static array would create a second source of truth that drifts when counts change
 - [Phase 02-data-layer]: Kept Wave 0 lazy await import() pattern in unskipped test files instead of converting to static top-level imports: rename to describe is one-rule (drop @ts-expect-error directives as imports resolve); switching half the files to static imports while videos.json.test.ts + videos.test.ts still need lazy imports would create a two-pattern codebase
 - [Phase 02-data-layer]: Accepted top-level url field as z.url().optional() on every record: seed includes url (human-friendly watch page) on all rows; accepting lossless keeps Plan 02-02 a near-byte-level seed copy and gives /watch/[id] a future hook for outbound links; z.strictObject still rejects unknown fields
+- [Phase 02-data-layer]: Used inline 'node -e' one-liner instead of committed scripts/seed-to-videos.ts: deterministic byte-identical output to JSON.stringify(seed.videos, null, 2) + newline; no scripts/, no tsx dep, no dead code
+- [Phase 02-data-layer]: Preserved Wave 0 lazy 'await import(./videos.json)' pattern instead of switching to static top-level import per the plan text's illustrative example: matches Plan 02-01 SUMMARY's explicit decision (no two-pattern codebase while videos.test.ts still needs lazy imports); both literal acceptance criteria met (no describe.skip, no @ts-expect-error)
+- [Phase 02-data-layer]: Did NOT inline D-08 default fields (featured/hidden/tags/credits) in videos.json: Pitfall 2 says .default() only applies on .parse(); loader materializes defaults at runtime; would have added 224 lines of zero-info noise and drift risk
 
 ### Pending Todos
 
@@ -82,6 +86,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-10T22:02:07.851Z
-Stopped at: Completed 02-data-layer/02-01-types-schema-PLAN.md
+Last session: 2026-05-10T22:10:38.281Z
+Stopped at: Completed 02-data-layer/02-02-author-videos-json-PLAN.md
 Resume file: None
