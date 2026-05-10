@@ -13,7 +13,7 @@ A SvelteKit portfolio for filmmaker Michelle Ngo, built greenfield from an empty
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [ ] **Phase 1: Foundation** - SvelteKit + TS + Tailwind scaffold deployed to Cloudflare Pages on push to main
-- [ ] **Phase 2: Data Layer** - `videos.json` source-of-truth with type-safe build-time validation against the locked taxonomy
+- [x] **Phase 2: Data Layer** - `videos.json` source-of-truth with type-safe build-time validation against the locked taxonomy (completed 2026-05-10)
 - [ ] **Phase 3: Grid, Filter & Watch** - YouTube-style grid with click-to-filter, deep-linkable URLs, and `/watch/[id]` with same-category rail
 - [ ] **Phase 4: Reel-Led Home** - Full-bleed hero with name, tagline, and PLAY REEL CTA over the featured grid
 - [ ] **Phase 5: PBS American Portrait** - Dedicated landing page surfacing the 18 PBS videos with project context
@@ -52,7 +52,7 @@ Plans:
 - [x] 02-00-vitest-wave0-PLAN.md — Install Vitest 4.1.5 + scaffold 4 test stub files (RED) + scripts/test-build-fails.mjs (Wave 0, no requirement IDs)
 - [x] 02-01-types-schema-PLAN.md — Install zod@4.4.3, create src/lib/data/categories.ts (CATEGORIES + slug helpers) + src/lib/data/schema.ts (Zod 4 discriminated union) (Wave 1, addresses DATA-02, DATA-03, DATA-04)
 - [x] 02-02-author-videos-json-PLAN.md — Author src/lib/data/videos.json from _prep seed + add to .prettierignore (Wave 2, depends on 02-01, addresses DATA-01, DATA-02)
-- [ ] 02-03-loader-and-vite-plugin-PLAN.md — Wire src/lib/data/videos.ts loader + src/lib/data/index.ts ($lib/data surface) + validateVideosPlugin in vite.config.ts (Wave 3, depends on 02-01 + 02-02, addresses DATA-01, DATA-03, DATA-04)
+- [x] 02-03-loader-and-vite-plugin-PLAN.md — Wire src/lib/data/videos.ts loader + src/lib/data/index.ts ($lib/data surface) + validateVideosPlugin in vite.config.ts (Wave 3, depends on 02-01 + 02-02, addresses DATA-01, DATA-03, DATA-04)
 
 ### Phase 3: Grid, Filter & Watch
 **Goal**: A producer can browse videos in a YouTube-style grid, click any card to play it, and immediately see "more in this category" — the killer feature, end to end.
@@ -143,7 +143,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 0/2 | Planned | - |
-| 2. Data Layer | 1/4 | In Progress|  |
+| 2. Data Layer | 4/4 | Complete   | 2026-05-10 |
 | 3. Grid, Filter & Watch | 0/4 | Not started | - |
 | 4. Reel-Led Home | 0/2 | Not started | - |
 | 5. PBS American Portrait | 0/2 | Not started | - |

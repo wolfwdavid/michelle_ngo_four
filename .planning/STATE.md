@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 02-data-layer/02-02-author-videos-json-PLAN.md
-last_updated: "2026-05-10T22:10:38.292Z"
+stopped_at: Completed 02-data-layer/02-03-loader-and-vite-plugin-PLAN.md — Phase 2 complete
+last_updated: "2026-05-10T22:22:25.106Z"
 progress:
   total_phases: 7
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 6
-  completed_plans: 5
+  completed_plans: 6
 ---
 
 # Project State
@@ -50,6 +50,7 @@ Plan: 4 of 4
 | Phase 02-data-layer P00-vitest-wave0 | 14m | 3 tasks | 8 files |
 | Phase 02-data-layer P01-types-schema | 7m | 2 tasks | 7 files |
 | Phase 02-data-layer P02-author-videos-json | 5m | 2 tasks | 4 files |
+| Phase 02-data-layer P03-loader-and-vite-plugin | 7m | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -75,6 +76,9 @@ Recent decisions affecting current work:
 - [Phase 02-data-layer]: Used inline 'node -e' one-liner instead of committed scripts/seed-to-videos.ts: deterministic byte-identical output to JSON.stringify(seed.videos, null, 2) + newline; no scripts/, no tsx dep, no dead code
 - [Phase 02-data-layer]: Preserved Wave 0 lazy 'await import(./videos.json)' pattern instead of switching to static top-level import per the plan text's illustrative example: matches Plan 02-01 SUMMARY's explicit decision (no two-pattern codebase while videos.test.ts still needs lazy imports); both literal acceptance criteria met (no describe.skip, no @ts-expect-error)
 - [Phase 02-data-layer]: Did NOT inline D-08 default fields (featured/hidden/tags/credits) in videos.json: Pitfall 2 says .default() only applies on .parse(); loader materializes defaults at runtime; would have added 224 lines of zero-info noise and drift risk
+- [Phase 02-data-layer]: Followed PLAN.md frontmatter literal 'test:build-fails' script name (matches script filename test-build-fails.mjs) instead of casual 'test:smoke' reference in orchestrator brief and Plan 02-00 SUMMARY downstream-contract prose: PLAN.md is the binding contract via must_haves.artifacts + acceptance_criteria; prose references are illustrative shape.
+- [Phase 02-data-layer]: Validate-twice contract: Vite plugin buildStart (build-time DATA-03 enforcement, fails before any bundling, this.error + z.prettifyError) + loader .parse() at module load (materializes D-08 defaults so runtime types match parsed shape, NOT raw-JSON shape). Schema module stays pure (no JSON import) — both consumers (plugin via readFileSync, loader via Vite JSON import) decoupled per Pitfall 1.
+- [Phase 02-data-layer]: Public $lib/data surface intentionally does NOT re-export allVideos (D-14 future-tooling only) or Zod schemas (VideoSchema/VideoArraySchema are build-time only — routes consume parsed data, not schemas). Single import path = single point to refactor when internal structure changes.
 
 ### Pending Todos
 
@@ -86,6 +90,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-10T22:10:38.281Z
-Stopped at: Completed 02-data-layer/02-02-author-videos-json-PLAN.md
+Last session: 2026-05-10T22:22:25.096Z
+Stopped at: Completed 02-data-layer/02-03-loader-and-vite-plugin-PLAN.md — Phase 2 complete
 Resume file: None
