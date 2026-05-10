@@ -180,11 +180,7 @@ From .prettierignore (current state — likely doesn't exist yet, planner should
     ```
     Expected output: a message saying the file is ignored (Prettier 3 prints `[warn] src/lib/data/videos.json is ignored.` and exits 0).
 
-    Step 4 — Sanity check that the JSON validates against the Plan 02-01 schema BEFORE running the test file (faster feedback than vitest):
-    ```
-    node -e "const{VideoArraySchema}=await import('./src/lib/data/schema.ts').catch(()=>import('./src/lib/data/schema.js')); /* fallback if not transpiled */"
-    ```
-    NOTE: this will NOT work directly because Node can't import `.ts` without a loader. Skip the inline schema check; rely on Task 2's vitest run instead. (Documented here so the executor doesn't waste time trying.)
+    (Schema-level validation of the JSON happens in Task 2 via vitest, which can natively import the schema TS module. No inline schema-check step here — Node can't import `.ts` directly without a loader, so any inline check would be brittle. Rely on Task 2's vitest run for the canonical schema proof.)
   </action>
   <verify>
     <automated>node -e "const j=JSON.parse(require('node:fs').readFileSync('src/lib/data/videos.json','utf-8'));if(!Array.isArray(j))throw new Error('not array');if(j.length!==56)throw new Error('wrong length: '+j.length);const reel=j.find(v=>v.source==='vimeo'&&v.id==='264677021');if(!reel)throw new Error('reel missing');if(reel.category!=='Reel')throw new Error('reel category wrong: '+reel.category);console.log('OK: 56 videos, reel present');"</automated>
@@ -196,7 +192,11 @@ From .prettierignore (current state — likely doesn't exist yet, planner should
     - Parsed array has length exactly 56.
     - Parsed array contains an object with `source === 'vimeo'` AND `id === '264677021'` AND `category === 'Reel'` (Producer Reel — D-09 reference target).
     - Parsed array's category counts equal D-04: 18 PBS American Portrait, 12 Promos & Trailers, 8 Branded Content, 5 Documentary / Short Film, 4 Reel, 3 Personal / Tribute, 3 Educational / Nonprofit, 3 Other.
-    - NO record in the array has a key named `featured`, `hidden`, `tags`, or `credits` (D-08 defaults stay in the schema, NOT in the JSON). Verifiable: `grep -c "\"featured\"\\|\"hidden\"\\|\"tags\"\\|\"credits\"" src/lib/data/videos.json` returns 0.
+    - NO record in the array has a key named `featured`, `hidden`, `tags`, or `credits` (D-08 defaults stay in the schema, NOT in the JSON). Verifiable by running this clean Node check (precise — checks JSON keys, not substrings; portable across PowerShell/bash):
+      ```
+      node -e "const d=require('./src/lib/data/videos.json');for(const r of d){for(const k of ['featured','hidden','tags','credits'])if(k in r){console.error('FAIL: record '+r.id+' inlines D-08 field '+k);process.exit(1)}}console.log('OK')"
+      ```
+      Expected output: `OK` (exit 0). Any inlined D-08 field exits 1 with a precise diagnostic naming the offending record.
     - File `.prettierignore` exists.
     - File `.prettierignore` contains the literal line `src/lib/data/videos.json`.
     - `pnpm prettier --check src/lib/data/videos.json` exits 0 AND output contains the word `ignored`.
@@ -290,7 +290,7 @@ From .prettierignore (current state — likely doesn't exist yet, planner should
 - Truth: "videos.json validates against schema" → safeParse test green ✓
 - Truth: "Producer Reel is present" → vimeo:264677021 test green ✓
 - Truth: "Category counts match D-04" → counts test green ✓
-- Truth: "No D-08 fields inlined" → grep returns 0 ✓
+- Truth: "No D-08 fields inlined" → Node key-presence check exits 0 ✓
 - Truth: "Pre-commit won't churn the file" → `.prettierignore` line present ✓
 </verification>
 
@@ -314,3 +314,5 @@ After completion, create `.planning/phases/02-data-layer/02-02-SUMMARY.md` docum
 - Why D-08 fields stay out of the JSON (defaults materialize at parse time, per Pitfall 2)
 - Confirmation that the videos.test.ts tests remain skipped — owned by Plan 02-03
 </output>
+</content>
+</invoke>

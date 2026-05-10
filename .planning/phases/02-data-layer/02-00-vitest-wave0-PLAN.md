@@ -141,10 +141,12 @@ Leave this stub alone in Wave 0. The public `$lib/data` surface lands in Plan 02
     Step 2 — Add Vitest scripts to `package.json` `scripts` block (insert immediately after the existing `"check:watch"` line):
 
     ```json
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "test:data": "vitest run src/lib/data/",
     ```
+
+    The `--passWithNoTests` flag on the `test` script removes the Vitest-version-dependent ambiguity around what happens when zero tests are collected (relevant in Wave 0 because every test stub starts with `describe.skip`). Without it, some Vitest 4.x configurations exit non-zero on "no tests found" — and any future refactor that temporarily removes test files would surface a confusing CI failure.
 
     Do NOT touch the existing `dev`, `build`, `preview`, `check`, `check:watch`, `lint`, `format`, `prepare` scripts.
 
@@ -188,16 +190,17 @@ Leave this stub alone in Wave 0. The public `$lib/data` surface lands in Plan 02
   <acceptance_criteria>
     - `package.json` `devDependencies` contains the literal string `"vitest": "4.1.5"` (NOT `^4.1.5`, NOT `~4.1.5`).
     - `package.json` `devDependencies` contains the literal string `"@vitest/coverage-v8": "4.1.5"`.
-    - `package.json` `scripts` contains the literal lines `"test": "vitest run"`, `"test:watch": "vitest"`, `"test:data": "vitest run src/lib/data/"`.
+    - `package.json` `scripts` contains the literal lines `"test": "vitest run --passWithNoTests"`, `"test:watch": "vitest"`, `"test:data": "vitest run src/lib/data/"`.
+    - `grep "vitest run --passWithNoTests" package.json` returns exactly 1 match (the `test` script line).
     - `vite.config.ts` contains the literal string `/// <reference types="vitest/config" />` on line 1.
     - `vite.config.ts` contains the literal string `test: {` and `environment: 'node'`.
     - `vite.config.ts` still has `tailwindcss()` BEFORE `sveltekit()` in the plugins array (preserve order).
     - `tsconfig.json` is BYTE-IDENTICAL to its pre-task state (no edits — this is a pass-through criterion).
     - `pnpm vitest --version` exits 0.
-    - `pnpm vitest run` exits 0 (it will run zero tests because the stub files don't exist yet — that's fine; vitest exits 0 on no tests by default in v4 with the `passWithNoTests` flag, OR add `--passWithNoTests` to the script if needed).
+    - `pnpm vitest run --passWithNoTests` exits 0 (it will run zero tests because the stub files don't exist yet — that's fine; the explicit flag matches the script in package.json).
   </acceptance_criteria>
   <done>
-    Vitest 4.1.5 is installed pinned exact, `vite.config.ts` has the test block, `pnpm vitest --version` prints 4.1.5, and `pnpm vitest run` exits 0.
+    Vitest 4.1.5 is installed pinned exact, `vite.config.ts` has the test block, `pnpm vitest --version` prints 4.1.5, and `pnpm vitest run --passWithNoTests` exits 0.
   </done>
 </task>
 
@@ -671,7 +674,7 @@ Leave this stub alone in Wave 0. The public `$lib/data` surface lands in Plan 02
 **After all 3 tasks complete:**
 
 1. `pnpm vitest --version` exits 0, prints `4.1.5` (or `vitest/4.1.5`).
-2. `pnpm vitest run` exits 0 (zero failures, all tests skipped — RED-by-design).
+2. `pnpm vitest run --passWithNoTests` exits 0 (zero failures, all tests skipped — RED-by-design).
 3. `pnpm vitest run src/lib/data/` exits 0.
 4. `ls src/lib/data/` shows: `categories.test.ts`, `schema.test.ts`, `videos.json.test.ts`, `videos.test.ts` (4 files).
 5. `ls scripts/` shows: `test-build-fails.mjs`.
@@ -705,3 +708,5 @@ After completion, create `.planning/phases/02-data-layer/02-00-SUMMARY.md` docum
 - The describe.skip → describe rename pattern downstream plans must follow
 - Why we did NOT use `pnpm dlx sv add vitest` (avoids jsdom/playwright bloat for a node-environment-only test surface)
 </output>
+</content>
+</invoke>

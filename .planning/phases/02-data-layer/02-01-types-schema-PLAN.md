@@ -18,7 +18,7 @@ requirements:
 must_haves:
   truths:
     - "Zod 4.4.3 is installed pinned exact as a dev dependency."
-    - "`CATEGORIES` is the single source of truth — exactly the 8 strings from `_prep/04-categories.md`, in the D-04 display order."
+    - "`CATEGORIES` is the single source of truth — exactly the 8 strings from `_prep/04-categories.md`, in the seed-proposal order."
     - "`Category` type is derived from `(typeof CATEGORIES)[number]` — adding a 9th category is a one-line edit."
     - "`categoryToSlug(category)` is a pure function — single rule (lowercase, [^a-z0-9]+ → '-', trim '-')."
     - "`slugToCategory(slug)` round-trips every category and returns `undefined` for unknown slugs."
@@ -88,7 +88,7 @@ Output:
 From src/lib/data/categories.test.ts (RED in Wave 0 — turns GREEN in this plan):
 ```ts
 import { CATEGORIES, categoryToSlug, slugToCategory } from './categories';
-// describe.skip('CATEGORIES array', ...) — must contain exactly 8 strings in D-04 display order
+// describe.skip('CATEGORIES array', ...) — must contain exactly 8 strings in seed-proposal order
 // describe.skip('categoryToSlug', ...) — kebab-case, single-rule
 // describe.skip('slugToCategory', ...) — round-trips, undefined on miss
 ```
@@ -112,7 +112,7 @@ Required test name strings (from 02-VALIDATION.md — DO NOT rename):
 - "accepts all 8 canonical categories"
 - "categoryToSlug" (describe block)
 
-From _prep/04-categories.md (canonical taxonomy — alphabetical order in the seed, but D-04 reorders by count):
+From _prep/04-categories.md (canonical taxonomy — seed-proposal order; D-04 display order is computed dynamically at runtime by the loader):
 ```
 PBS American Portrait     | 18
 Promos & Trailers         | 12
@@ -141,13 +141,13 @@ From tsconfig.json (Phase 1):
   <files>package.json, src/lib/data/categories.ts, src/lib/data/categories.test.ts</files>
   <read_first>
     - C:\Users\Mkaru\Documents\Hello_World\hugginface_profile\Websites\michelle_ngo_four\package.json (current pinning convention — every dep EXACT, no caret/tilde)
-    - C:\Users\Mkaru\Documents\Hello_World\hugginface_profile\Websites\michelle_ngo_four\src\lib\data\categories.test.ts (Wave 0 stub — must turn from skipped → green; the test file already encodes the expected `CATEGORIES` order, slug map, and slugToCategory behavior)
+    - C:\Users\Mkaru\Documents\Hello_World\hugginface_profile\Websites\michelle_ngo_four\src\lib\data\categories.test.ts (Wave 0 stub — must turn from skipped → green; the test file already encodes the expected `CATEGORIES` array contents in seed-proposal order, the slug map, and slugToCategory behavior)
     - C:\Users\Mkaru\Documents\Hello_World\hugginface_profile\Websites\michelle_ngo_four\.planning\phases\02-data-layer\02-RESEARCH.md (lines 156-191 Pattern 1 — exact slug helper implementation)
     - C:\Users\Mkaru\Documents\Hello_World\hugginface_profile\Websites\michelle_ngo_four\_prep\04-categories.md (canonical 8-category list with counts)
-    - C:\Users\Mkaru\Documents\Hello_World\hugginface_profile\Websites\michelle_ngo_four\.planning\phases\02-data-layer\02-CONTEXT.md (D-01 = exact 8 strings; D-03 = single slug rule; D-04 = display order PBS first, count desc, ties alpha)
+    - C:\Users\Mkaru\Documents\Hello_World\hugginface_profile\Websites\michelle_ngo_four\.planning\phases\02-data-layer\02-CONTEXT.md (D-01 = exact 8 strings; D-03 = single slug rule; D-04 = display order PBS first, count desc, ties alpha — note D-04 display order is computed DYNAMICALLY by the loader, not encoded in the static array)
   </read_first>
   <behavior>
-    Test 1 (already in Wave 0 stub `categories.test.ts`): `CATEGORIES` deep-equals exactly `['PBS American Portrait', 'Promos & Trailers', 'Branded Content', 'Documentary / Short Film', 'Reel', 'Personal / Tribute', 'Educational / Nonprofit', 'Other']` — D-04 display order encoded directly in the source array.
+    Test 1 (already in Wave 0 stub `categories.test.ts`): `CATEGORIES` deep-equals exactly `['PBS American Portrait', 'Promos & Trailers', 'Branded Content', 'Documentary / Short Film', 'Reel', 'Personal / Tribute', 'Educational / Nonprofit', 'Other']` — the seed-proposal order from `_prep/04-categories.md`. NOTE: D-04 display order is computed dynamically by `getCategoriesInDisplayOrder()` in Plan 02-03; this static array is purely the canonical membership list (used by `z.enum`).
     Test 2: `categoryToSlug('PBS American Portrait')` returns `'pbs-american-portrait'`.
     Test 3: `categoryToSlug('Promos & Trailers')` returns `'promos-trailers'` (the `&` collapses).
     Test 4: `categoryToSlug('Documentary / Short Film')` returns `'documentary-short-film'` (slash + spaces collapse to one hyphen).
@@ -173,11 +173,10 @@ From tsconfig.json (Phase 1):
      * Source: _prep/04-categories.md (8 categories, decision rationale)
      * Decisions: D-01 (closed list), D-03 (slug rule), D-04 (display order)
      *
-     * IMPORTANT: The order of this array IS the D-04 display order
-     * (count descending in v1, ties broken alphabetically). The loader's
-     * `getCategoriesInDisplayOrder()` (Plan 02-03) computes this dynamically
-     * from the validated dataset, but the static order in this array is the
-     * v1 expected output and is asserted in the loader tests.
+     * IMPORTANT: This is the seed-proposal order from _prep/04-categories.md
+     * (the order curators wrote them in). It is NOT the D-04 display order —
+     * getCategoriesInDisplayOrder() in the loader (Plan 02-03) re-sorts dynamically
+     * per D-04 (count desc, ties alpha) from the validated dataset.
      *
      * Adding a category = one-line edit to this array. Zod's `z.enum()` reads
      * it directly; the `Category` TS type is derived; the slug rule is one function.
@@ -252,7 +251,7 @@ From tsconfig.json (Phase 1):
     - `package.json` `devDependencies` contains the literal string `"zod": "4.4.3"` (no caret, no tilde).
     - `src/lib/data/categories.ts` exists.
     - `src/lib/data/categories.ts` contains the literal string `export const CATEGORIES = [`.
-    - `src/lib/data/categories.ts` lists all 8 strings in D-04 display order: `'PBS American Portrait'`, `'Promos & Trailers'`, `'Branded Content'`, `'Documentary / Short Film'`, `'Reel'`, `'Personal / Tribute'`, `'Educational / Nonprofit'`, `'Other'` — verifiable by `grep -F "'PBS American Portrait'" src/lib/data/categories.ts` (and similar for each).
+    - `src/lib/data/categories.ts` lists all 8 strings in seed-proposal order: `'PBS American Portrait'`, `'Promos & Trailers'`, `'Branded Content'`, `'Documentary / Short Film'`, `'Reel'`, `'Personal / Tribute'`, `'Educational / Nonprofit'`, `'Other'` — verifiable by `grep -F "'PBS American Portrait'" src/lib/data/categories.ts` (and similar for each).
     - `src/lib/data/categories.ts` contains the literal string `export type Category = (typeof CATEGORIES)[number];`.
     - `src/lib/data/categories.ts` contains the literal string `export function categoryToSlug(category: Category): string {`.
     - `src/lib/data/categories.ts` contains the literal string `export function slugToCategory(slug: string): Category | undefined {`.
@@ -458,3 +457,5 @@ After completion, create `.planning/phases/02-data-layer/02-01-SUMMARY.md` docum
 - Confirmation that `schema.ts` is pure (no JSON import) — preserves Pitfall 1 avoidance for Plan 02-03's Vite plugin
 - The two test files that turned from RED (skipped) to GREEN
 </output>
+</content>
+</invoke>

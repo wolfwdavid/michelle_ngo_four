@@ -363,14 +363,9 @@ Phase 1 STATE pinning convention (carry-forward):
     ```
     Expected: 32 passing total (10 schema + 5 categories + 5 videos.json + 12 videos), 0 skipped.
 
-    Step 6 — Run `pnpm check`. Expected: 0 TS errors. The most likely failure point is the `_parsed.filter(...)` line — TypeScript narrows the parsed array correctly because Zod's inferred `Video` type carries the discriminated union narrowing.
+    Step 6 — Run `pnpm check`. Expected: 0 TS errors. The `_parsed.filter((v) => !v.hidden)` line produces `readonly Video[]` plainly — `.filter()` returns the same element type; no narrowing is involved.
 
-    Step 7 — Sanity check the public surface: from a temp scratch file (NOT committed), confirm imports resolve:
-    ```ts
-    // (do NOT commit — purely for the executor's local sanity check)
-    import { videos, producerReelId, getCategoriesInDisplayOrder } from '$lib/data';
-    ```
-    Run `pnpm check` once with this scratch file in `src/routes/+page.svelte` (revert before commit). If the alias resolves, the public surface is wired.
+    (Aliased re-import `$lib/data` is exercised by vitest at runtime — `videos.test.ts` imports from `./videos`, which is re-exported via `index.ts`. No additional alias-smoke step needed; if explicit alias proof is ever desired in the future, add a tiny TS smoke file `src/lib/data/__alias_smoke__.ts` containing `import { videos } from '$lib/data'; export const _smoke = videos.length;` covered by `pnpm check`. Optional — not required by this plan.)
   </action>
   <verify>
     <automated>pnpm vitest run src/lib/data/videos.test.ts</automated>
@@ -622,3 +617,5 @@ After completion, create `.planning/phases/02-data-layer/02-03-SUMMARY.md` docum
 - Pitfall 3 (noUncheckedIndexedAccess) note for Phase 3+: `getById` returns `Video | undefined`, callers MUST narrow
 - The four cross-cutting decisions implemented (D-04, D-09, D-11, D-14) and the test names that prove each
 </output>
+</content>
+</invoke>
