@@ -46,12 +46,13 @@ Plans:
   2. A TypeScript schema validates `videos.json` at build time; intentionally breaking a record (e.g., unknown category, missing field) fails the build
   3. Categories accepted by the schema are the closed canonical list from `_prep/04-categories.md` — free-text categories are rejected
   4. A typed loader exposes the validated video array to all routes with no runtime fetch
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 02-01: Define `Video` and `Category` TypeScript types + Zod (or equivalent) schema
-- [ ] 02-02: Author canonical `videos.json` from `_prep/03-videos-seed.json` against locked taxonomy
-- [ ] 02-03: Wire build-time validation hook + typed loader exposed via `$lib`
+- [ ] 02-00-vitest-wave0-PLAN.md — Install Vitest 4.1.5 + scaffold 4 test stub files (RED) + scripts/test-build-fails.mjs (Wave 0, no requirement IDs)
+- [ ] 02-01-types-schema-PLAN.md — Install zod@4.4.3, create src/lib/data/categories.ts (CATEGORIES + slug helpers) + src/lib/data/schema.ts (Zod 4 discriminated union) (Wave 1, addresses DATA-02, DATA-03, DATA-04)
+- [ ] 02-02-author-videos-json-PLAN.md — Author src/lib/data/videos.json from _prep seed + add to .prettierignore (Wave 2, depends on 02-01, addresses DATA-01, DATA-02)
+- [ ] 02-03-loader-and-vite-plugin-PLAN.md — Wire src/lib/data/videos.ts loader + src/lib/data/index.ts ($lib/data surface) + validateVideosPlugin in vite.config.ts (Wave 3, depends on 02-01 + 02-02, addresses DATA-01, DATA-03, DATA-04)
 
 ### Phase 3: Grid, Filter & Watch
 **Goal**: A producer can browse videos in a YouTube-style grid, click any card to play it, and immediately see "more in this category" — the killer feature, end to end.
@@ -142,7 +143,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 0/2 | Planned | - |
-| 2. Data Layer | 0/3 | Not started | - |
+| 2. Data Layer | 0/4 | Not started | - |
 | 3. Grid, Filter & Watch | 0/4 | Not started | - |
 | 4. Reel-Led Home | 0/2 | Not started | - |
 | 5. PBS American Portrait | 0/2 | Not started | - |
