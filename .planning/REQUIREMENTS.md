@@ -109,42 +109,51 @@ Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | TBD | Pending |
-| FOUND-02 | TBD | Pending |
-| FOUND-03 | TBD | Pending |
-| DATA-01 | TBD | Pending |
-| DATA-02 | TBD | Pending |
-| DATA-03 | TBD | Pending |
-| DATA-04 | TBD | Pending |
-| HERO-01 | TBD | Pending |
-| HERO-02 | TBD | Pending |
-| HERO-03 | TBD | Pending |
-| GRID-01 | TBD | Pending |
-| GRID-02 | TBD | Pending |
-| GRID-03 | TBD | Pending |
-| GRID-04 | TBD | Pending |
-| GRID-05 | TBD | Pending |
-| FILT-01 | TBD | Pending |
-| FILT-02 | TBD | Pending |
-| FILT-03 | TBD | Pending |
-| FILT-04 | TBD | Pending |
-| PBS-01 | TBD | Pending |
-| PBS-02 | TBD | Pending |
-| PBS-03 | TBD | Pending |
-| PRES-01 | TBD | Pending |
-| PRES-02 | TBD | Pending |
-| ABT-01 | TBD | Pending |
-| ABT-02 | TBD | Pending |
-| CONT-01 | TBD | Pending |
-| CONT-02 | TBD | Pending |
-| NAV-01 | TBD | Pending |
-| NAV-02 | TBD | Pending |
+| FOUND-01 | Phase 1 | Pending |
+| FOUND-02 | Phase 1 | Pending |
+| FOUND-03 | Phase 7 | Pending |
+| DATA-01 | Phase 2 | Pending |
+| DATA-02 | Phase 2 | Pending |
+| DATA-03 | Phase 2 | Pending |
+| DATA-04 | Phase 2 | Pending |
+| HERO-01 | Phase 4 | Pending |
+| HERO-02 | Phase 4 | Pending |
+| HERO-03 | Phase 4 | Pending |
+| GRID-01 | Phase 3 | Pending |
+| GRID-02 | Phase 3 | Pending |
+| GRID-03 | Phase 3 | Pending |
+| GRID-04 | Phase 3 | Pending |
+| GRID-05 | Phase 3 | Pending |
+| FILT-01 | Phase 3 | Pending |
+| FILT-02 | Phase 3 | Pending |
+| FILT-03 | Phase 3 | Pending |
+| FILT-04 | Phase 3 | Pending |
+| PBS-01 | Phase 5 | Pending |
+| PBS-02 | Phase 5 | Pending |
+| PBS-03 | Phase 5 | Pending |
+| PRES-01 | Phase 6 | Pending |
+| PRES-02 | Phase 6 | Pending |
+| ABT-01 | Phase 6 | Pending |
+| ABT-02 | Phase 6 | Pending |
+| CONT-01 | Phase 6 | Pending |
+| CONT-02 | Phase 6 | Pending |
+| NAV-01 | Phase 3 | Pending |
+| NAV-02 | Phase 6 | Pending |
 
 **Coverage:**
 - v1 requirements: 30 total
-- Mapped to phases: 0 (filled by roadmapper)
-- Unmapped: 30 ⚠️ (will be 0 after roadmap)
+- Mapped to phases: 30 ✓
+- Unmapped: 0 ✓
+
+**Phase totals:**
+- Phase 1 (Foundation): 2 requirements — FOUND-01, FOUND-02
+- Phase 2 (Data Layer): 4 requirements — DATA-01, DATA-02, DATA-03, DATA-04
+- Phase 3 (Grid, Filter & Watch): 10 requirements — GRID-01..05, FILT-01..04, NAV-01
+- Phase 4 (Reel-Led Home): 3 requirements — HERO-01, HERO-02, HERO-03
+- Phase 5 (PBS American Portrait): 3 requirements — PBS-01, PBS-02, PBS-03
+- Phase 6 (Press, About & Contact): 7 requirements — PRES-01, PRES-02, ABT-01, ABT-02, CONT-01, CONT-02, NAV-02
+- Phase 7 (Polish & Production Cutover): 1 requirement — FOUND-03
 
 ---
 *Requirements defined: 2026-05-10*
-*Last updated: 2026-05-10 after initial definition*
+*Last updated: 2026-05-10 after roadmap creation (traceability mapped)*
