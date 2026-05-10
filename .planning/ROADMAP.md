@@ -34,7 +34,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01-scaffold-PLAN.md — Scaffold SvelteKit 2 + Svelte 5 + TypeScript (strict + noUncheckedIndexedAccess + noImplicitOverride) + Tailwind v4 (Vite plugin) + ESLint flat config + Prettier + husky/lint-staged pre-commit hook + branded splash placeholder at `/` (Wave 1, addresses FOUND-01)
+- [x] 01-01-scaffold-PLAN.md — Scaffold SvelteKit 2 + Svelte 5 + TypeScript (strict + noUncheckedIndexedAccess + noImplicitOverride) + Tailwind v4 (Vite plugin) + ESLint flat config + Prettier + husky/lint-staged pre-commit hook + branded splash placeholder at `/` (Wave 1, addresses FOUND-01)
 - [ ] 01-02-cloudflare-pages-PLAN.md — Configure Cloudflare Pages deploy from `main` with `@sveltejs/adapter-static`, set `NODE_VERSION=22` + `PNPM_VERSION` env vars, verify end-to-end auto-deploy on the `*.pages.dev` URL (Wave 2, depends on 01-01, addresses FOUND-02)
 
 ### Phase 2: Data Layer
