@@ -50,12 +50,12 @@ created: 2026-05-11
 | 3-01-02 | 01 | 1 | GRID-03 | unit (component) | `pnpm vitest run src/lib/components/VideoCard.test.ts -t "lazy loading"` | ❌ W0 | ⬜ pending |
 | 3-01-03 | 01 | 1 | GRID-04 | unit (component) | `pnpm vitest run src/lib/components/VideoCard.test.ts -t "click target"` | ❌ W0 | ⬜ pending |
 | 3-01-04 | 01 | 1 | GRID-05 | unit (component) | `pnpm vitest run src/lib/components/CategoryTag.test.ts` | ❌ W0 | ⬜ pending |
-| 3-02-01 | 02 | 2 | GRID-02 | unit (component) | `pnpm vitest run src/routes/work/+page.test.ts` (class strings + count) | ❌ W0 | ⬜ pending |
-| 3-02-02 | 02 | 2 | FILT-03 | unit (load fn) | `pnpm vitest run src/routes/work/[category]/+page.test.ts` | ❌ W0 | ⬜ pending |
-| 3-02-03 | 02 | 2 | FILT-03 | unit (entries fn) | `pnpm vitest run src/routes/work/[category]/+page.test.ts -t "entries"` | ❌ W0 | ⬜ pending |
-| 3-03-01 | 03 | 2 | FILT-01 | unit (load fn) | `pnpm vitest run src/routes/watch/[id]/+page.test.ts` | ❌ W0 | ⬜ pending |
-| 3-03-02 | 03 | 2 | FILT-02 | unit (load fn) | `pnpm vitest run src/routes/watch/[id]/+page.test.ts -t "rail"` | ❌ W0 | ⬜ pending |
-| 3-03-03 | 03 | 2 | FILT-01 | unit (entries fn) | `pnpm vitest run src/routes/watch/[id]/+page.test.ts -t "entries"` | ❌ W0 | ⬜ pending |
+| 3-02-01 | 02 | 2 | GRID-02 | unit (component) | `pnpm vitest run src/routes/work/page.test.ts` (class strings + count) | ❌ W0 | ⬜ pending |
+| 3-02-02 | 02 | 2 | FILT-03 | unit (load fn) | `pnpm vitest run src/routes/work/[category]/page.test.ts` | ❌ W0 | ⬜ pending |
+| 3-02-03 | 02 | 2 | FILT-03 | unit (entries fn) | `pnpm vitest run src/routes/work/[category]/page.test.ts -t "entries"` | ❌ W0 | ⬜ pending |
+| 3-03-01 | 03 | 2 | FILT-01 | unit (load fn) | `pnpm vitest run src/routes/watch/[id]/page.test.ts` | ❌ W0 | ⬜ pending |
+| 3-03-02 | 03 | 2 | FILT-02 | unit (load fn) | `pnpm vitest run src/routes/watch/[id]/page.test.ts -t "rail"` | ❌ W0 | ⬜ pending |
+| 3-03-03 | 03 | 2 | FILT-01 | unit (entries fn) | `pnpm vitest run src/routes/watch/[id]/page.test.ts -t "entries"` | ❌ W0 | ⬜ pending |
 | 3-03-04 | 03 | 2 | FILT-04 | integration (build) | `pnpm build && node scripts/test-prerender-coverage.mjs` | ❌ W0 | ⬜ pending |
 | 3-04-01 | 04 | 3 | NAV-01 | unit (component) | `pnpm vitest run src/lib/components/TopNav.test.ts` | ❌ W0 | ⬜ pending |
 | 3-04-02 | 04 | 3 | NAV-01 | unit (component, active state) | `pnpm vitest run src/lib/components/TopNav.test.ts -t "active"` | ❌ W0 | ⬜ pending |
@@ -71,9 +71,9 @@ created: 2026-05-11
 - [ ] `src/lib/components/VideoCard.test.ts` stub — placeholder tests for GRID-01, GRID-03, GRID-04 (filled out in Wave 1 alongside component implementation)
 - [ ] `src/lib/components/CategoryTag.test.ts` stub — placeholder for GRID-05
 - [ ] `src/lib/components/TopNav.test.ts` stub — placeholder for NAV-01 (with mocked `$app/state` `page`)
-- [ ] `src/routes/work/+page.test.ts` stub — placeholder for GRID-02 + /work load fn (D-25 sort)
-- [ ] `src/routes/work/[category]/+page.test.ts` stub — placeholder for FILT-03 load + entries
-- [ ] `src/routes/watch/[id]/+page.test.ts` stub — placeholder for FILT-01 + FILT-02 + entries
+- [ ] `src/routes/work/page.test.ts` stub — placeholder for GRID-02 + /work load fn (D-25 sort). NOTE: leading `+` dropped from the planner's draft filename because SvelteKit's route analyzer (`@sveltejs/kit` 2.59.1, `create_manifest_data/index.js:518`) throws `Files prefixed with + are reserved` for any `+*.ts` not matching `+page` / `+layout` / `+server` / `+error`. The unprefixed name is silently ignored by SvelteKit and freely consumed by Vitest.
+- [ ] `src/routes/work/[category]/page.test.ts` stub — placeholder for FILT-03 load + entries (leading `+` dropped, same reason)
+- [ ] `src/routes/watch/[id]/page.test.ts` stub — placeholder for FILT-01 + FILT-02 + entries (leading `+` dropped, same reason)
 - [ ] `scripts/test-prerender-coverage.mjs` — NEW Node script asserting `build/work/*/index.html` count ≥ 9 and `build/watch/*/index.html` count ≥ 56; wired as `pnpm test:prerender`
 
 ---
