@@ -48,6 +48,7 @@
     "url": "https://vimeo.com/244851084",
     "embed": "https://player.vimeo.com/video/244851084",
     "category": "Branded Content",
+    "featured": true,
     "duration_seconds": 30,
     "description": "Version Fios promo seen only on the Xbox for the launch of Halo Wars 2<br />\r\n2017 Clio Award - Honorable Mention"
   },
@@ -98,6 +99,7 @@
     "url": "https://vimeo.com/770860055",
     "embed": "https://player.vimeo.com/video/770860055",
     "category": "Branded Content",
+    "featured": true,
     "duration_seconds": 148,
     "description": "In celebration of Asian Pacific-Islander American Heritage Month, three Amazonians of Asian descent (Taiwanese, Indian, and Filipino) sit down at a meal to talk about their personal Asian-American identities and the deep impact food had in their upbringing.<br />\n<br />\n<br />\nAgency: Malka Media<br />\nDirector: Michelle Ngo<br />\nProducer: Krista Campbell<br />\nCinematographer: Barbie Leung"
   },
@@ -150,6 +152,7 @@
     "url": "https://vimeo.com/264509512",
     "embed": "https://player.vimeo.com/video/264509512",
     "category": "Documentary / Short Film",
+    "featured": true,
     "duration_seconds": 350,
     "description": ""
   },
@@ -447,6 +450,7 @@
     "url": "https://vimeo.com/1007027015",
     "embed": "https://player.vimeo.com/video/1007027015",
     "category": "PBS American Portrait",
+    "featured": true,
     "duration_seconds": 147,
     "description": "Launch video for PBS 50th Anniversary nationwide storytelling project, American Portrait (2020)"
   },
@@ -460,6 +464,7 @@
     "url": "https://vimeo.com/1023002503",
     "embed": "https://player.vimeo.com/video/1023002503",
     "category": "PBS American Portrait",
+    "featured": true,
     "duration_seconds": 60,
     "description": "Americans of Hispanic Heritage share various aspects that make them proud to be Latino.  See the full collection at https://www.pbs.org/american-portrait/collection/77/coming-from-a-latin-country-the-tradition-i-carry-on/"
   },
@@ -612,7 +617,8 @@
     "thumbnail": "https://i1.ytimg.com/vi/T7VG52035Z4/hqdefault.jpg",
     "url": "https://www.youtube.com/watch?v=T7VG52035Z4",
     "embed": "https://www.youtube.com/embed/T7VG52035Z4",
-    "category": "Promos & Trailers"
+    "category": "Promos & Trailers",
+    "featured": true
   },
   {
     "source": "youtube",
@@ -634,7 +640,8 @@
     "thumbnail": "https://i3.ytimg.com/vi/fvCB4gg7yS0/hqdefault.jpg",
     "url": "https://www.youtube.com/watch?v=fvCB4gg7yS0",
     "embed": "https://www.youtube.com/embed/fvCB4gg7yS0",
-    "category": "Promos & Trailers"
+    "category": "Promos & Trailers",
+    "featured": true
   },
   {
     "source": "youtube",
@@ -683,6 +690,7 @@
     "url": "https://vimeo.com/264677021",
     "embed": "https://player.vimeo.com/video/264677021",
     "category": "Reel",
+    "featured": true,
     "duration_seconds": 52,
     "description": ""
   },
