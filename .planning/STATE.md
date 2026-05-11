@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Phase 3 context gathered
-last_updated: "2026-05-11T01:28:59.170Z"
+stopped_at: Completed 03-00-test-infrastructure-PLAN.md
+last_updated: "2026-05-11T02:27:34.343Z"
 progress:
   total_phases: 7
   completed_phases: 2
-  total_plans: 6
-  completed_plans: 6
+  total_plans: 11
+  completed_plans: 7
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-10)
 
 **Core value:** A producer can land on the site, watch the reel, click any video, and immediately see "more like this" — every interaction reinforces the depth and breadth of her video work.
-**Current focus:** Phase 02 — data-layer
+**Current focus:** Phase 03 — grid-filter-watch
 
 ## Current Position
 
-Phase: 3
-Plan: Not started
+Phase: 03 (grid-filter-watch) — EXECUTING
+Plan: 2 of 5
 
 ## Performance Metrics
 
@@ -51,6 +51,7 @@ Plan: Not started
 | Phase 02-data-layer P01-types-schema | 7m | 2 tasks | 7 files |
 | Phase 02-data-layer P02-author-videos-json | 5m | 2 tasks | 4 files |
 | Phase 02-data-layer P03-loader-and-vite-plugin | 7m | 2 tasks | 8 files |
+| Phase 03-grid-filter-watch P00-test-infrastructure | 14m | 3 tasks tasks | 11 files files |
 
 ## Accumulated Context
 
@@ -79,6 +80,10 @@ Recent decisions affecting current work:
 - [Phase 02-data-layer]: Followed PLAN.md frontmatter literal 'test:build-fails' script name (matches script filename test-build-fails.mjs) instead of casual 'test:smoke' reference in orchestrator brief and Plan 02-00 SUMMARY downstream-contract prose: PLAN.md is the binding contract via must_haves.artifacts + acceptance_criteria; prose references are illustrative shape.
 - [Phase 02-data-layer]: Validate-twice contract: Vite plugin buildStart (build-time DATA-03 enforcement, fails before any bundling, this.error + z.prettifyError) + loader .parse() at module load (materializes D-08 defaults so runtime types match parsed shape, NOT raw-JSON shape). Schema module stays pure (no JSON import) — both consumers (plugin via readFileSync, loader via Vite JSON import) decoupled per Pitfall 1.
 - [Phase 02-data-layer]: Public $lib/data surface intentionally does NOT re-export allVideos (D-14 future-tooling only) or Zod schemas (VideoSchema/VideoArraySchema are build-time only — routes consume parsed data, not schemas). Single import path = single point to refactor when internal structure changes.
+- [Phase 03-grid-filter-watch]: Chose Vitest workspace split (data=node, ui=jsdom) over a global jsdom swap: keeps Phase 2's 32 data-layer tests in fast node env; jsdom isolated to component+route tests via vitest.workspace.ts. Both projects extends vite.config.ts so SvelteKit Vite plugins load.
+- [Phase 03-grid-filter-watch]: Renamed route test files +page.test.ts -> page.test.ts (Rule 3 deviation): @sveltejs/kit 2.59.1's route analyzer hard-errors on +*.ts not matching recognized route shapes. Unprefixed names are silently ignored by the router (create_manifest_data line 233) and freely picked up by Vitest's include glob. 03-VALIDATION.md per-task verification map updated to match.
+- [Phase 03-grid-filter-watch]: Kept lazy await import() pattern from Phase 2 Wave 0 for stubs whose target modules don't exist yet: planner's literal top-level static imports + // @ts-expect-error didn't actually prevent vitest's module loader from resolving the imports (the directive only suppresses the TS error, not the runtime resolve). Each test body now calls 'const X = await loadX()' where loadX is async; describe.skip stops loadX from ever running. Downstream plans drop the indirection + the @ts-expect-error when they unskip.
+- [Phase 03-grid-filter-watch]: scripts/test-prerender-coverage.mjs thresholds are >=1 build/work/index.html + >=8 build/work/<slug>/index.html + >=56 build/watch/<id>/index.html. Why this complements adapter-static strict:true: strict catches non-prerenderable routes; this catches empty entries() enumerations (which would let the build succeed with zero output). Plans 03-02 + 03-03 own first GREEN run.
 
 ### Pending Todos
 
@@ -90,6 +95,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-11T01:28:59.161Z
-Stopped at: Phase 3 context gathered
-Resume file: .planning/phases/03-grid-filter-watch/03-CONTEXT.md
+Last session: 2026-05-11T02:27:13.378Z
+Stopped at: Completed 03-00-test-infrastructure-PLAN.md
+Resume file: None
