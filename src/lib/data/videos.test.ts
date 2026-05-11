@@ -110,7 +110,7 @@ describe('loader: getCategoriesWithCounts', () => {
 // RED-by-skip in Wave 0; Plan 04-03 turns these green AFTER flipping `featured: true`
 // on the 8 chosen rows in videos.json.
 // ---------------------------------------------------------------------------
-describe.skip('Phase 4 featured slice — D-23 / D-24 / D-26', () => {
+describe('Phase 4 featured slice — D-23 / D-24 / D-26', () => {
   it('8 featured: exactly 8 videos have featured===true after flips', async () => {
     const { videos } = await import('./videos');
     const featured = videos.filter((v) => v.featured);
