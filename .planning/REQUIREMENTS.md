@@ -20,9 +20,9 @@
 
 ### Hero
 
-- [ ] **HERO-01**: Home page renders a full-bleed hero (looping reel video or hero image + PLAY REEL CTA)
-- [ ] **HERO-02**: Hero shows Michelle's name and a tone-setting tagline above the fold
-- [ ] **HERO-03**: PLAY REEL CTA opens her producer's reel in the watch view
+- [x] **HERO-01**: Home page renders a full-bleed hero (looping reel video or hero image + PLAY REEL CTA)
+- [x] **HERO-02**: Hero shows Michelle's name and a tone-setting tagline above the fold
+- [x] **HERO-03**: PLAY REEL CTA opens her producer's reel in the watch view
 
 ### Grid
 
@@ -116,9 +116,9 @@ Updated during roadmap creation.
 | DATA-02 | Phase 2 | Complete |
 | DATA-03 | Phase 2 | Complete |
 | DATA-04 | Phase 2 | Complete |
-| HERO-01 | Phase 4 | Pending |
-| HERO-02 | Phase 4 | Pending |
-| HERO-03 | Phase 4 | Pending |
+| HERO-01 | Phase 4 | Complete |
+| HERO-02 | Phase 4 | Complete |
+| HERO-03 | Phase 4 | Complete |
 | GRID-01 | Phase 3 | Complete |
 | GRID-02 | Phase 3 | Complete |
 | GRID-03 | Phase 3 | Complete |

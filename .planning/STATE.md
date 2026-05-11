@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 04-01-test-infrastructure-PLAN.md
-last_updated: "2026-05-11T20:37:00.356Z"
+stopped_at: Completed 04-02-hero-poster-component-PLAN.md
+last_updated: "2026-05-11T20:54:22.766Z"
 progress:
   total_phases: 7
   completed_phases: 3
   total_plans: 17
-  completed_plans: 13
+  completed_plans: 14
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-05-10)
 ## Current Position
 
 Phase: 04 (reel-led-home) — EXECUTING
-Plan: 2 of 5
+Plan: 3 of 5
 
 ## Performance Metrics
 
@@ -57,6 +57,7 @@ Plan: 2 of 5
 | Phase 03-grid-filter-watch P02-work-routes | 6m | 2 tasks | 6 files |
 | Phase 03-grid-filter-watch P04-top-nav-and-placeholder-routes | 8m | 2 tasks tasks | 5 files files |
 | Phase 04-reel-led-home P01 | 8 min | 3 tasks tasks | 6 files files |
+| Phase 04-reel-led-home P02 | 5m | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -108,6 +109,9 @@ Recent decisions affecting current work:
 - [Phase 04-reel-led-home]: Plan 04-01: Runtime-concat dynamic specifier carried forward to BOTH HeroPoster.test.ts AND page.test.ts (including loadPageData) — plan literal static-string await import('./+page') triggered vite:import-analysis + svelte-check 'cannot find module' simultaneously; fix preserves the Wave 0 -> Wave 1 one-rule transition (.skip -> describe + drop loadXxx indirection)
 - [Phase 04-reel-led-home]: Plan 04-01: Dropped all @ts-expect-error directives in loadXxx helpers — runtime-concat specifiers widen to any, no TS error to suppress; svelte-check rejects unused @ts-expect-error so the directive must NOT be carried into Wave 0 stubs
 - [Phase 04-reel-led-home]: Plan 04-01: Inline eslint-disable-next-line on stub constructor params (vitest-setup-ui.ts IntersectionObserverStub + TopNav.test.ts TrackingIO) — project eslint config does not honor _-prefixed unused-vars; the param types are load-bearing for IntersectionObserverCallback type compat
+- [Phase 04-reel-led-home]: Plan 04-02: D-04 resolved WebP (user pick at Task 1 checkpoint) — Option 03 'Brooklyn Pigeons at Dusk' WebP @ 15.4KB beat its JPG sibling @ 24.5KB; both well under D-04 ~150KB target. Frame satisfies all 4 D-02 rubric points (wide / Michelle not on-camera / dark lower band / cinematic breadth). Phase 7 may revisit with <picture>+AVIF if FOUND-03 budget demands.
+- [Phase 04-reel-led-home]: Plan 04-02: Sentinel ownership contract: the component painting the boundary owns the sentinel div. HeroPoster owns #hero-sentinel (D-14); TopNav (Plan 04-04) consumes via document.getElementById — decoupled. Pattern reference for any future scroll-aware element pairings.
+- [Phase 04-reel-led-home]: Plan 04-02: Wave 0 -> Wave 1 stub transition executed verbatim per Plan 04-01 contract — 5 describe.skip -> describe, deleted loadHeroPoster() lazy helper, added top-level static import HeroPoster from './HeroPoster.svelte', dropped async/await from now-synchronous test bodies. Zero fixups, zero @ts-expect-error survivors. Template for Plans 04-03/04/05 to follow on their respective test files.
 
 ### Pending Todos
 
@@ -119,6 +123,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-11T20:37:00.349Z
-Stopped at: Completed 04-01-test-infrastructure-PLAN.md
+Last session: 2026-05-11T20:54:22.755Z
+Stopped at: Completed 04-02-hero-poster-component-PLAN.md
 Resume file: None
