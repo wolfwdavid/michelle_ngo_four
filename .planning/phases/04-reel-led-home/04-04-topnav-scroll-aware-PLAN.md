@@ -97,7 +97,7 @@ The two literal navClass branches (Phase 4 — both MUST appear verbatim in sour
 
 Tests already wired (from Plan 04-01) that will turn green after the implementation:
 - `"scroll-aware home"` — TopNav on '/' attaches IntersectionObserver on #hero-sentinel
-- `"solid on non-home"` — TopNav on /work, /work/[category], /watch/[id], /about stays solid (bg-neutral-950)
+- `"solid on non-home"` — TopNav on /work, /work/[category], /watch/[id], /about, /press, /contact stays solid (bg-neutral-950) — all 6 D-13 routes are covered as individual it() cases inside the describe block
 </interfaces>
 </context>
 
@@ -119,13 +119,15 @@ Tests already wired (from Plan 04-01) that will turn green after the implementat
     - .planning/phases/04-reel-led-home/04-CONTEXT.md D-14 (IntersectionObserver, sentinel, cleanup, encapsulated in TopNav.svelte)
   </read_first>
   <behavior>
-    Tests expected to pass (5 tests across 2 new describe blocks in TopNav.test.ts, after `describe.skip` → `describe`):
+    Tests expected to pass (7 tests across 2 new describe blocks in TopNav.test.ts, after `describe.skip` → `describe`):
     - Test 1 (`scroll-aware home`): on route '/', after mount, the TrackingIO stub captures #hero-sentinel as an observed element (observer.observe(sentinel) called with the sentinel div)
     - Test 2 (`scroll-aware home`): on route '/' with sentinel NOT intersecting (default state), the <header> has class containing `bg-neutral-950`
     - Test 3 (`solid on non-home` /work): on route '/work', <header> has `bg-neutral-950` AND does NOT have `bg-transparent`
     - Test 4 (`solid on non-home` /work/[category]): same
     - Test 5 (`solid on non-home` /watch/[id]): same
     - Test 6 (`solid on non-home` /about): same
+    - Test 7 (`solid on non-home` /press): same
+    - Test 8 (`solid on non-home` /contact): same
 
     ALL existing Phase 3 TopNav tests stay green (NAV-01 baseline + D-41 active state) — Phase 4 changes are additive to the script and replace ONE class string on the <header> tag.
   </behavior>
@@ -213,7 +215,7 @@ Tests already wired (from Plan 04-01) that will turn green after the implementat
 
     Do NOT change the closing `</header>` tag. Do NOT change ANYTHING inside the header (nav, ul, links, hamburger, MobileMenu) — all Phase 3 NAV-01 + D-41 machinery stays verbatim.
 
-    **Edit 3 — update the file's top-of-file comment to acknowledge the Phase 4 extension.** The existing comment block lists "Decisions implemented:" with D-09, D-39, D-40, D-41, D-42, D-14 (Phase 3). APPEND a new section at the end of that comment block:
+    **Edit 3 — update the file's top-of-file comment to acknowledge the Phase 4 extension.** The existing comment block lists "Decisions implemented:" with D-09, D-39, D-40, D-41, D-42, D-14 (Phase 3). APPEND a new section at the end of that comment block. The marker string `Phase 4 additions:` MUST appear verbatim — an automated grep verifies it landed:
 
     ```svelte
       Phase 4 additions:
@@ -223,7 +225,7 @@ Tests already wired (from Plan 04-01) that will turn green after the implementat
 
     No other file modifications. Run `pnpm check` after editing — if svelte-check flags `page.route` access (it shouldn't; Phase 3 already imports `page` from `$app/state`), the issue is likely that `$app/state` types don't yet include `route` in the user's installed kit version. If that surfaces, document in summary; tests will still pass because mockPage in TopNav.test.ts provides `route.id` explicitly.
 
-    **Step B — flip TopNav.test.ts skips to describe.** In `src/lib/components/TopNav.test.ts`, find the two `describe.skip(` blocks Plan 04-01 appended at the end (`'TopNav — D-13 scroll-aware on home'` and `'TopNav — D-13 solid on non-home routes'`) and change `describe.skip(` → `describe(` for both. No other edits needed in the test file — the new mockPage `route` field was added in Plan 04-01 already.
+    **Step B — flip TopNav.test.ts skips to describe.** In `src/lib/components/TopNav.test.ts`, find the two `describe.skip(` blocks Plan 04-01 appended at the end (`'TopNav — D-13 scroll-aware on home'` and `'TopNav — D-13 solid on non-home routes'`) and change `describe.skip(` → `describe(` for both. No other edits needed in the test file — the new mockPage `route` field was added in Plan 04-01 already, and the 6 it() cases covering all D-13 routes (/work, /work/[category], /watch/[id], /about, /press, /contact) are already in place.
   </action>
   <verify>
     <automated>pnpm vitest run src/lib/components/TopNav.test.ts</automated>
@@ -237,9 +239,10 @@ Tests already wired (from Plan 04-01) that will turn green after the implementat
     - TopNav.svelte contains the literal `observer.disconnect()`
     - TopNav.svelte contains BOTH literal class strings: `'sticky top-0 z-30 bg-transparent border-b border-transparent'` AND `'sticky top-0 z-30 bg-neutral-950/95 backdrop-blur border-b border-white/10'`
     - TopNav.svelte `<header>` tag uses `class={navClass}` (not a literal class string)
+    - **Edit 3 comment landed:** `grep -c "Phase 4 additions:" src/lib/components/TopNav.svelte` >= 1 (enforces the top-of-file comment update from Edit 3 — if executor skipped the comment, this check fails)
     - `grep -c "describe.skip" src/lib/components/TopNav.test.ts` equals 0
     - `pnpm vitest run src/lib/components/TopNav.test.ts -t "scroll-aware home"` exits 0
-    - `pnpm vitest run src/lib/components/TopNav.test.ts -t "solid on non-home"` exits 0
+    - `pnpm vitest run src/lib/components/TopNav.test.ts -t "solid on non-home"` exits 0 (runs all 6 it() cases inside the describe block — /work, /work/[category], /watch/[id], /about, /press, /contact — all green)
     - `pnpm vitest run src/lib/components/TopNav.test.ts` exits 0 (full suite — Phase 3 NAV-01 + D-41 tests still pass)
     - `pnpm test` exits 0
     - `pnpm check` exits 0 (note: if svelte-check flags `page.route.id` due to Kit type defs, address per Phase 3 D-41 deviation note in STATE.md — likely no issue since `route` is part of the documented `$app/state` API; if it surfaces, surface to SUMMARY)
@@ -267,7 +270,8 @@ Plan 04-04 is complete when:
 - [ ] TopNav.svelte has a $effect that attaches IntersectionObserver to #hero-sentinel ONLY when page.route.id === '/'
 - [ ] TopNav.svelte's <header> uses `class={navClass}` with a $derived ternary of two literal class strings
 - [ ] Cleanup function disconnects the observer on route change / unmount
-- [ ] All Phase 3 NAV-01 tests + Phase 4 D-13/D-14 tests in TopNav.test.ts are GREEN (no skips)
+- [ ] TopNav.svelte top-of-file comment block contains the `Phase 4 additions:` marker (grep verified)
+- [ ] All Phase 3 NAV-01 tests + Phase 4 D-13/D-14 tests in TopNav.test.ts are GREEN (no skips), including all 6 "solid on non-home" route cases (/work, /work/[category], /watch/[id], /about, /press, /contact)
 - [ ] No regression: `pnpm test && pnpm check && pnpm build` all exit 0
 </success_criteria>
 

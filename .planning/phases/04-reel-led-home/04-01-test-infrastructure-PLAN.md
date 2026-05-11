@@ -626,6 +626,24 @@ producerReelId = `'264677021'` (Vimeo) — both PLAY REEL target and the Reel-qu
         expect(header?.className).toMatch(/bg-neutral-950/);
         expect(header?.className).not.toMatch(/bg-transparent/);
       });
+
+      it('solid on non-home: on /press, TopNav stays solid', () => {
+        mockPage.route = { id: '/press' };
+        mockPage.url = new URL('http://localhost/press/');
+        component = mount(TopNav, { target: makeHost(), props: {} });
+        const header = host.querySelector('header');
+        expect(header?.className).toMatch(/bg-neutral-950/);
+        expect(header?.className).not.toMatch(/bg-transparent/);
+      });
+
+      it('solid on non-home: on /contact, TopNav stays solid', () => {
+        mockPage.route = { id: '/contact' };
+        mockPage.url = new URL('http://localhost/contact/');
+        component = mount(TopNav, { target: makeHost(), props: {} });
+        const header = host.querySelector('header');
+        expect(header?.className).toMatch(/bg-neutral-950/);
+        expect(header?.className).not.toMatch(/bg-transparent/);
+      });
     });
     ```
 
@@ -643,6 +661,7 @@ producerReelId = `'264677021'` (Vimeo) — both PLAY REEL target and the Reel-qu
     - TopNav.test.ts contains the literal `"scroll-aware home"`
     - TopNav.test.ts contains the literal `"solid on non-home"`
     - TopNav.test.ts mockPage object contains a `route` field (search for the literal string `route: {`)
+    - TopNav.test.ts "solid on non-home" describe block covers all 6 D-13 routes — verify by `grep -c "solid on non-home: on /" src/lib/components/TopNav.test.ts` >= 6 (one it() per /work, /work/[category], /watch/[id], /about, /press, /contact)
     - `pnpm test src/lib/data/videos.test.ts src/lib/components/TopNav.test.ts` exits 0 (all new suites skipped, Phase 3 suites stay green)
     - `pnpm check` exits 0
     - `pnpm test` (full suite) exits 0
@@ -673,7 +692,7 @@ Phase 4 Wave 0 is complete when:
 - [ ] `src/lib/components/HeroPoster.test.ts` exists with 5+ `describe.skip` blocks
 - [ ] `src/routes/page.test.ts` exists with 3+ `describe.skip` blocks
 - [ ] `src/lib/data/videos.test.ts` has 1 new `describe.skip` block (3 tests inside)
-- [ ] `src/lib/components/TopNav.test.ts` has 2+ new `describe.skip` blocks (5 tests inside) + updated mockPage with `route` field
+- [ ] `src/lib/components/TopNav.test.ts` has 2+ new `describe.skip` blocks (7 tests inside — 2 scroll-aware-on-home + 6 solid-on-non-home covering all D-13 routes) + updated mockPage with `route` field
 - [ ] Every test name from 04-VALIDATION.md `-t` patterns appears as a literal string in one of the test files
 - [ ] `pnpm test && pnpm check && pnpm build` all exit 0
 </success_criteria>
