@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Phase 4 context gathered
-last_updated: "2026-05-11T19:28:31.777Z"
+stopped_at: Completed 04-01-test-infrastructure-PLAN.md
+last_updated: "2026-05-11T20:37:00.356Z"
 progress:
   total_phases: 7
   completed_phases: 3
-  total_plans: 12
-  completed_plans: 12
+  total_plans: 17
+  completed_plans: 13
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-10)
 
 **Core value:** A producer can land on the site, watch the reel, click any video, and immediately see "more like this" — every interaction reinforces the depth and breadth of her video work.
-**Current focus:** Phase 03 — grid-filter-watch
+**Current focus:** Phase 04 — reel-led-home
 
 ## Current Position
 
-Phase: 4
-Plan: Not started
+Phase: 04 (reel-led-home) — EXECUTING
+Plan: 2 of 5
 
 ## Performance Metrics
 
@@ -56,6 +56,7 @@ Plan: Not started
 | Phase 03-grid-filter-watch P03 | 9 | 2 tasks | 5 files |
 | Phase 03-grid-filter-watch P02-work-routes | 6m | 2 tasks | 6 files |
 | Phase 03-grid-filter-watch P04-top-nav-and-placeholder-routes | 8m | 2 tasks tasks | 5 files files |
+| Phase 04-reel-led-home P01 | 8 min | 3 tasks tasks | 6 files files |
 
 ## Accumulated Context
 
@@ -104,6 +105,9 @@ Recent decisions affecting current work:
 - [Phase 03-grid-filter-watch]: Plan 03-04: vi.hoisted() pattern for mutable mocks (Rule 1 deviation) — vi.mock factory references a const that mutates between tests; const must be wrapped in vi.hoisted to lift it alongside the mock so factory has no TDZ. Latent upstream Plan 03-00 stub bug surfaced when suite first ran
 - [Phase 03-grid-filter-watch]: Plan 03-04: isActive(slug) compares page.url.pathname === `${base}/work/${slug}` (no trailing slash) — passes tests because mocked base='' makes shapes match; production behavior under trailingSlash='always' needs Phase 4 manual verify (page.url.pathname may carry the slash). Defensive fix is a strip-trailing-slash helper if visual fails
 - [Phase 03-grid-filter-watch]: Plan 03-04: D-43 placeholder routes are dependency-free single +page.svelte files — no +page.ts; prerender=true inherits from root +layout.ts. Phase 6 replaces content; URL contract preserved. Each: <main><h1>Name</h1><p>Coming soon.</p></main>
+- [Phase 04-reel-led-home]: Plan 04-01: Runtime-concat dynamic specifier carried forward to BOTH HeroPoster.test.ts AND page.test.ts (including loadPageData) — plan literal static-string await import('./+page') triggered vite:import-analysis + svelte-check 'cannot find module' simultaneously; fix preserves the Wave 0 -> Wave 1 one-rule transition (.skip -> describe + drop loadXxx indirection)
+- [Phase 04-reel-led-home]: Plan 04-01: Dropped all @ts-expect-error directives in loadXxx helpers — runtime-concat specifiers widen to any, no TS error to suppress; svelte-check rejects unused @ts-expect-error so the directive must NOT be carried into Wave 0 stubs
+- [Phase 04-reel-led-home]: Plan 04-01: Inline eslint-disable-next-line on stub constructor params (vitest-setup-ui.ts IntersectionObserverStub + TopNav.test.ts TrackingIO) — project eslint config does not honor _-prefixed unused-vars; the param types are load-bearing for IntersectionObserverCallback type compat
 
 ### Pending Todos
 
@@ -115,6 +119,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-11T19:28:31.765Z
-Stopped at: Phase 4 context gathered
-Resume file: .planning/phases/04-reel-led-home/04-CONTEXT.md
+Last session: 2026-05-11T20:37:00.349Z
+Stopped at: Completed 04-01-test-infrastructure-PLAN.md
+Resume file: None
