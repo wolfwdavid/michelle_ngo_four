@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 04-03-featured-slice-flips-PLAN.md
-last_updated: "2026-05-11T21:01:57.724Z"
+stopped_at: Completed 04-04-topnav-scroll-aware-PLAN.md
+last_updated: "2026-05-11T21:10:07.508Z"
 progress:
   total_phases: 7
   completed_phases: 3
   total_plans: 17
-  completed_plans: 15
+  completed_plans: 16
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-05-10)
 ## Current Position
 
 Phase: 04 (reel-led-home) — EXECUTING
-Plan: 4 of 5
+Plan: 5 of 5
 
 ## Performance Metrics
 
@@ -59,6 +59,7 @@ Plan: 4 of 5
 | Phase 04-reel-led-home P01 | 8 min | 3 tasks tasks | 6 files files |
 | Phase 04-reel-led-home P02 | 5m | 2 tasks | 3 files |
 | Phase 04-reel-led-home PP03 | 3m | 2 tasks tasks | 2 files files |
+| Phase 04-reel-led-home P04 | 5m | 1 task tasks | 2 files files |
 
 ## Accumulated Context
 
@@ -114,6 +115,9 @@ Recent decisions affecting current work:
 - [Phase 04-reel-led-home]: Plan 04-02: Sentinel ownership contract: the component painting the boundary owns the sentinel div. HeroPoster owns #hero-sentinel (D-14); TopNav (Plan 04-04) consumes via document.getElementById — decoupled. Pattern reference for any future scroll-aware element pairings.
 - [Phase 04-reel-led-home]: Plan 04-02: Wave 0 -> Wave 1 stub transition executed verbatim per Plan 04-01 contract — 5 describe.skip -> describe, deleted loadHeroPoster() lazy helper, added top-level static import HeroPoster from './HeroPoster.svelte', dropped async/await from now-synchronous test bodies. Zero fixups, zero @ts-expect-error survivors. Template for Plans 04-03/04/05 to follow on their respective test files.
 - [Phase 04-reel-led-home]: Plan 04-03: "featured": true placed inline after "category" on the 8 curated rows (diff-friendly grouping with quota-bearing field); zero "featured": false on the other 48 rows preserves Phase 2 D-08 contract (loader materializes z.boolean().default(false) at parse time) and avoids ~96 lines of drift-prone JSON noise. Curation source of truth = 04-RESEARCH.md §Featured Slice Curation; PLAN human-verify gate surfaces it verbatim; videos.test.ts featured suite locks the resulting shape in CI.
+- [Phase 04-reel-led-home]: Plan 04-04: page.route.id MUST be read inside the $effect body (Pitfall 2) — hoisting to a top-level const breaks Svelte 5 reactivity tracking; the effect would attach once and never re-run on navigation. Inline read is the only correct shape; all 6 D-13 non-home route tests pin this contract
+- [Phase 04-reel-led-home]: Plan 04-04: navClass $derived ternary returns TWO COMPLETE LITERAL CLASS STRINGS (Pitfall 4) — both branches include the full 'sticky top-0 z-30 border-b' prefix verbatim (no factoring/concat); Tailwind v4 source scanner tokenizes literal text only, so concatenation hides utilities from the build CSS
+- [Phase 04-reel-led-home]: Plan 04-04: flushSync() pattern in Vitest after mount() when asserting on $effect side effects — Svelte 5's $effect runs on a microtask queue after mount() returns synchronously, so tests that assert on observer.observe() / observer.disconnect() / other effect-driven side effects must call flushSync() before the assertion. Plan 04-01 stub assumed synchronous effect run (1 deviation Rule 1 fix). Pattern carries forward to any future test asserting on $effect side effects
 
 ### Pending Todos
 
@@ -125,6 +129,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-11T21:01:57.715Z
-Stopped at: Completed 04-03-featured-slice-flips-PLAN.md
+Last session: 2026-05-11T21:10:07.498Z
+Stopped at: Completed 04-04-topnav-scroll-aware-PLAN.md
 Resume file: None
