@@ -26,11 +26,11 @@
 
 ### Grid
 
-- [ ] **GRID-01**: User sees a video grid below the hero with thumbnail, title, category tag, and uploader/client
+- [x] **GRID-01**: User sees a video grid below the hero with thumbnail, title, category tag, and uploader/client
 - [ ] **GRID-02**: Grid is responsive — 2-col mobile, 3-col tablet, 4-col desktop (or equivalent breakpoints)
-- [ ] **GRID-03**: Thumbnails blur-up from a low-res placeholder to full resolution
-- [ ] **GRID-04**: User can click any card to open its video in the watch view
-- [ ] **GRID-05**: Card visually reflects category via a consistent type-tag treatment
+- [x] **GRID-03**: Thumbnails blur-up from a low-res placeholder to full resolution
+- [x] **GRID-04**: User can click any card to open its video in the watch view
+- [x] **GRID-05**: Card visually reflects category via a consistent type-tag treatment
 
 ### Filter & Watch
 
@@ -119,11 +119,11 @@ Updated during roadmap creation.
 | HERO-01 | Phase 4 | Pending |
 | HERO-02 | Phase 4 | Pending |
 | HERO-03 | Phase 4 | Pending |
-| GRID-01 | Phase 3 | Pending |
+| GRID-01 | Phase 3 | Complete |
 | GRID-02 | Phase 3 | Pending |
-| GRID-03 | Phase 3 | Pending |
-| GRID-04 | Phase 3 | Pending |
-| GRID-05 | Phase 3 | Pending |
+| GRID-03 | Phase 3 | Complete |
+| GRID-04 | Phase 3 | Complete |
+| GRID-05 | Phase 3 | Complete |
 | FILT-01 | Phase 3 | Pending |
 | FILT-02 | Phase 3 | Pending |
 | FILT-03 | Phase 3 | Pending |

@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 03-00-test-infrastructure-PLAN.md
-last_updated: "2026-05-11T02:27:34.343Z"
+stopped_at: Completed 03-01-video-card-and-category-tag-PLAN.md
+last_updated: "2026-05-11T02:50:43.082Z"
 progress:
   total_phases: 7
   completed_phases: 2
   total_plans: 11
-  completed_plans: 7
+  completed_plans: 8
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-05-10)
 ## Current Position
 
 Phase: 03 (grid-filter-watch) — EXECUTING
-Plan: 2 of 5
+Plan: 3 of 5
 
 ## Performance Metrics
 
@@ -52,6 +52,7 @@ Plan: 2 of 5
 | Phase 02-data-layer P02-author-videos-json | 5m | 2 tasks | 4 files |
 | Phase 02-data-layer P03-loader-and-vite-plugin | 7m | 2 tasks | 8 files |
 | Phase 03-grid-filter-watch P00-test-infrastructure | 14m | 3 tasks tasks | 11 files files |
+| Phase 03-grid-filter-watch P01 | 18m | 3 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -84,6 +85,11 @@ Recent decisions affecting current work:
 - [Phase 03-grid-filter-watch]: Renamed route test files +page.test.ts -> page.test.ts (Rule 3 deviation): @sveltejs/kit 2.59.1's route analyzer hard-errors on +*.ts not matching recognized route shapes. Unprefixed names are silently ignored by the router (create_manifest_data line 233) and freely picked up by Vitest's include glob. 03-VALIDATION.md per-task verification map updated to match.
 - [Phase 03-grid-filter-watch]: Kept lazy await import() pattern from Phase 2 Wave 0 for stubs whose target modules don't exist yet: planner's literal top-level static imports + // @ts-expect-error didn't actually prevent vitest's module loader from resolving the imports (the directive only suppresses the TS error, not the runtime resolve). Each test body now calls 'const X = await loadX()' where loadX is async; describe.skip stops loadX from ever running. Downstream plans drop the indirection + the @ts-expect-error when they unskip.
 - [Phase 03-grid-filter-watch]: scripts/test-prerender-coverage.mjs thresholds are >=1 build/work/index.html + >=8 build/work/<slug>/index.html + >=56 build/watch/<id>/index.html. Why this complements adapter-static strict:true: strict catches non-prerenderable routes; this catches empty entries() enumerations (which would let the build succeed with zero output). Plans 03-02 + 03-03 own first GREEN run.
+- [Phase 03-grid-filter-watch]: OKLCH category accents at L~0.78 C~0.18 (PBS bumped to L=0.72 C=0.21 for D-04 flagship prominence; Other desaturated to C=0.05 for 'uncategorized' semantics); contrast 4.7-5.6:1 on bg-neutral-950 clears AA
+- [Phase 03-grid-filter-watch]: Static Record<Category, string> map in categoryAccent.ts (every text-cat-* class literal) instead of computed slug: Tailwind v4 scanner reads source as text; dynamic concatenations are NEVER detected and the utilities wouldn't ship in the bundled CSS
+- [Phase 03-grid-filter-watch]: Vitest 4 workspace migration (Rule 3 deviation): vitest.workspace.ts silently ignored by Vitest 4.1.5 (verified 'vitest list --project=ui' returns 'No projects matched'); migrated config into vite.config.ts test.projects with resolve.conditions: ['browser'] for the ui project so mount() resolves to client entry (not lifecycle_function_unavailable SSR entry). Deleted vitest.workspace.ts. Plan 03-00 'pnpm test green' was a false positive — all ui stubs were describe.skip so missing jsdom never surfaced
+- [Phase 03-grid-filter-watch]: Runtime-computed dynamic-import specifier (const spec = './' + '+page') for still-stubbed tests: /* @vite-ignore */ alone does NOT suppress vite:import-analysis for literal-string dynamic imports — only for non-literal expressions. Runtime concat IS non-literal from Vite's static perspective, so analysis skips resolution. Downstream plans 03-02/03/04 drop this hack entirely (replace loadXxx helper + spec with top-level static import) when they unskip
+- [Phase 03-grid-filter-watch]: CategoryTag and VideoCard use file-level eslint-disable svelte/no-navigation-without-resolve: CategoryTag forwards caller's href verbatim (leaf component; caller produces base-path-safe URL — VideoCard builds ${base}/watch/${id}); rule expects SvelteKit 2.27+ typed-routes resolve() form which would break the literal-href test patterns the tests rely on
 
 ### Pending Todos
 
@@ -95,6 +101,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-11T02:27:13.378Z
-Stopped at: Completed 03-00-test-infrastructure-PLAN.md
+Last session: 2026-05-11T02:50:43.074Z
+Stopped at: Completed 03-01-video-card-and-category-tag-PLAN.md
 Resume file: None
