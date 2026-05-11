@@ -19,7 +19,7 @@ vi.mock('$app/state', () => ({ page: mockPage }));
 // Mock $app/paths so the test doesn't depend on BASE_PATH being set during vitest run.
 vi.mock('$app/paths', () => ({ base: '' }));
 
-import { mount, unmount } from 'svelte';
+import { flushSync, mount, unmount } from 'svelte';
 import TopNav from './TopNav.svelte';
 import { getCategoriesInDisplayOrder } from '$lib/data';
 
@@ -138,7 +138,7 @@ function makeSentinel(): HTMLElement {
   return sentinel;
 }
 
-describe.skip('TopNav — D-13 scroll-aware on home', () => {
+describe('TopNav — D-13 scroll-aware on home', () => {
   it('scroll-aware home: on route "/", TopNav attaches an IntersectionObserver on #hero-sentinel', () => {
     mockPage.route = { id: '/' };
     mockPage.url = new URL('http://localhost/');
@@ -163,6 +163,9 @@ describe.skip('TopNav — D-13 scroll-aware on home', () => {
     globalThis.IntersectionObserver = TrackingIO as any;
     try {
       component = mount(TopNav, { target: makeHost(), props: {} });
+      // Svelte 5 $effect runs on a microtask queue after mount() returns;
+      // flushSync drains it so observer.observe(sentinel) has fired before assertion.
+      flushSync();
       expect(observed).toContain(sentinel);
     } finally {
       globalThis.IntersectionObserver = originalIO;
@@ -181,7 +184,7 @@ describe.skip('TopNav — D-13 scroll-aware on home', () => {
   });
 });
 
-describe.skip('TopNav — D-13 solid on non-home routes', () => {
+describe('TopNav — D-13 solid on non-home routes', () => {
   it('solid on non-home: on /work, TopNav <header> renders bg-neutral-950 (no transparent class)', () => {
     mockPage.route = { id: '/work' };
     mockPage.url = new URL('http://localhost/work/');

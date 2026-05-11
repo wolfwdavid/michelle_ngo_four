@@ -11,8 +11,14 @@
     D-42 — hamburger triggers MobileMenu overlay (<sm only)
     D-14 carry-forward — data-sveltekit-preload-data="hover" on category links
 
+  Phase 4 additions:
+    D-13 — scroll-aware transparency mode ON `/` ONLY (transparent over hero, solid past it)
+    D-14 — IntersectionObserver on #hero-sentinel (rendered by HeroPoster.svelte), wired via $effect with cleanup on route change / unmount
+
   $app/state contract: page.url.pathname is REACTIVE inside .svelte files (SvelteKit 2.27+).
-  Active-link detection re-runs whenever the user navigates.
+  Active-link detection re-runs whenever the user navigates. page.route.id is
+  similarly reactive — Phase 4 reads it INSIDE the $effect body so the observer
+  attaches/detaches as the user navigates between `/` and other routes.
 
   ESLint: svelte/no-navigation-without-resolve disabled for this file —
   TopNav is the site's primary nav; hrefs are produced base-path-safely via
@@ -31,6 +37,66 @@
   const categories = getCategoriesInDisplayOrder();
   let mobileOpen = $state(false);
 
+  // Phase 4 D-13/D-14: scroll-aware transparency, ONLY on route '/'.
+  // When the hero is in viewport (sentinel intersecting), nav goes transparent
+  // so name + tagline + CTA sit over the gradient-darkened poster. When the
+  // user scrolls past the hero OR navigates to any other route, nav reverts
+  // to the existing Phase 3 chrome.
+  //
+  // The sentinel <div id="hero-sentinel"> is rendered by HeroPoster.svelte
+  // at the hero's bottom edge. TopNav queries it by id.
+  //
+  // Reactivity contract (Pitfall 2): page.route.id is read INSIDE the $effect
+  // body so $effect re-runs whenever the route id changes. Capturing to a
+  // top-level const would break reactivity.
+  //
+  // Tailwind contract (Pitfall 4): navClass is a $derived ternary of TWO
+  // LITERAL strings — both must appear verbatim in source so Tailwind's
+  // text-scanner tokenizes every utility class.
+  let heroVisible = $state(false);
+
+  $effect(() => {
+    // $effect runs ONLY in the browser (Svelte 5 guarantee — no typeof window guard needed).
+    const onHomeRoute = page.route.id === '/';
+    if (!onHomeRoute) {
+      // Any non-/ route: solid nav, no observer. Defensive reset in case the
+      // user navigated AWAY from / while observer was still attached.
+      heroVisible = false;
+      return; // no cleanup — no observer to disconnect
+    }
+
+    // On /: find the sentinel HeroPoster rendered. If it doesn't exist yet
+    // (mount order timing — Pitfall 1), keep nav solid for this tick. The
+    // $effect re-runs on route id change so subsequent /-route mounts retry.
+    const sentinel = document.getElementById('hero-sentinel');
+    if (!sentinel) {
+      heroVisible = false;
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // entry is guaranteed (we observe exactly one element).
+        heroVisible = entry?.isIntersecting ?? false;
+      },
+      { threshold: 0 }
+    );
+    observer.observe(sentinel);
+
+    return () => {
+      observer.disconnect();
+    };
+  });
+
+  // Both branches are literal strings so Tailwind v4's scanner generates every
+  // utility class (Pitfall 4). Common prefix `sticky top-0 z-30 border-b`
+  // keeps layout stable across the transition.
+  const navClass = $derived(
+    heroVisible
+      ? 'sticky top-0 z-30 bg-transparent border-b border-transparent'
+      : 'sticky top-0 z-30 bg-neutral-950/95 backdrop-blur border-b border-white/10'
+  );
+
   function isActive(slug: string): boolean {
     // Normalize trailing slash, then suffix-match the slug. Two production
     // forces make a naive `=== \`${base}/work/${slug}\`` comparison fail:
@@ -47,7 +113,7 @@
   }
 </script>
 
-<header class="sticky top-0 z-30 bg-neutral-950/95 backdrop-blur border-b border-white/10">
+<header class={navClass}>
   <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
     <a href={base || '/'} class="text-sm font-bold uppercase tracking-widest">Michelle Ngo</a>
 
