@@ -9,7 +9,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 // mock factory runs. `vi.hoisted` lifts the const initialization alongside the
 // mock so the factory can safely reference it (Vitest 4 idiom).
 const { mockPage } = vi.hoisted(() => ({
-  mockPage: { url: new URL('http://localhost/') },
+  mockPage: {
+    url: new URL('http://localhost/'),
+    route: { id: '/' as string | null },
+  },
 }));
 vi.mock('$app/state', () => ({ page: mockPage }));
 
@@ -25,6 +28,7 @@ let component: ReturnType<typeof mount> | undefined;
 
 beforeEach(() => {
   mockPage.url = new URL('http://localhost/');
+  mockPage.route = { id: '/' };
 });
 
 afterEach(() => {
@@ -116,5 +120,119 @@ describe('TopNav — active state (D-41)', () => {
       .filter((a) => order.includes((a.textContent?.trim() ?? '') as (typeof order)[number]))
       .filter((a) => /text-cat-/.test(a.className));
     expect(highlighted.length).toBe(0);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Phase 4 D-13 / D-14: scroll-aware TopNav on `/` only.
+// RED-by-skip in Wave 0; Plan 04-04 turns these green after extending TopNav with
+// the IntersectionObserver $effect.
+// ---------------------------------------------------------------------------
+
+function makeSentinel(): HTMLElement {
+  // HeroPoster renders <div id="hero-sentinel"> inside the hero section.
+  // Tests construct the sentinel inline to simulate HeroPoster having mounted.
+  const sentinel = document.createElement('div');
+  sentinel.id = 'hero-sentinel';
+  document.body.appendChild(sentinel);
+  return sentinel;
+}
+
+describe.skip('TopNav — D-13 scroll-aware on home', () => {
+  it('scroll-aware home: on route "/", TopNav attaches an IntersectionObserver on #hero-sentinel', () => {
+    mockPage.route = { id: '/' };
+    mockPage.url = new URL('http://localhost/');
+    const sentinel = makeSentinel();
+    // Spy on the global stub so we can verify observe() was called with the sentinel.
+    // vitest-setup-ui.ts wires a global stub class — its observe() is a vi.fn().
+    // Pattern: capture the constructor call args via the stub class.
+    const observed: Element[] = [];
+    const originalIO = globalThis.IntersectionObserver;
+    class TrackingIO {
+      observe = (el: Element) => observed.push(el);
+      disconnect = vi.fn();
+      unobserve = vi.fn();
+      takeRecords = () => [];
+      root = null;
+      rootMargin = '';
+      thresholds = [];
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      constructor(_cb: IntersectionObserverCallback) {}
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    globalThis.IntersectionObserver = TrackingIO as any;
+    try {
+      component = mount(TopNav, { target: makeHost(), props: {} });
+      expect(observed).toContain(sentinel);
+    } finally {
+      globalThis.IntersectionObserver = originalIO;
+      sentinel.remove();
+    }
+  });
+
+  it('scroll-aware home: TopNav <header> has bg-neutral-950 class by default (sentinel not intersecting)', () => {
+    mockPage.route = { id: '/' };
+    mockPage.url = new URL('http://localhost/');
+    makeSentinel();
+    component = mount(TopNav, { target: makeHost(), props: {} });
+    // Default: heroVisible=false → solid bg.
+    const header = host.querySelector('header');
+    expect(header?.className).toMatch(/bg-neutral-950/);
+  });
+});
+
+describe.skip('TopNav — D-13 solid on non-home routes', () => {
+  it('solid on non-home: on /work, TopNav <header> renders bg-neutral-950 (no transparent class)', () => {
+    mockPage.route = { id: '/work' };
+    mockPage.url = new URL('http://localhost/work/');
+    component = mount(TopNav, { target: makeHost(), props: {} });
+    const header = host.querySelector('header');
+    expect(header?.className).toMatch(/bg-neutral-950/);
+    expect(header?.className).not.toMatch(/bg-transparent/);
+  });
+
+  it('solid on non-home: on /work/[category], TopNav stays solid', () => {
+    mockPage.route = { id: '/work/[category]' };
+    mockPage.url = new URL('http://localhost/work/pbs-american-portrait/');
+    component = mount(TopNav, { target: makeHost(), props: {} });
+    const header = host.querySelector('header');
+    expect(header?.className).toMatch(/bg-neutral-950/);
+    expect(header?.className).not.toMatch(/bg-transparent/);
+  });
+
+  it('solid on non-home: on /watch/[id], TopNav stays solid', () => {
+    mockPage.route = { id: '/watch/[id]' };
+    mockPage.url = new URL('http://localhost/watch/264677021/');
+    component = mount(TopNav, { target: makeHost(), props: {} });
+    const header = host.querySelector('header');
+    expect(header?.className).toMatch(/bg-neutral-950/);
+    expect(header?.className).not.toMatch(/bg-transparent/);
+  });
+
+  it('solid on non-home: on /about, TopNav stays solid', () => {
+    mockPage.route = { id: '/about' };
+    mockPage.url = new URL('http://localhost/about/');
+    component = mount(TopNav, { target: makeHost(), props: {} });
+    const header = host.querySelector('header');
+    expect(header?.className).toMatch(/bg-neutral-950/);
+    expect(header?.className).not.toMatch(/bg-transparent/);
+  });
+
+  it('solid on non-home: on /press, TopNav stays solid', () => {
+    mockPage.route = { id: '/press' };
+    mockPage.url = new URL('http://localhost/press/');
+    component = mount(TopNav, { target: makeHost(), props: {} });
+    const header = host.querySelector('header');
+    expect(header?.className).toMatch(/bg-neutral-950/);
+    expect(header?.className).not.toMatch(/bg-transparent/);
+  });
+
+  it('solid on non-home: on /contact, TopNav stays solid', () => {
+    mockPage.route = { id: '/contact' };
+    mockPage.url = new URL('http://localhost/contact/');
+    component = mount(TopNav, { target: makeHost(), props: {} });
+    const header = host.querySelector('header');
+    expect(header?.className).toMatch(/bg-neutral-950/);
+    expect(header?.className).not.toMatch(/bg-transparent/);
   });
 });

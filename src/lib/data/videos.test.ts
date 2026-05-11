@@ -104,3 +104,42 @@ describe('loader: getCategoriesWithCounts', () => {
     expect(pbs?.count).toBe(18);
   });
 });
+
+// ---------------------------------------------------------------------------
+// Phase 4 D-23 / D-24 / D-26: featured slice curation contract.
+// RED-by-skip in Wave 0; Plan 04-03 turns these green AFTER flipping `featured: true`
+// on the 8 chosen rows in videos.json.
+// ---------------------------------------------------------------------------
+describe.skip('Phase 4 featured slice — D-23 / D-24 / D-26', () => {
+  it('8 featured: exactly 8 videos have featured===true after flips', async () => {
+    const { videos } = await import('./videos');
+    const featured = videos.filter((v) => v.featured);
+    expect(featured.length).toBe(8);
+  });
+
+  it('featured includes reel: producerReelId appears in the featured slice (D-23 Reel x1, Pitfall 8)', async () => {
+    const { videos, producerReelId } = await import('./videos');
+    const featured = videos.filter((v) => v.featured);
+    const reel = featured.find((v) => v.id === producerReelId);
+    expect(reel).toBeDefined();
+    expect(reel?.category).toBe('Reel');
+  });
+
+  it('featured quota: 2 PBS, 2 Promos, 2 Branded, 1 Doc, 1 Reel (D-23)', async () => {
+    const { videos } = await import('./videos');
+    const featured = videos.filter((v) => v.featured);
+    const counts = new Map<string, number>();
+    for (const v of featured) {
+      counts.set(v.category, (counts.get(v.category) ?? 0) + 1);
+    }
+    expect(counts.get('PBS American Portrait')).toBe(2);
+    expect(counts.get('Promos & Trailers')).toBe(2);
+    expect(counts.get('Branded Content')).toBe(2);
+    expect(counts.get('Documentary / Short Film')).toBe(1);
+    expect(counts.get('Reel')).toBe(1);
+    // No featured cards from the other three categories (Personal / Educational / Other).
+    expect(counts.get('Personal / Tribute')).toBeUndefined();
+    expect(counts.get('Educational / Nonprofit')).toBeUndefined();
+    expect(counts.get('Other')).toBeUndefined();
+  });
+});
