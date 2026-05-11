@@ -32,7 +32,18 @@
   let mobileOpen = $state(false);
 
   function isActive(slug: string): boolean {
-    return page.url.pathname === `${base}/work/${slug}`;
+    // Normalize trailing slash, then suffix-match the slug. Two production
+    // forces make a naive `=== \`${base}/work/${slug}\`` comparison fail:
+    //   1. `trailingSlash = 'always'` (src/routes/+layout.ts, Plan 03-03)
+    //      normalizes page.url.pathname to `/work/<slug>/`.
+    //   2. adapter-static + SvelteKit's default `paths.relative: true` renders
+    //      `base` as a per-page relative string (e.g. `../..`), so the literal
+    //      `${base}/work/${slug}` evaluates to `../../work/<slug>` during SSR
+    //      while page.url.pathname stays absolute (`/work/<slug>/`).
+    // endsWith on `/work/${slug}` sidesteps both: it matches the absolute
+    // pathname's slug suffix regardless of `base` shape (relative or absolute
+    // deployed prefix), and the trailing-slash strip handles trailingSlash.
+    return page.url.pathname.replace(/\/$/, '').endsWith(`/work/${slug}`);
   }
 </script>
 

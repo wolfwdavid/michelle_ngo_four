@@ -85,6 +85,19 @@ describe('TopNav — active state (D-41)', () => {
     expect(pbsLink?.className).toMatch(/text-cat-pbs/);
   });
 
+  it('on /work/pbs-american-portrait/ (trailing slash, production shape under trailingSlash=always), PBS link still gets cat-pbs accent class', () => {
+    // src/routes/+layout.ts sets `trailingSlash = 'always'` (Plan 03-03), so the
+    // production URL on a /work/<slug>/ prerendered page carries a trailing slash.
+    // isActive(slug) MUST normalize pathname before comparison or the active
+    // branch is unreachable. Regression test for 03-VERIFICATION.md gap.
+    mockPage.url = new URL('http://localhost/work/pbs-american-portrait/');
+    component = mount(TopNav, { target: makeHost(), props: {} });
+    const pbsLink = Array.from(host.querySelectorAll('a')).find(
+      (a) => a.textContent?.trim() === 'PBS American Portrait'
+    );
+    expect(pbsLink?.className).toMatch(/text-cat-pbs/);
+  });
+
   it('on /work (no filter), no category link is highlighted', () => {
     mockPage.url = new URL('http://localhost/work');
     component = mount(TopNav, { target: makeHost(), props: {} });
