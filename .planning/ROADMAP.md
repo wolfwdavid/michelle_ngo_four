@@ -64,13 +64,14 @@ Plans:
   3. Clicking any card navigates to `/watch/[id]`, plays the video via its embed URL, and renders a "More in [Category]" rail of other videos sharing that category
   4. `/work/[category]` (or `/work?category=[slug]`) renders only that category's videos and the URL alone reproduces that filtered view on reload or paste
   5. Top text-link nav lists primary categories plus secondary links for About / Press / Contact, and category links route to their filtered views
-**Plans**: TBD
+**Plans**: 5 plans
 
 Plans:
-- [ ] 03-01: Build the `VideoCard` component (thumb, blur-up, type-tag, title, uploader)
-- [ ] 03-02: Build `/work` and `/work/[category]` routes with responsive grid + URL-driven filter state
-- [ ] 03-03: Build `/watch/[id]` route with embed player and same-category rail
-- [ ] 03-04: Build top nav with categories + secondary links (About / Press / Contact)
+- [ ] 03-00-test-infrastructure-PLAN.md — Install jsdom, split Vitest into node + jsdom workspace, scaffold 6 RED-by-design test stubs + scripts/test-prerender-coverage.mjs (Wave 0, no requirement IDs)
+- [ ] 03-01-video-card-and-category-tag-PLAN.md — Build VideoCard.svelte (single-link card, aspect-video, blur-up fade-in, h3 line-clamp-2 title, uploader) + CategoryTag.svelte (span/a) + categoryAccent helper + 8 OKLCH accent colors in app.css @theme (Wave 1, depends on 03-00, addresses GRID-01, GRID-03, GRID-04, GRID-05)
+- [ ] 03-02-work-routes-PLAN.md — Build /work (unfiltered grid of all 56, D-25 sort, max-w-7xl + 2/3/4 responsive) and /work/[category] (entries enumerates 8 slugs, slug→Category narrowing + 404, accent-colored heading Category-count) (Wave 2, depends on 03-00 + 03-01, addresses GRID-01, GRID-02, GRID-04, GRID-05, FILT-03, FILT-04)
+- [ ] 03-03-watch-route-PLAN.md — Build /watch/[id] (entries enumerates 56 ids, iframe embed in aspect-video max-w-5xl, D-35 metadata order, FILT-02 same-category rail with D-36/37/38 semantics) + src/routes/+error.svelte minimal 404 (Wave 2 parallel with 03-02, depends on 03-00 + 03-01, addresses FILT-01, FILT-02, FILT-04, GRID-01, GRID-04, GRID-05)
+- [ ] 03-04-top-nav-and-placeholder-routes-PLAN.md — Build TopNav.svelte (wordmark + 8 category links + About/Press/Contact + hamburger, sticky, D-41 active state via app/state) + MobileMenu.svelte (full-screen bg-black/95 overlay) + wire into src/routes/+layout.svelte + minimal /about /press /contact placeholders (Wave 3, depends on 03-00 + 03-01 + 03-02 + 03-03, addresses NAV-01)
 
 ### Phase 4: Reel-Led Home
 **Goal**: A producer landing on `/` sees a full-bleed reel hero with Michelle's name, a tone-setting tagline, and a PLAY REEL CTA — and a featured video grid sits below the fold.
@@ -144,7 +145,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 |-------|----------------|--------|-----------|
 | 1. Foundation | 0/2 | Planned | - |
 | 2. Data Layer | 4/4 | Complete   | 2026-05-10 |
-| 3. Grid, Filter & Watch | 0/4 | Not started | - |
+| 3. Grid, Filter & Watch | 0/5 | Planned | - |
 | 4. Reel-Led Home | 0/2 | Not started | - |
 | 5. PBS American Portrait | 0/2 | Not started | - |
 | 6. Press, About & Contact | 0/3 | Not started | - |
@@ -154,3 +155,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 *Roadmap created: 2026-05-10*
 *Phase 1 plans created: 2026-05-10*
 *Coverage: 30/30 v1 requirements mapped — no orphans, no duplicates*
+*Phase 3 plans created: 2026-05-11*
