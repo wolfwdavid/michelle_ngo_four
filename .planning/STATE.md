@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 03-02-work-routes-PLAN.md
-last_updated: "2026-05-11T03:06:05.350Z"
+stopped_at: Completed 03-04-top-nav-and-placeholder-routes-PLAN.md (Phase 3 complete)
+last_updated: "2026-05-11T11:47:29.742Z"
 progress:
   total_phases: 7
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 11
-  completed_plans: 10
+  completed_plans: 11
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-05-10)
 ## Current Position
 
 Phase: 03 (grid-filter-watch) — EXECUTING
-Plan: 4 of 5
+Plan: 5 of 5
 
 ## Performance Metrics
 
@@ -55,6 +55,7 @@ Plan: 4 of 5
 | Phase 03-grid-filter-watch P01 | 18m | 3 tasks | 11 files |
 | Phase 03-grid-filter-watch P03 | 9 | 2 tasks | 5 files |
 | Phase 03-grid-filter-watch P02-work-routes | 6m | 2 tasks | 6 files |
+| Phase 03-grid-filter-watch P04-top-nav-and-placeholder-routes | 8m | 2 tasks tasks | 5 files files |
 
 ## Accumulated Context
 
@@ -99,6 +100,10 @@ Recent decisions affecting current work:
 - [Phase 03-grid-filter-watch]: Made /work/[category] load ASYNC instead of plan's literal sync signature so error(404) becomes an awaited rejection that .rejects.toMatchObject can catch (Plan 03-00 test contract). Sync load throws synchronously before await expect can wrap it — runtime crash instead of assertion. Zero runtime difference for happy path. Rule 1 deviation.
 - [Phase 03-grid-filter-watch]: Added callLoad() narrow helper in both route test files (Rule 3 deviation): Plan 03-01's downstream contract (drop loadXxx() lazy-import) exposes SvelteKit PageLoad's void | (... & Record<string, any>) generic widening — void union blocks property access. Helper asserts non-void + casts to runtime shape. Preserves static-import contract; same pattern in /watch/[id]/page.test.ts (Plan 03-03 parallel).
 - [Phase 03-grid-filter-watch]: Inherited trailingSlash='always' from src/routes/+layout.ts (added globally by Plan 03-03 parallel agent) instead of duplicating per-route on /work and /work/[category] — single source of truth, build emits canonical build/work/index.html + 8x build/work/<slug>/index.html directory shape that scripts/test-prerender-coverage.mjs counts.
+- [Phase 03-grid-filter-watch]: Plan 03-04: Sticky-at-all-breakpoints TopNav header (research Open Question 4 recommendation supersedes CONTEXT.md's discretion note). bg-neutral-950/95 backdrop-blur + border-b border-white/10 at z-30; MobileMenu overlay at z-50 layers above when open
+- [Phase 03-grid-filter-watch]: Plan 03-04: vi.hoisted() pattern for mutable mocks (Rule 1 deviation) — vi.mock factory references a const that mutates between tests; const must be wrapped in vi.hoisted to lift it alongside the mock so factory has no TDZ. Latent upstream Plan 03-00 stub bug surfaced when suite first ran
+- [Phase 03-grid-filter-watch]: Plan 03-04: isActive(slug) compares page.url.pathname === `${base}/work/${slug}` (no trailing slash) — passes tests because mocked base='' makes shapes match; production behavior under trailingSlash='always' needs Phase 4 manual verify (page.url.pathname may carry the slash). Defensive fix is a strip-trailing-slash helper if visual fails
+- [Phase 03-grid-filter-watch]: Plan 03-04: D-43 placeholder routes are dependency-free single +page.svelte files — no +page.ts; prerender=true inherits from root +layout.ts. Phase 6 replaces content; URL contract preserved. Each: <main><h1>Name</h1><p>Coming soon.</p></main>
 
 ### Pending Todos
 
@@ -110,6 +115,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-11T03:06:05.343Z
-Stopped at: Completed 03-02-work-routes-PLAN.md
+Last session: 2026-05-11T11:47:29.735Z
+Stopped at: Completed 03-04-top-nav-and-placeholder-routes-PLAN.md (Phase 3 complete)
 Resume file: None
