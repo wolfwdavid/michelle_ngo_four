@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 04-04-topnav-scroll-aware-PLAN.md
-last_updated: "2026-05-11T21:10:07.508Z"
+stopped_at: Completed 04-05-home-page-composition-PLAN.md — Phase 4 implementation-complete, ready for verify-work + UAT
+last_updated: "2026-05-11T21:21:01.155Z"
 progress:
   total_phases: 7
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 17
-  completed_plans: 16
+  completed_plans: 17
 ---
 
 # Project State
@@ -60,6 +60,7 @@ Plan: 5 of 5
 | Phase 04-reel-led-home P02 | 5m | 2 tasks | 3 files |
 | Phase 04-reel-led-home PP03 | 3m | 2 tasks tasks | 2 files files |
 | Phase 04-reel-led-home P04 | 5m | 1 task tasks | 2 files files |
+| Phase 04-reel-led-home P05 | 6m | 1 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -118,6 +119,8 @@ Recent decisions affecting current work:
 - [Phase 04-reel-led-home]: Plan 04-04: page.route.id MUST be read inside the $effect body (Pitfall 2) — hoisting to a top-level const breaks Svelte 5 reactivity tracking; the effect would attach once and never re-run on navigation. Inline read is the only correct shape; all 6 D-13 non-home route tests pin this contract
 - [Phase 04-reel-led-home]: Plan 04-04: navClass $derived ternary returns TWO COMPLETE LITERAL CLASS STRINGS (Pitfall 4) — both branches include the full 'sticky top-0 z-30 border-b' prefix verbatim (no factoring/concat); Tailwind v4 source scanner tokenizes literal text only, so concatenation hides utilities from the build CSS
 - [Phase 04-reel-led-home]: Plan 04-04: flushSync() pattern in Vitest after mount() when asserting on $effect side effects — Svelte 5's $effect runs on a microtask queue after mount() returns synchronously, so tests that assert on observer.observe() / observer.disconnect() / other effect-driven side effects must call flushSync() before the assertion. Plan 04-01 stub assumed synchronous effect run (1 deviation Rule 1 fix). Pattern carries forward to any future test asserting on $effect side effects
+- [Phase 04-reel-led-home]: Plan 04-05: PageData-narrowed callLoad helper in page.test.ts — plan literal cast (load as () => Promise<{videos:unknown[]}>)() typed data as unknown[], which fails mount(Page,{props:{data}}) strict-prop check (Page.data is fully-typed PageData). Helper imports PageData from './$types' and returns Promise<PageData> via 'result as PageData'. Carries Phase 3 /work/page.test.ts callLoad pattern forward to the first route test that BOTH calls load() AND mounts the page.
+- [Phase 04-reel-led-home]: Plan 04-05: Featured-slice loader = videos.filter(v=>v.featured).toSorted((a,b)=>b.published.localeCompare(a.published)) — mirrors /work/+page.ts shape with one filter step inserted; featured-first comparator collapses to published-desc only when every row in the slice is featured (all 8 in Phase 4). /+page.svelte iterates data.videos with eager={true} literal boolean (not i<8) to document that all 8 are intentionally above the fold. Same /work grid markup verbatim (max-w-7xl + grid-cols-2/3/4 + gap-2/3).
 
 ### Pending Todos
 
@@ -129,6 +132,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-11T21:10:07.498Z
-Stopped at: Completed 04-04-topnav-scroll-aware-PLAN.md
+Last session: 2026-05-11T21:21:01.147Z
+Stopped at: Completed 04-05-home-page-composition-PLAN.md — Phase 4 implementation-complete, ready for verify-work + UAT
 Resume file: None
