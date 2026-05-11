@@ -100,11 +100,11 @@ Plans:
   2. The PBS page displays all 18 PBS American Portrait videos using the standard card grid
   3. The PBS page surfaces project context describing the PBS American Portrait initiative above the grid
   4. PBS American Portrait remains reachable as a regular filterable category from `/work` and produces the same 18 videos via the standard filter URL
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 05-01: Author PBS landing copy/context block
-- [ ] 05-02: Build PBS route with context header + filtered grid; verify category filter parity
+- [ ] 05-01-PLAN.md — Wave 0 scaffolding: surface verbatim PBS copy candidates for user pick (D-11 gate) + create RED-by-skip test stubs for the PBS landing route, helper, TopNav extension, and cross-links + extend prerender coverage script (Wave 1, addresses PBS-02)
+- [ ] 05-02-PLAN.md — Build /pbs-american-portrait/ landing (load + full layout + 15 per-card badges) + retarget TopNav PBS link with D-03 active-state extension + wire D-04 (/work/pbs-american-portrait/) and D-05 (/watch/[id] PBS-only) cross-links; flip all Wave 0 stubs to GREEN (Wave 2, depends on 05-01, addresses PBS-01, PBS-02, PBS-03)
 
 ### Phase 6: Press, About & Contact
 **Goal**: A producer can find Michelle's broadcast credits, bio, and contact channels through dedicated pages and a footer-mirrored nav — every page reinforces commercial credibility.
@@ -150,7 +150,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 2. Data Layer | 4/4 | Complete   | 2026-05-10 |
 | 3. Grid, Filter & Watch | 0/5 | Planned | - |
 | 4. Reel-Led Home | 0/5 | Planned | - |
-| 5. PBS American Portrait | 0/2 | Not started | - |
+| 5. PBS American Portrait | 0/2 | Planned | - |
 | 6. Press, About & Contact | 0/3 | Not started | - |
 | 7. Polish & Production Cutover | 0/3 | Not started | - |
 
@@ -160,3 +160,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 *Coverage: 30/30 v1 requirements mapped — no orphans, no duplicates*
 *Phase 3 plans created: 2026-05-11*
 *Phase 4 plans created: 2026-05-11*
+*Phase 5 plans created: 2026-05-11*
