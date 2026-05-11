@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 03-03-watch-route-PLAN.md
-last_updated: "2026-05-11T03:05:50.208Z"
+stopped_at: Completed 03-02-work-routes-PLAN.md
+last_updated: "2026-05-11T03:06:05.350Z"
 progress:
   total_phases: 7
   completed_phases: 2
@@ -96,6 +96,9 @@ Recent decisions affecting current work:
 - [Phase 03-grid-filter-watch]: Plan 03-03: callLoad() narrowing helper in route tests — SvelteKit's PageLoad widens awaited return to void | (...); helper narrows via if(!result)throw; pattern shared with parallel Plan 03-02 /work/page.test.ts
 - [Phase 03-grid-filter-watch]: Plan 03-03: trailingSlash='always' in src/routes/+layout.ts (Rule 3 deviation) — adapter-static default emits flat <route>.html but Plan 03-00 prerender-coverage script expects directory <route>/index.html; one-line fix in +layout.ts propagates to every route. Plan 03-04 inherits this.
 - [Phase 03-grid-filter-watch]: Plan 03-03: (data.video) instead of bare const {video,rail}=data in +page.svelte — Svelte 5 state_referenced_locally warning; $derived is canonical idiom; behavior identical on prerendered routes.
+- [Phase 03-grid-filter-watch]: Made /work/[category] load ASYNC instead of plan's literal sync signature so error(404) becomes an awaited rejection that .rejects.toMatchObject can catch (Plan 03-00 test contract). Sync load throws synchronously before await expect can wrap it — runtime crash instead of assertion. Zero runtime difference for happy path. Rule 1 deviation.
+- [Phase 03-grid-filter-watch]: Added callLoad() narrow helper in both route test files (Rule 3 deviation): Plan 03-01's downstream contract (drop loadXxx() lazy-import) exposes SvelteKit PageLoad's void | (... & Record<string, any>) generic widening — void union blocks property access. Helper asserts non-void + casts to runtime shape. Preserves static-import contract; same pattern in /watch/[id]/page.test.ts (Plan 03-03 parallel).
+- [Phase 03-grid-filter-watch]: Inherited trailingSlash='always' from src/routes/+layout.ts (added globally by Plan 03-03 parallel agent) instead of duplicating per-route on /work and /work/[category] — single source of truth, build emits canonical build/work/index.html + 8x build/work/<slug>/index.html directory shape that scripts/test-prerender-coverage.mjs counts.
 
 ### Pending Todos
 
@@ -107,6 +110,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-11T03:05:34.159Z
-Stopped at: Completed 03-03-watch-route-PLAN.md
+Last session: 2026-05-11T03:06:05.343Z
+Stopped at: Completed 03-02-work-routes-PLAN.md
 Resume file: None
