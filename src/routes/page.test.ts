@@ -12,6 +12,23 @@ const { mockPage } = vi.hoisted(() => ({
 }));
 vi.mock('$app/state', () => ({ page: mockPage }));
 
+import Page from './+page.svelte';
+import { load } from './+page';
+import type { PageData } from './$types';
+
+// SvelteKit's PageLoad generic widens the awaited return to a `Partial<...> & Record<string, any>`
+// shape (videos is optional at that type level), but Page's `data` prop is strict PageData
+// (videos required). Narrowing through a helper preserves the real runtime shape while keeping
+// the static `import { load }` form — same idiom as /work/page.test.ts callLoad (carry-forward
+// from Phase 3 Plan 03-02). The cast lands as PageData so `mount(Page, { props: { data } })`
+// type-checks against the component's declared prop shape.
+async function callLoad(): Promise<PageData> {
+  const event = {} as Parameters<typeof load>[0];
+  const result = await load(event);
+  if (!result) throw new Error('load() returned void');
+  return result as PageData;
+}
+
 let host: HTMLElement;
 let component: ReturnType<typeof mount> | undefined;
 
@@ -34,31 +51,9 @@ function makeHost(): HTMLElement {
   return host;
 }
 
-async function loadPage() {
-  // Runtime-computed specifier (string concat) is non-literal from Vite's
-  // static-analysis perspective so vite:import-analysis skips resolution.
-  // TypeScript widens dynamic specifiers to `any`, so no @ts-expect-error needed.
-  const spec = './' + '+page.svelte';
-  const mod = await import(/* @vite-ignore */ spec);
-  return mod.default;
-}
-
-async function loadPageData() {
-  // Loads the featured slice that the page expects to receive. If +page.ts
-  // doesn't exist yet (Wave 0), this throws — describe.skip prevents that.
-  // Same runtime-concat trick as loadPage() to defeat both Vite's
-  // vite:import-analysis (literal-string resolve) and TypeScript's module
-  // existence check.
-  const spec = './' + '+page';
-  const mod = await import(/* @vite-ignore */ spec);
-  const result = await (mod.load as () => Promise<{ videos: unknown[] }>)();
-  return result;
-}
-
-describe.skip('/+page.svelte — HERO-01 renders hero', () => {
+describe('/+page.svelte — HERO-01 renders hero', () => {
   it('renders hero: composes <HeroPoster /> (h1 + img both present)', async () => {
-    const Page = await loadPage();
-    const data = await loadPageData();
+    const data = await callLoad();
     component = mount(Page, { target: makeHost(), props: { data } });
     // HeroPoster contributes the h1 + the hero <img>.
     expect(host.querySelector('h1')).not.toBeNull();
@@ -66,10 +61,9 @@ describe.skip('/+page.svelte — HERO-01 renders hero', () => {
   });
 });
 
-describe.skip('/+page.svelte — D-22 / D-24 8 featured cards', () => {
+describe('/+page.svelte — D-22 / D-24 8 featured cards', () => {
   it('8 featured cards: renders exactly 8 VideoCard <li> entries below the hero', async () => {
-    const Page = await loadPage();
-    const data = await loadPageData();
+    const data = await callLoad();
     component = mount(Page, { target: makeHost(), props: { data } });
     // VideoCard renders <li><a>...</a></li>. The featured grid has 8 cards.
     // The hero's PLAY REEL is an <a> but not inside a <li>.
@@ -78,10 +72,9 @@ describe.skip('/+page.svelte — D-22 / D-24 8 featured cards', () => {
   });
 });
 
-describe.skip('/+page.svelte — D-28 View All Work link', () => {
+describe('/+page.svelte — D-28 View All Work link', () => {
   it('View All Work link: anchor ends with /work and has hover prefetch', async () => {
-    const Page = await loadPage();
-    const data = await loadPageData();
+    const data = await callLoad();
     component = mount(Page, { target: makeHost(), props: { data } });
     const viewAll = Array.from(host.querySelectorAll('a')).find((a) =>
       /view\s+all\s+work/i.test(a.textContent ?? '')
