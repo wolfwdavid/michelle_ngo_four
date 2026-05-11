@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 04-02-hero-poster-component-PLAN.md
-last_updated: "2026-05-11T20:54:22.766Z"
+stopped_at: Completed 04-03-featured-slice-flips-PLAN.md
+last_updated: "2026-05-11T21:01:57.724Z"
 progress:
   total_phases: 7
   completed_phases: 3
   total_plans: 17
-  completed_plans: 14
+  completed_plans: 15
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-05-10)
 ## Current Position
 
 Phase: 04 (reel-led-home) — EXECUTING
-Plan: 3 of 5
+Plan: 4 of 5
 
 ## Performance Metrics
 
@@ -58,6 +58,7 @@ Plan: 3 of 5
 | Phase 03-grid-filter-watch P04-top-nav-and-placeholder-routes | 8m | 2 tasks tasks | 5 files files |
 | Phase 04-reel-led-home P01 | 8 min | 3 tasks tasks | 6 files files |
 | Phase 04-reel-led-home P02 | 5m | 2 tasks | 3 files |
+| Phase 04-reel-led-home PP03 | 3m | 2 tasks tasks | 2 files files |
 
 ## Accumulated Context
 
@@ -112,6 +113,7 @@ Recent decisions affecting current work:
 - [Phase 04-reel-led-home]: Plan 04-02: D-04 resolved WebP (user pick at Task 1 checkpoint) — Option 03 'Brooklyn Pigeons at Dusk' WebP @ 15.4KB beat its JPG sibling @ 24.5KB; both well under D-04 ~150KB target. Frame satisfies all 4 D-02 rubric points (wide / Michelle not on-camera / dark lower band / cinematic breadth). Phase 7 may revisit with <picture>+AVIF if FOUND-03 budget demands.
 - [Phase 04-reel-led-home]: Plan 04-02: Sentinel ownership contract: the component painting the boundary owns the sentinel div. HeroPoster owns #hero-sentinel (D-14); TopNav (Plan 04-04) consumes via document.getElementById — decoupled. Pattern reference for any future scroll-aware element pairings.
 - [Phase 04-reel-led-home]: Plan 04-02: Wave 0 -> Wave 1 stub transition executed verbatim per Plan 04-01 contract — 5 describe.skip -> describe, deleted loadHeroPoster() lazy helper, added top-level static import HeroPoster from './HeroPoster.svelte', dropped async/await from now-synchronous test bodies. Zero fixups, zero @ts-expect-error survivors. Template for Plans 04-03/04/05 to follow on their respective test files.
+- [Phase 04-reel-led-home]: Plan 04-03: "featured": true placed inline after "category" on the 8 curated rows (diff-friendly grouping with quota-bearing field); zero "featured": false on the other 48 rows preserves Phase 2 D-08 contract (loader materializes z.boolean().default(false) at parse time) and avoids ~96 lines of drift-prone JSON noise. Curation source of truth = 04-RESEARCH.md §Featured Slice Curation; PLAN human-verify gate surfaces it verbatim; videos.test.ts featured suite locks the resulting shape in CI.
 
 ### Pending Todos
 
@@ -123,6 +125,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-11T20:54:22.755Z
-Stopped at: Completed 04-02-hero-poster-component-PLAN.md
+Last session: 2026-05-11T21:01:57.715Z
+Stopped at: Completed 04-03-featured-slice-flips-PLAN.md
 Resume file: None
