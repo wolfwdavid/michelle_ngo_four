@@ -106,6 +106,7 @@ export default defineConfig({
           ],
           environment: 'jsdom',
           globals: false,
+          setupFiles: ['./vitest-setup-ui.ts'],
         },
       },
     ],
