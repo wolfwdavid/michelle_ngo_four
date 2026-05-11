@@ -15,18 +15,18 @@ A producer can land on the site, watch the reel, click any video, and immediatel
 - [x] **Buildable foundation** — SvelteKit 2 + TS strict + Tailwind v4 scaffold, lint/format/build green (Validated in Phase 1: Foundation)
 - [x] **Static deploy target with staging URL on push** — GitHub Pages auto-deploy via `.github/workflows/deploy.yml`, live at https://wolfwdavid.github.io/michelle_ngo_four/ (Validated in Phase 1: Foundation; D-05 Cloudflare Pages overridden — see Key Decisions)
 - [x] **Single video data source: `videos.json` checked into the repo, edited via PR** — 56 videos in `src/lib/data/videos.json`, validated by Zod schema at build time via Vite plugin; closed 8-category taxonomy from `_prep/04-categories.md` is the source of truth; typed loader exposes `$lib/data` surface for all routes (Validated in Phase 2: Data Layer — DATA-01..04)
+- [x] **YouTube-style video grid with thumbnail, title, category tag, and uploader/client name** — `/work` renders 56 VideoCards with D-16 blur-up state, D-13 non-interactive CategoryTag chip, OKLCH per-category accent (Validated in Phase 3: Grid, Filter & Watch — GRID-01, GRID-03, GRID-05)
+- [x] **Click-to-filter mechanic: clicking a card opens a player view AND filters the surrounding grid to that card's category** — VideoCard wraps content in `<a href="/watch/[id]">` with D-14 hover-prefetch; `/watch/[id]` plays iframe + renders "More in [Category]" rail of siblings; interactive CategoryTag chip on `/watch` round-trips back to `/work/[category]` (Validated in Phase 3 — GRID-04, FILT-01, FILT-02)
+- [x] **Deep-linkable URLs reflecting filter state** — URL IS the state: 8 prerendered `/work/<slug>/index.html` standalone files (no client-side filter); pasting/reloading reproduces the filtered view (Validated in Phase 3 — FILT-03, FILT-04; pattern is `/work/[category]` not query-param `?category=` — D-08 routing decision)
+- [x] **Responsive grid (2-col mobile / 3-col tablet / 4-col desktop)** — `grid-cols-2 sm:grid-cols-3 lg:grid-cols-4` literal on /work + /work/[category] + /watch rail (Validated in Phase 3 — GRID-02; visual breakpoint sweep is human-only check per 03-VERIFICATION.md)
 
 ### Active
 
 - [ ] Reel-first home page with full-bleed hero (looping reel or hero video + PLAY REEL CTA)
-- [ ] YouTube-style video grid with thumbnail, title, category tag, and uploader/client name
-- [ ] Click-to-filter mechanic: clicking a card opens a player view AND filters the surrounding grid to that card's category
-- [ ] Deep-linkable URLs reflecting filter state (`/work?category=branded-content`, `/watch/[id]`)
 - [ ] Dedicated PBS American Portrait page surfacing the 18 PBS videos with project context, in addition to PBS being a filterable category
 - [ ] First-class Press page surfacing HBO Max, PBS, Hulu, Amazon, U2 Sphere, and other broadcast credits
 - [ ] About page with bio, headshot, contact info, IMDb + LinkedIn links
 - [ ] Contact surface (email + phone + socials in footer; About page mirrors it)
-- [ ] Responsive grid (2-col mobile / 3-col tablet / 4-col desktop or similar standard breakpoints)
 
 ### Out of Scope
 
@@ -104,7 +104,8 @@ This document evolves at phase transitions and milestone boundaries.
 
 - **Phase 1 (Foundation): Complete** — buildable SvelteKit scaffold + auto-deploying GitHub Pages staging URL at https://wolfwdavid.github.io/michelle_ngo_four/
 - **Phase 2 (Data Layer): Complete** — typed videos.json (56 records) + Zod schema + Vite plugin that fails `pnpm build` on schema violation + `$lib/data` public surface (`videos`, `producerReelId`, `getById`, `getByCategory`, category helpers); DATA-01..04 satisfied
-- Next: Phase 3 (Grid, Filter & Watch)
+- **Phase 3 (Grid, Filter & Watch): Complete** — killer-feature loop wired end-to-end: `/work` (56-card grid) → click → `/watch/[id]/` (iframe + "More in [Category]" rail) → click sibling or category chip → `/work/[category]/` (8 prerendered slug pages with active TopNav highlight). TopNav D-41 active-state painted on prerendered HTML via `endsWith` suffix-match (Plan 03-05 gap closure). 79 unit tests across 10 files; 70 prerendered HTML pages; GRID-01..05 + FILT-01..04 + NAV-01 verified at structural-AND-behavioral level
+- Next: Phase 4 (Reel-Led Home)
 
 ---
-*Last updated: 2026-05-10 after Phase 2 completion*
+*Last updated: 2026-05-11 after Phase 3 completion*
