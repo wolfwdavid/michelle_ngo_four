@@ -19,10 +19,10 @@ A producer can land on the site, watch the reel, click any video, and immediatel
 - [x] **Click-to-filter mechanic: clicking a card opens a player view AND filters the surrounding grid to that card's category** — VideoCard wraps content in `<a href="/watch/[id]">` with D-14 hover-prefetch; `/watch/[id]` plays iframe + renders "More in [Category]" rail of siblings; interactive CategoryTag chip on `/watch` round-trips back to `/work/[category]` (Validated in Phase 3 — GRID-04, FILT-01, FILT-02)
 - [x] **Deep-linkable URLs reflecting filter state** — URL IS the state: 8 prerendered `/work/<slug>/index.html` standalone files (no client-side filter); pasting/reloading reproduces the filtered view (Validated in Phase 3 — FILT-03, FILT-04; pattern is `/work/[category]` not query-param `?category=` — D-08 routing decision)
 - [x] **Responsive grid (2-col mobile / 3-col tablet / 4-col desktop)** — `grid-cols-2 sm:grid-cols-3 lg:grid-cols-4` literal on /work + /work/[category] + /watch rail (Validated in Phase 3 — GRID-02; visual breakpoint sweep is human-only check per 03-VERIFICATION.md)
+- [x] **Reel-first home page with full-bleed hero (hero image + PLAY REEL CTA)** — `/` renders `<HeroPoster />` (15.4KB content-hashed WebP from Vimeo reel 264677021, gradient overlay, `<h1>Michelle Ngo</h1>` + "Filmmaker & Producer" tagline, PLAY REEL → `/watch/264677021`) above an 8-card featured grid (D-23 quota: PBS×2 + Promos×2 + Branded×2 + Doc×1 + Reel×1, published-desc) and a "View All Work →" overflow link. TopNav goes scroll-aware on `/` only (transparent over hero, solid past sentinel). Phase 1 splash retired. Validated in Phase 4: Reel-Led Home — HERO-01, HERO-02, HERO-03; 3 visual checks pending in 04-HUMAN-UAT.md
 
 ### Active
 
-- [ ] Reel-first home page with full-bleed hero (looping reel or hero video + PLAY REEL CTA)
 - [ ] Dedicated PBS American Portrait page surfacing the 18 PBS videos with project context, in addition to PBS being a filterable category
 - [ ] First-class Press page surfacing HBO Max, PBS, Hulu, Amazon, U2 Sphere, and other broadcast credits
 - [ ] About page with bio, headshot, contact info, IMDb + LinkedIn links
@@ -77,7 +77,10 @@ A producer can land on the site, watch the reel, click any video, and immediatel
 | SvelteKit + TS + Tailwind | Locked in kickoff prompt; aligns with 2026 filmmaker portfolios that need motion + static performance | ✓ Validated in Phase 1 — SvelteKit 2.59 + Svelte 5.55 + TS 5.9 strict + Tailwind v4.3 builds clean |
 | **D-05 override: GitHub Pages instead of Cloudflare Pages** | User directive at execution time; pipeline-in-repo (workflow file) was preferred over dashboard-managed Git integration | ✓ Validated in Phase 1 — auto-deploy proven on push to main; carries `BASE_PATH=/<repo>` until Phase 7 cutover |
 | `videos.json` in repo as source of truth | 56 items is small; PR-based edits acceptable; eliminates CMS hosting + runtime fetch | ✓ Validated in Phase 2 — `src/lib/data/videos.json` (56 records) + Zod schema + Vite build-fail plugin; `import { videos, ... } from '$lib/data'` is the single read path |
-| Click-to-filter via routing (not modal) | Deep-linkable, SEO-friendly, matches YouTube-style mental model the user described | — Pending |
+| Click-to-filter via routing (not modal) | Deep-linkable, SEO-friendly, matches YouTube-style mental model the user described | ✓ Validated in Phase 3 — `/work/[category]` slug routes (8 prerendered) + `/watch/[id]` |
+| Hero = static WebP image, not looping reel video | Bandwidth + initial-paint cost of an autoplay loop vs the LCP win of a 15KB preloaded image; PLAY REEL CTA delivers the reel one click away (HERO-03) | ✓ Validated in Phase 4 — hero-poster.webp content-hashed + `<link rel="preload">` + dedup'd `<img src>` |
+| Home featured slice = 8 cross-category sampler (PBS×2/Promos×2/Branded×2/Doc×1/Reel×1) | Telegraphs catalog breadth above the fold to a hiring producer; producer's reel doubles as the Reel slot (Pitfall 8) so PLAY REEL CTA + featured Reel card target the same video | ✓ Validated in Phase 4 — D-23/D-24/D-26 tests green |
+| TopNav scroll-aware on `/` only (D-13/D-14) | Transparent over the hero lets the wordmark sit on the poster image; solid on every other route preserves Phase 3 chrome and active-state highlight | ✓ Validated in Phase 4 — IntersectionObserver on #hero-sentinel; 6 non-home routes solid-from-first-paint in unit tests; live transition pending in 04-HUMAN-UAT.md |
 | PBS American Portrait gets dedicated page + category tag | 18 of 56 videos and her flagship — warrants both a project landing AND filter inclusion | — Pending |
 | Press as first-class section | HBO Max, PBS, Hulu, U2 Sphere, Amazon credits are commercial differentiators for the hiring-producer audience | — Pending |
 | Click-only video preview (no hover autoplay) | Bandwidth + accessibility; user framed as "like YouTube" which is click-to-play | — Pending |
@@ -105,7 +108,8 @@ This document evolves at phase transitions and milestone boundaries.
 - **Phase 1 (Foundation): Complete** — buildable SvelteKit scaffold + auto-deploying GitHub Pages staging URL at https://wolfwdavid.github.io/michelle_ngo_four/
 - **Phase 2 (Data Layer): Complete** — typed videos.json (56 records) + Zod schema + Vite plugin that fails `pnpm build` on schema violation + `$lib/data` public surface (`videos`, `producerReelId`, `getById`, `getByCategory`, category helpers); DATA-01..04 satisfied
 - **Phase 3 (Grid, Filter & Watch): Complete** — killer-feature loop wired end-to-end: `/work` (56-card grid) → click → `/watch/[id]/` (iframe + "More in [Category]" rail) → click sibling or category chip → `/work/[category]/` (8 prerendered slug pages with active TopNav highlight). TopNav D-41 active-state painted on prerendered HTML via `endsWith` suffix-match (Plan 03-05 gap closure). 79 unit tests across 10 files; 70 prerendered HTML pages; GRID-01..05 + FILT-01..04 + NAV-01 verified at structural-AND-behavioral level
-- Next: Phase 4 (Reel-Led Home)
+- **Phase 4 (Reel-Led Home): Complete** — reel-led home shipped: `<HeroPoster />` (full-bleed WebP hero + gradient + name/tagline/PLAY REEL CTA) above an 8-card featured grid (cross-category sampler in published-desc order) above a "View All Work →" link. TopNav extended with route-gated `$effect` + IntersectionObserver on `#hero-sentinel` for scroll-aware behavior on `/` only. Phase 1 splash retired. 99 unit tests across 12 files (all green, 0 skipped); `build/index.html` prerenders cleanly. HERO-01/02/03 satisfied at the prerendered-HTML level. 3 visual checks (gradient legibility / mobile dvh on iOS Safari / live scroll transition) tracked in 04-HUMAN-UAT.md
+- Next: Phase 5 (PBS American Portrait)
 
 ---
-*Last updated: 2026-05-11 after Phase 3 completion*
+*Last updated: 2026-05-11 after Phase 4 completion*
