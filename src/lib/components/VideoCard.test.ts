@@ -32,8 +32,10 @@ function reel(): Video {
 // Plan 03-01 removes `.skip` AND removes the `@ts-expect-error` directive once the
 // component exists. Returns a default Svelte 5 component-export shape.
 async function loadVideoCard() {
-  // @ts-expect-error — component exists after Plan 03-01
-  const mod = await import('./VideoCard.svelte');
+  // Defeat Vite's static import-analysis with a non-literal specifier.
+  // Removed entirely (along with this whole indirection) in Task 3 of this plan.
+  const spec = './VideoCard' + '.svelte';
+  const mod = await import(/* @vite-ignore */ spec);
   return mod.default;
 }
 

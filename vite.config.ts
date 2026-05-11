@@ -71,9 +71,46 @@ export default defineConfig({
   // build BEFORE Svelte starts compiling routes that import the data.
   plugins: [tailwindcss(), validateVideosPlugin(), sveltekit()],
   test: {
-    include: ['src/**/*.{test,spec}.{js,ts}'],
-    environment: 'node',
-    globals: false,
+    // Vitest 4 deprecated `vitest.workspace.ts` in favor of inline projects.
+    // This block replaces the standalone workspace file — same two-project
+    // split (data=node, ui=jsdom) so Phase 2 fast data-layer tests don't
+    // pay the jsdom bootstrap cost and component/route tests still get a DOM.
+    //
+    // Each project re-declares the plugin set so SvelteKit Vite plugins
+    // (tailwindcss, validateVideosPlugin, sveltekit) load in BOTH projects
+    // — required for $lib/* alias resolution and Svelte component compilation.
+    projects: [
+      {
+        plugins: [tailwindcss(), validateVideosPlugin(), sveltekit()],
+        test: {
+          name: 'data',
+          include: ['src/lib/data/**/*.{test,spec}.{js,ts}'],
+          environment: 'node',
+          globals: false,
+        },
+      },
+      {
+        plugins: [tailwindcss(), validateVideosPlugin(), sveltekit()],
+        // `mount()` from 'svelte' resolves to svelte/src/index-server.js
+        // unless we tell Vite to use browser conditions. Without this, every
+        // ui test crashes with `lifecycle_function_unavailable: mount(...)
+        // is not available on the server`.
+        resolve: {
+          conditions: ['browser'],
+        },
+        test: {
+          name: 'ui',
+          include: [
+            'src/lib/components/**/*.{test,spec}.{js,ts}',
+            'src/routes/**/*.{test,spec}.{js,ts}',
+          ],
+          environment: 'jsdom',
+          globals: false,
+        },
+      },
+    ],
+    // Coverage config stays at the root (not per-project) — applies to whatever
+    // files were touched during the run.
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html'],

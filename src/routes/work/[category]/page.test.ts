@@ -3,8 +3,11 @@ import { describe, expect, it } from 'vitest';
 // Lazy-import pattern (see /work/+page.test.ts header). Plan 03-02 creates
 // `./+page.ts` and removes this indirection + the `@ts-expect-error` directive.
 async function loadPage() {
-  // @ts-expect-error — module exists after Plan 03-02
-  return await import('./+page');
+  // Defeat Vite's static import-analysis with a non-literal specifier — the
+  // suite is describe.skip until Plan 03-02 creates ./+page.ts. Plan 03-02
+  // removes this indirection in favor of a top-level static import.
+  const spec = './' + '+page';
+  return await import(/* @vite-ignore */ spec);
 }
 
 describe.skip('/work/[category] +page.ts load — FILT-03 (D-29, D-30)', () => {

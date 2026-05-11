@@ -4,8 +4,11 @@ import { videos, producerReelId } from '$lib/data';
 // Lazy-import pattern (see /work/+page.test.ts header). Plan 03-03 creates
 // `./+page.ts` and removes this indirection + the `@ts-expect-error` directive.
 async function loadPage() {
-  // @ts-expect-error — module exists after Plan 03-03
-  return await import('./+page');
+  // Defeat Vite's static import-analysis with a non-literal specifier — the
+  // suite is describe.skip until Plan 03-03 creates ./+page.ts. Plan 03-03
+  // removes this indirection in favor of a top-level static import.
+  const spec = './' + '+page';
+  return await import(/* @vite-ignore */ spec);
 }
 
 describe.skip('/watch/[id] +page.ts load — FILT-01 (D-31, D-32, D-33)', () => {

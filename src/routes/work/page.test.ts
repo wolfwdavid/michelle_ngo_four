@@ -6,8 +6,11 @@ import { describe, expect, it } from 'vitest';
 // `await import()` pattern with a leading `// @ts-expect-error` directive. Plan
 // 03-02 removes `.skip` AND the `@ts-expect-error` directive when the route lands.
 async function loadPage() {
-  // @ts-expect-error — module exists after Plan 03-02
-  return await import('./+page');
+  // Defeat Vite's static import-analysis with a non-literal specifier — the
+  // suite is describe.skip until Plan 03-02 creates ./+page.ts. Plan 03-02
+  // removes this indirection in favor of a top-level static import.
+  const spec = './' + '+page';
+  return await import(/* @vite-ignore */ spec);
 }
 
 describe.skip('/work +page.ts load — GRID-02 + D-24 + D-25', () => {

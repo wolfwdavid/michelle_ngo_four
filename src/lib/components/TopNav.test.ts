@@ -34,8 +34,12 @@ function makeHost(): HTMLElement {
 // Lazy-import pattern (see VideoCard.test.ts header). Plan 03-04 creates
 // TopNav.svelte and removes this indirection + the `@ts-expect-error`.
 async function loadTopNav() {
-  // @ts-expect-error — component exists after Plan 03-04
-  const mod = await import('./TopNav.svelte');
+  // Defeat Vite's static import-analysis by computing the specifier at runtime
+  // (a non-literal expression). The suite is describe.skip until Plan 03-04
+  // lands TopNav.svelte; at that point this whole indirection is removed and
+  // replaced with a top-level static `import TopNav from './TopNav.svelte'`.
+  const spec = './TopNav' + '.svelte';
+  const mod = await import(/* @vite-ignore */ spec);
   return mod.default;
 }
 
