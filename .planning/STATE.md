@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 03-01-video-card-and-category-tag-PLAN.md
-last_updated: "2026-05-11T02:50:43.082Z"
+stopped_at: Completed 03-03-watch-route-PLAN.md
+last_updated: "2026-05-11T03:05:50.208Z"
 progress:
   total_phases: 7
   completed_phases: 2
   total_plans: 11
-  completed_plans: 8
+  completed_plans: 10
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-05-10)
 ## Current Position
 
 Phase: 03 (grid-filter-watch) — EXECUTING
-Plan: 3 of 5
+Plan: 4 of 5
 
 ## Performance Metrics
 
@@ -53,6 +53,8 @@ Plan: 3 of 5
 | Phase 02-data-layer P03-loader-and-vite-plugin | 7m | 2 tasks | 8 files |
 | Phase 03-grid-filter-watch P00-test-infrastructure | 14m | 3 tasks tasks | 11 files files |
 | Phase 03-grid-filter-watch P01 | 18m | 3 tasks | 11 files |
+| Phase 03-grid-filter-watch P03 | 9 | 2 tasks | 5 files |
+| Phase 03-grid-filter-watch P02-work-routes | 6m | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -90,6 +92,10 @@ Recent decisions affecting current work:
 - [Phase 03-grid-filter-watch]: Vitest 4 workspace migration (Rule 3 deviation): vitest.workspace.ts silently ignored by Vitest 4.1.5 (verified 'vitest list --project=ui' returns 'No projects matched'); migrated config into vite.config.ts test.projects with resolve.conditions: ['browser'] for the ui project so mount() resolves to client entry (not lifecycle_function_unavailable SSR entry). Deleted vitest.workspace.ts. Plan 03-00 'pnpm test green' was a false positive — all ui stubs were describe.skip so missing jsdom never surfaced
 - [Phase 03-grid-filter-watch]: Runtime-computed dynamic-import specifier (const spec = './' + '+page') for still-stubbed tests: /* @vite-ignore */ alone does NOT suppress vite:import-analysis for literal-string dynamic imports — only for non-literal expressions. Runtime concat IS non-literal from Vite's static perspective, so analysis skips resolution. Downstream plans 03-02/03/04 drop this hack entirely (replace loadXxx helper + spec with top-level static import) when they unskip
 - [Phase 03-grid-filter-watch]: CategoryTag and VideoCard use file-level eslint-disable svelte/no-navigation-without-resolve: CategoryTag forwards caller's href verbatim (leaf component; caller produces base-path-safe URL — VideoCard builds ${base}/watch/${id}); rule expects SvelteKit 2.27+ typed-routes resolve() form which would break the literal-href test patterns the tests rely on
+- [Phase 03-grid-filter-watch]: Plan 03-03: async load() so error(404) becomes a promise rejection — sync load() bypasses promise machinery and breaks .rejects.toMatchObject test patterns; async makes the throw surface as a rejection.
+- [Phase 03-grid-filter-watch]: Plan 03-03: callLoad() narrowing helper in route tests — SvelteKit's PageLoad widens awaited return to void | (...); helper narrows via if(!result)throw; pattern shared with parallel Plan 03-02 /work/page.test.ts
+- [Phase 03-grid-filter-watch]: Plan 03-03: trailingSlash='always' in src/routes/+layout.ts (Rule 3 deviation) — adapter-static default emits flat <route>.html but Plan 03-00 prerender-coverage script expects directory <route>/index.html; one-line fix in +layout.ts propagates to every route. Plan 03-04 inherits this.
+- [Phase 03-grid-filter-watch]: Plan 03-03: (data.video) instead of bare const {video,rail}=data in +page.svelte — Svelte 5 state_referenced_locally warning; $derived is canonical idiom; behavior identical on prerendered routes.
 
 ### Pending Todos
 
@@ -101,6 +107,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-11T02:50:43.074Z
-Stopped at: Completed 03-01-video-card-and-category-tag-PLAN.md
+Last session: 2026-05-11T03:05:34.159Z
+Stopped at: Completed 03-03-watch-route-PLAN.md
 Resume file: None

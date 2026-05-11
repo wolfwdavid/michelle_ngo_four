@@ -34,10 +34,10 @@
 
 ### Filter & Watch
 
-- [ ] **FILT-01**: Clicking a card navigates to `/watch/[id]` and plays the video
-- [ ] **FILT-02**: `/watch/[id]` displays a "more in this category" rail showing other videos sharing the clicked card's category
+- [x] **FILT-01**: Clicking a card navigates to `/watch/[id]` and plays the video
+- [x] **FILT-02**: `/watch/[id]` displays a "more in this category" rail showing other videos sharing the clicked card's category
 - [ ] **FILT-03**: User can browse all videos for a category at `/work/[category]`
-- [ ] **FILT-04**: Filter state is reflected in the URL so that pasting/reloading the URL shows the same filtered view
+- [x] **FILT-04**: Filter state is reflected in the URL so that pasting/reloading the URL shows the same filtered view
 
 ### PBS American Portrait
 
@@ -124,10 +124,10 @@ Updated during roadmap creation.
 | GRID-03 | Phase 3 | Complete |
 | GRID-04 | Phase 3 | Complete |
 | GRID-05 | Phase 3 | Complete |
-| FILT-01 | Phase 3 | Pending |
-| FILT-02 | Phase 3 | Pending |
+| FILT-01 | Phase 3 | Complete |
+| FILT-02 | Phase 3 | Complete |
 | FILT-03 | Phase 3 | Pending |
-| FILT-04 | Phase 3 | Pending |
+| FILT-04 | Phase 3 | Complete |
 | PBS-01 | Phase 5 | Pending |
 | PBS-02 | Phase 5 | Pending |
 | PBS-03 | Phase 5 | Pending |
