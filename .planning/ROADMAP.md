@@ -82,11 +82,14 @@ Plans:
   2. Michelle's name and a tone-setting tagline render legibly over the hero on every breakpoint
   3. Clicking PLAY REEL navigates to her producer's reel inside the watch view and plays it
   4. A featured video grid renders below the hero using the Phase 3 card component
-**Plans**: TBD
+**Plans**: 5 plans
 
 Plans:
-- [ ] 04-01: Build full-bleed hero component (reel/looping video + name + tagline + PLAY REEL CTA)
-- [ ] 04-02: Compose `/` route with hero + featured grid below
+- [ ] 04-01-test-infrastructure-PLAN.md — Add IntersectionObserver jsdom stub (vitest-setup-ui.ts) + wire into vite.config.ts ui project setupFiles; create RED-by-skip test stubs for HeroPoster.test.ts (5 suites: LCP attrs / preload link / name and tagline / PLAY REEL href / PLAY REEL prefetch + sentinel) and page.test.ts (3 suites: renders hero / 8 featured cards / View All Work link); extend videos.test.ts with featured-slice suite (D-23/24/26) and TopNav.test.ts with scroll-aware suites (D-13/14) (Wave 0, no requirement IDs)
+- [ ] 04-02-hero-poster-component-PLAN.md — User-gated frame pick from Vimeo 264677021 + create src/lib/assets/hero-poster.{jpg|webp} + build src/lib/components/HeroPoster.svelte (verbatim 04-RESEARCH Pattern 1: img + gradient + h1 + tagline + ▷ PLAY REEL CTA + scroll cue + #hero-sentinel) with <link rel="preload"> in <svelte:head>; flip HeroPoster.test.ts to GREEN (Wave 1, depends on 04-01, addresses HERO-01, HERO-02, HERO-03)
+- [ ] 04-03-featured-slice-flips-PLAN.md — User-gated review of the curated 8-video table (D-23 quota: 2 PBS / 2 Promos / 2 Branded / 1 Doc / 1 Reel; Pitfall 8 reel-inclusion lock) + flip `"featured": true` on the 8 approved rows of src/lib/data/videos.json; flip videos.test.ts featured suite to GREEN (Wave 1, depends on 04-01, addresses D-23/D-24/D-26 — feeds HERO-01 featured grid)
+- [ ] 04-04-topnav-scroll-aware-PLAN.md — Extend src/lib/components/TopNav.svelte with $effect + IntersectionObserver on #hero-sentinel (transparent over hero on `/`, solid on every other route) + $derived navClass with two literal class strings (Pitfall 4); flip TopNav.test.ts scroll-aware + non-home suites to GREEN (Wave 1, depends on 04-01 + 04-02 sentinel contract, addresses D-13/D-14 — feeds HERO-01 hero presentation)
+- [ ] 04-05-home-page-composition-PLAN.md — Create src/routes/+page.ts (featured filter + published desc sort, mirrors /work/+page.ts) + REPLACE src/routes/+page.svelte entirely (D-15 retire Phase 1 splash): <HeroPoster /> + featured grid (8 cards eager={true}, verbatim /work markup) + "View All Work →" overflow link (D-28); flip page.test.ts to GREEN; verify pnpm test:prerender (Wave 2, depends on 04-02 + 04-03 + 04-04, addresses HERO-01, HERO-02, HERO-03)
 
 ### Phase 5: PBS American Portrait
 **Goal**: A producer can land on a dedicated PBS American Portrait page, read the project context, and browse all 18 PBS videos — while PBS also remains a regular filterable category from `/work`.
@@ -146,7 +149,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 1. Foundation | 0/2 | Planned | - |
 | 2. Data Layer | 4/4 | Complete   | 2026-05-10 |
 | 3. Grid, Filter & Watch | 0/5 | Planned | - |
-| 4. Reel-Led Home | 0/2 | Not started | - |
+| 4. Reel-Led Home | 0/5 | Planned | - |
 | 5. PBS American Portrait | 0/2 | Not started | - |
 | 6. Press, About & Contact | 0/3 | Not started | - |
 | 7. Polish & Production Cutover | 0/3 | Not started | - |
@@ -156,3 +159,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 *Phase 1 plans created: 2026-05-10*
 *Coverage: 30/30 v1 requirements mapped — no orphans, no duplicates*
 *Phase 3 plans created: 2026-05-11*
+*Phase 4 plans created: 2026-05-11*
