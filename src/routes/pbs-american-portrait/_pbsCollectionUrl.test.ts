@@ -6,7 +6,7 @@ import { videos } from '$lib/data';
 // embedded in description; 3 do not. Audit-verified ids (RESEARCH §Code Examples 5):
 const PBS_NULL_IDS = ['620232398', '1007061884', '1007027015'] as const;
 
-describe.skip('pbsCollectionUrl — 15 positive extractions (D-21)', () => {
+describe('pbsCollectionUrl — 15 positive extractions (D-21)', () => {
   it('extracts a https://www.pbs.org/american-portrait/collection/... URL from each of the 15 records that contain one', () => {
     const pbs = videos.filter((v) => v.category === 'PBS American Portrait');
     const withUrl = pbs.filter((v) => !PBS_NULL_IDS.includes(v.id as (typeof PBS_NULL_IDS)[number]));
@@ -23,7 +23,7 @@ describe.skip('pbsCollectionUrl — 15 positive extractions (D-21)', () => {
   });
 });
 
-describe.skip('pbsCollectionUrl — returns null for 3 records without URL (Pitfall 4)', () => {
+describe('pbsCollectionUrl — returns null for 3 records without URL (Pitfall 4)', () => {
   it('returns null for American Portrait Year in Review 2020 (id 620232398)', () => {
     const v = videos.find((x) => x.id === '620232398');
     expect(v, 'fixture missing').toBeDefined();
@@ -41,7 +41,7 @@ describe.skip('pbsCollectionUrl — returns null for 3 records without URL (Pitf
   });
 });
 
-describe.skip('pbsCollectionUrl — edge cases', () => {
+describe('pbsCollectionUrl — edge cases', () => {
   it('strips trailing period', () => {
     const url = pbsCollectionUrl(
       'See the collection at https://www.pbs.org/american-portrait/collection/57/i-began-to-live-my-truth/.'

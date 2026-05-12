@@ -40,7 +40,7 @@ function makeHost(): HTMLElement {
   return host;
 }
 
-describe.skip('/pbs-american-portrait load — PBS-02 (D-18 sort, 18 cards)', () => {
+describe('/pbs-american-portrait load — PBS-02 (D-18 sort, 18 cards)', () => {
   it('load returns 18 videos (all PBS)', async () => {
     const result = await callLoad({} as Parameters<typeof load>[0]);
     expect(result.videos.length).toBe(18);
@@ -64,7 +64,7 @@ describe.skip('/pbs-american-portrait load — PBS-02 (D-18 sort, 18 cards)', ()
   });
 });
 
-describe.skip('/pbs-american-portrait render — PBS-02 (D-08, D-09, D-10, D-12, D-16, D-19)', () => {
+describe('/pbs-american-portrait render — PBS-02 (D-08, D-09, D-10, D-12, D-16, D-19)', () => {
   it('renders 18 cards', async () => {
     const data = await callLoad({} as Parameters<typeof load>[0]);
     component = mount(Page, { target: makeHost(), props: { data } });
@@ -111,7 +111,7 @@ describe.skip('/pbs-american-portrait render — PBS-02 (D-08, D-09, D-10, D-12,
   });
 });
 
-describe.skip('/pbs-american-portrait per-card PBS badges — PBS-02 (D-21)', () => {
+describe('/pbs-american-portrait per-card PBS badges — PBS-02 (D-21)', () => {
   it('15 "See on PBS →" badges rendered (3 PBS videos have no collection URL)', async () => {
     const data = await callLoad({} as Parameters<typeof load>[0]);
     component = mount(Page, { target: makeHost(), props: { data } });

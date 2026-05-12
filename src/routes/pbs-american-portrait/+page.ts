@@ -1,19 +1,20 @@
 /**
- * Phase 5 Plan 05-01 Wave 0 stub for /pbs-american-portrait/.
+ * /pbs-american-portrait/ — Phase 5 D-01 flagship landing route.
  *
- * Returns an empty videos array + empty pbsBlurb. Plan 05-02 Task 2 replaces
- * this with the real getByCategory('PBS American Portrait') + D-18 sort.
+ * Parameterless prerendered route. `prerender = true` + `trailingSlash = 'always'`
+ * inherited from src/routes/+layout.ts. No entries() needed (flat route).
  *
- * Sync (no async): no error() throw, no rejection contract — mirrors /+page.ts (Phase 4).
+ * Load returns the 18 PBS videos sorted D-18 (featured-first then date-desc),
+ * mirroring /work/[category]/+page.ts shape.
  *
- * Why `Video[]` (not `never[]`): page.test.ts iterates the array and accesses
- * `.published`/`.featured`. Even under describe.skip, svelte-check still
- * type-checks the bodies. Typing as `Video[]` matches the future GREEN shape.
+ * Sync (no async) — no error() throw, no rejection contract; matches Phase 4 /+page.ts.
  */
 import type { PageLoad } from './$types';
-import type { Video } from '$lib/data';
+import { getByCategory } from '$lib/data';
 
 export const load: PageLoad = () => ({
-  videos: [] as Video[],
-  pbsBlurb: '',
+  videos: [...getByCategory('PBS American Portrait')].toSorted((a, b) => {
+    if (a.featured !== b.featured) return a.featured ? -1 : 1;
+    return b.published.localeCompare(a.published);
+  }),
 });
