@@ -96,11 +96,20 @@ if (!pbsLandingExists) {
   failures.push('Missing build/pbs-american-portrait/index.html (the PBS American Portrait landing route).');
 }
 
+// Phase 6: /press — broadcast credits landing route.
+// Prerendered (inherits from src/routes/+layout.ts prerender=true).
+// Build emits build/press/index.html when the route exists with real content.
+const pressIndex = join(BUILD, 'press', 'index.html');
+const pressIndexExists = existsSync(pressIndex);
+if (!pressIndexExists) {
+  failures.push('Missing build/press/index.html (the broadcast credits landing route).');
+}
+
 if (failures.length > 0) {
   console.error('[test-prerender-coverage] FAIL:');
   for (const f of failures) console.error('  - ' + f);
   console.error(
-    `Found: build/work/index.html=${workIndexExists}, build/work/<slug>/index.html count=${workCategoryDirs}, build/watch/<id>/index.html count=${watchIdDirs}, build/pbs-american-portrait/index.html=${pbsLandingExists}.`,
+    `Found: build/work/index.html=${workIndexExists}, build/work/<slug>/index.html count=${workCategoryDirs}, build/watch/<id>/index.html count=${watchIdDirs}, build/pbs-american-portrait/index.html=${pbsLandingExists}, build/press/index.html=${pressIndexExists}.`,
   );
   process.exit(1);
 }
@@ -114,4 +123,5 @@ console.log(
   `  - build/watch/<id>/index.html: ${watchIdDirs} files (expected ≥${expectedVideoIds})`,
 );
 console.log(`  - build/pbs-american-portrait/index.html: present`);
+console.log(`  - build/press/index.html: present`);
 process.exit(0);
