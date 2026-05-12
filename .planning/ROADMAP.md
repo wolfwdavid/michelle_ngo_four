@@ -104,7 +104,7 @@ Plans:
 
 Plans:
 - [x] 05-01-PLAN.md — Wave 0 scaffolding: surface verbatim PBS copy candidates for user pick (D-11 gate) + create RED-by-skip test stubs for the PBS landing route, helper, TopNav extension, and cross-links + extend prerender coverage script (Wave 1, addresses PBS-02)
-- [ ] 05-02-PLAN.md — Build /pbs-american-portrait/ landing (load + full layout + 15 per-card badges) + retarget TopNav PBS link with D-03 active-state extension + wire D-04 (/work/pbs-american-portrait/) and D-05 (/watch/[id] PBS-only) cross-links; flip all Wave 0 stubs to GREEN (Wave 2, depends on 05-01, addresses PBS-01, PBS-02, PBS-03)
+- [x] 05-02-PLAN.md — Build /pbs-american-portrait/ landing (load + full layout + 15 per-card badges) + retarget TopNav PBS link with D-03 active-state extension + wire D-04 (/work/pbs-american-portrait/) and D-05 (/watch/[id] PBS-only) cross-links; flip all Wave 0 stubs to GREEN (Wave 2, depends on 05-01, addresses PBS-01, PBS-02, PBS-03)
 
 ### Phase 6: Press, About & Contact
 **Goal**: A producer can find Michelle's broadcast credits, bio, and contact channels through dedicated pages and a footer-mirrored nav — every page reinforces commercial credibility.

@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 05-01-PLAN.md (Wave 0 scaffold + Candidate C copy lock)
-last_updated: "2026-05-12T19:33:30.561Z"
+stopped_at: Completed 05-02-PLAN.md (PBS American Portrait flagship landing — PBS-01/02/03)
+last_updated: "2026-05-12T19:42:43.173Z"
 progress:
   total_phases: 7
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 19
-  completed_plans: 18
+  completed_plans: 19
 ---
 
 # Project State
@@ -62,6 +62,7 @@ Plan: 2 of 2
 | Phase 04-reel-led-home P04 | 5m | 1 task tasks | 2 files files |
 | Phase 04-reel-led-home P05 | 6m | 1 tasks | 3 files |
 | Phase 05-pbs-american-portrait P01 | 9m | 3 tasks | 11 files |
+| Phase 05-pbs-american-portrait P02 | 5m | 3 tasks tasks | 11 files files |
 
 ## Accumulated Context
 
@@ -127,6 +128,9 @@ Recent decisions affecting current work:
 - [Phase 05-pbs-american-portrait]: Plan 05-01: PageData-narrowed callLoad helper required whenever a test BOTH calls load() AND mounts Page (mount needs strict Category enum literal — hand-narrowed {category:string,...} fails prop-type check). Pattern carried forward from Phase 4 Plan 04-05; applied to work/[category]/page.test.ts and pbs-american-portrait/page.test.ts
 - [Phase 05-pbs-american-portrait]: Plan 05-01: Entity-escape <approved>...</approved> example tags inside doc-comment in PLAN.md so Task 1 verify regex (non-greedy first-match) captures the REAL approved element, not the literal '...' placeholder example. Without this, the regex captured 3 chars and failed the length-bounded check
 - [Phase 05-pbs-american-portrait]: Plan 05-01: Per-file distinct mockPage identifiers (mockPage / mockPageW / mockPageWk) via vi.hoisted — eliminates risk of cross-suite scope collision under Vitest 4 worker pooling when multiple test files share a worker
+- [Phase 05-pbs-american-portrait]: Plan 05-02: Coalesce video.description ?? '' at +page.svelte helper call sites — carries Plan 05-01 SUMMARY auto-fix #3 forward (Video.description is z.string().optional() per Phase 2 schema D-06); keeps pbsCollectionUrl signature pure (string) and matches the test file's coalesced approach
+- [Phase 05-pbs-american-portrait]: Plan 05-02: TopNav slug-guarded /pbs-american-portrait/ suffix-match in isActive() — explicit slug === 'pbs-american-portrait' check before endsWith prevents future categories with similar suffix from false-positive highlighting on the flagship surface
+- [Phase 05-pbs-american-portrait]: Plan 05-02: TopNav href ternary via {@const href = ...} inside #each block — pre-computes the URL in template scope; cleaner than inline ternary inside href attribute; follows Phase 4 D-13 navClass two-literal-strings discipline
 
 ### Pending Todos
 
@@ -138,6 +142,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-12T19:33:30.557Z
-Stopped at: Completed 05-01-PLAN.md (Wave 0 scaffold + Candidate C copy lock)
+Last session: 2026-05-12T19:42:43.169Z
+Stopped at: Completed 05-02-PLAN.md (PBS American Portrait flagship landing — PBS-01/02/03)
 Resume file: None
