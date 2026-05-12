@@ -111,7 +111,7 @@ function makeHostWk(): HTMLElement {
   return hostWk;
 }
 
-describe.skip('/work/[category] — Phase 5 D-04 PBS cross-link', () => {
+describe('/work/[category] — Phase 5 D-04 PBS cross-link', () => {
   it('PBS cross-link present when category === "PBS American Portrait"', async () => {
     const data = await callLoad({ params: { category: 'pbs-american-portrait' } } as Parameters<typeof load>[0]);
     componentWk = mount(Page, { target: makeHostWk(), props: { data } });

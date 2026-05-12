@@ -131,7 +131,7 @@ function makeHostW(): HTMLElement {
   return hostW;
 }
 
-describe.skip('/watch/[id] — Phase 5 D-05 PBS cross-link', () => {
+describe('/watch/[id] — Phase 5 D-05 PBS cross-link', () => {
   it('PBS cross-link present when video.category === "PBS American Portrait"', async () => {
     // Pick the first PBS video in the data (any will do — the link is conditional, not data-dependent).
     const pbs = videos.find((v) => v.category === 'PBS American Portrait');

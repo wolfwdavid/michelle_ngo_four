@@ -65,6 +65,14 @@
         {video.description}
       </p>
     {/if}
+    {#if video.category === 'PBS American Portrait'}
+      <!-- Phase 5 D-05: cross-link to the dedicated PBS landing (PBS videos only). -->
+      <p class="text-sm text-neutral-400 pt-2">
+        <a href={`${base}/pbs-american-portrait/`} class="hover:underline">
+          → About the PBS American Portrait project
+        </a>
+      </p>
+    {/if}
   </div>
 
   <!-- D-36/37/38 Rail: heading-is-link, same VideoCard + 2/3/4 grid, hide if empty -->
