@@ -239,3 +239,61 @@ describe('TopNav — D-13 solid on non-home routes', () => {
     expect(header?.className).not.toMatch(/bg-transparent/);
   });
 });
+
+// ---------------------------------------------------------------------------
+// Phase 5 D-02 + D-03: retarget PBS link to /pbs-american-portrait/ and
+// extend active-state to highlight on BOTH /pbs-american-portrait/ AND
+// /work/pbs-american-portrait/. Other 7 category links still point to /work/<slug>.
+// RED-by-skip in Plan 05-01; Plan 05-02 Task 1 turns these green.
+// ---------------------------------------------------------------------------
+
+describe.skip('TopNav — Phase 5 PBS retarget + active-state extension', () => {
+  it('D-02: PBS link href is /pbs-american-portrait/ (retargeted from /work/pbs-american-portrait; trailing slash matches D-01 trailingSlash=always)', () => {
+    component = mount(TopNav, { target: makeHost(), props: {} });
+    const pbsLink = Array.from(host.querySelectorAll('a')).find(
+      (a) => a.textContent?.trim() === 'PBS American Portrait'
+    );
+    expect(pbsLink?.getAttribute('href')).toBe('/pbs-american-portrait/');
+  });
+
+  it('D-02 regression: non-PBS category links still point to /work/<slug>', () => {
+    component = mount(TopNav, { target: makeHost(), props: {} });
+    // Pick any non-PBS category — Reel is a known slug in the taxonomy.
+    const reelLink = Array.from(host.querySelectorAll('a')).find(
+      (a) => a.textContent?.trim() === 'Reel'
+    );
+    expect(reelLink?.getAttribute('href')).toBe('/work/reel');
+  });
+
+  it('D-03: on /pbs-american-portrait/, PBS link gets cat-pbs accent class (NEW surface)', () => {
+    mockPage.url = new URL('http://localhost/pbs-american-portrait/');
+    mockPage.route = { id: '/pbs-american-portrait' };
+    component = mount(TopNav, { target: makeHost(), props: {} });
+    const pbsLink = Array.from(host.querySelectorAll('a')).find(
+      (a) => a.textContent?.trim() === 'PBS American Portrait'
+    );
+    expect(pbsLink?.className).toMatch(/text-cat-pbs/);
+  });
+
+  it('D-03 regression: on /work/pbs-american-portrait/, PBS link STILL gets cat-pbs accent class (existing surface preserved)', () => {
+    mockPage.url = new URL('http://localhost/work/pbs-american-portrait/');
+    mockPage.route = { id: '/work/[category]' };
+    component = mount(TopNav, { target: makeHost(), props: {} });
+    const pbsLink = Array.from(host.querySelectorAll('a')).find(
+      (a) => a.textContent?.trim() === 'PBS American Portrait'
+    );
+    expect(pbsLink?.className).toMatch(/text-cat-pbs/);
+  });
+
+  it('D-03 disambiguation: on /pbs-american-portrait/, OTHER category links are NOT highlighted', () => {
+    mockPage.url = new URL('http://localhost/pbs-american-portrait/');
+    mockPage.route = { id: '/pbs-american-portrait' };
+    component = mount(TopNav, { target: makeHost(), props: {} });
+    const order = getCategoriesInDisplayOrder();
+    const highlighted = Array.from(host.querySelectorAll('a'))
+      .filter((a) => order.includes((a.textContent?.trim() ?? '') as (typeof order)[number]))
+      .filter((a) => /text-cat-/.test(a.className))
+      .map((a) => a.textContent?.trim());
+    expect(highlighted).toEqual(['PBS American Portrait']);
+  });
+});

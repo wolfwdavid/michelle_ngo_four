@@ -1,7 +1,20 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { load, entries } from './+page';
 import { videos, producerReelId } from '$lib/data';
 import type { Video } from '$lib/data';
+
+// Phase 5 D-05 mocks: $app/state + $app/paths. vi.hoisted lifts mockPageW
+// alongside the vi.mock() factory (Vitest 4 idiom — see TopNav.test.ts lines 11-17
+// for the canonical reference pattern). Distinct identifier (`mockPageW`) avoids
+// any future collision if more test files share the worker.
+const { mockPageW } = vi.hoisted(() => ({
+  mockPageW: { url: new URL('http://localhost/'), route: { id: null as string | null } },
+}));
+vi.mock('$app/state', () => ({ page: mockPageW }));
+vi.mock('$app/paths', () => ({ base: '' }));
+
+import { mount, unmount } from 'svelte';
+import Page from './+page.svelte';
 
 // SvelteKit's PageLoad generic widens the awaited return to `void | (... & Record<string, any>)`,
 // which blocks direct property access. Narrowing through a small helper preserves the
@@ -92,5 +105,49 @@ describe('/watch/[id] +page.ts entries — FILT-01 prerender enumeration', () =>
   it('entries include the producer reel id (vimeo:264677021)', async () => {
     const ids = (entries() as Array<{ id: string }>).map((e) => e.id);
     expect(ids).toContain('264677021');
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Phase 5 D-05: PBS-only cross-link `→ About the PBS American Portrait project`
+// rendered below the description on /watch/[id]. RED-by-skip in Plan 05-01;
+// Plan 05-02 Task 3 turns this green by adding the conditional anchor.
+// All imports + vi.mock + vi.hoisted live at the TOP of this file (PART A).
+// ---------------------------------------------------------------------------
+
+let hostW: HTMLElement;
+let componentW: ReturnType<typeof mount> | undefined;
+beforeEach(() => {
+  mockPageW.url = new URL('http://localhost/');
+  mockPageW.route = { id: '/watch/[id]' };
+});
+afterEach(() => {
+  if (componentW) { unmount(componentW); componentW = undefined; }
+  hostW?.remove();
+});
+function makeHostW(): HTMLElement {
+  hostW = document.createElement('div');
+  document.body.appendChild(hostW);
+  return hostW;
+}
+
+describe.skip('/watch/[id] — Phase 5 D-05 PBS cross-link', () => {
+  it('PBS cross-link present when video.category === "PBS American Portrait"', async () => {
+    // Pick the first PBS video in the data (any will do — the link is conditional, not data-dependent).
+    const pbs = videos.find((v) => v.category === 'PBS American Portrait');
+    if (!pbs) throw new Error('test fixture missing: any PBS video');
+    const data = await callLoad({ params: { id: pbs.id } } as Parameters<typeof load>[0]);
+    componentW = mount(Page, { target: makeHostW(), props: { data } });
+    const crossLink = hostW.querySelector('a[href="/pbs-american-portrait/"]');
+    expect(crossLink).not.toBeNull();
+    expect(crossLink?.textContent?.trim()).toContain('About the PBS American Portrait project');
+  });
+
+  it('PBS cross-link absent when video.category !== "PBS American Portrait"', async () => {
+    // Producer reel — category === 'Reel'.
+    const data = await callLoad({ params: { id: producerReelId } } as Parameters<typeof load>[0]);
+    componentW = mount(Page, { target: makeHostW(), props: { data } });
+    const crossLink = hostW.querySelector('a[href="/pbs-american-portrait/"]');
+    expect(crossLink).toBeNull();
   });
 });

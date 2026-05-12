@@ -84,11 +84,23 @@ if (watchIdDirs < expectedVideoIds) {
   );
 }
 
+// Phase 5: /pbs-american-portrait/ — flat parameterless prerendered route.
+// The build emits build/pbs-american-portrait/index.html when the route exists.
+// BEHAVIOR: while Plan 05-01 stub renders the route, it's still expected to
+// prerender. Plan 05-02 builds out the full route — this check stays meaningful
+// either way: if pnpm build succeeded and adapter-static is healthy, the file
+// MUST exist.
+const pbsLandingIndex = join(BUILD, 'pbs-american-portrait', 'index.html');
+const pbsLandingExists = existsSync(pbsLandingIndex);
+if (!pbsLandingExists) {
+  failures.push('Missing build/pbs-american-portrait/index.html (the PBS American Portrait landing route).');
+}
+
 if (failures.length > 0) {
   console.error('[test-prerender-coverage] FAIL:');
   for (const f of failures) console.error('  - ' + f);
   console.error(
-    `Found: build/work/index.html=${workIndexExists}, build/work/<slug>/index.html count=${workCategoryDirs}, build/watch/<id>/index.html count=${watchIdDirs}.`,
+    `Found: build/work/index.html=${workIndexExists}, build/work/<slug>/index.html count=${workCategoryDirs}, build/watch/<id>/index.html count=${watchIdDirs}, build/pbs-american-portrait/index.html=${pbsLandingExists}.`,
   );
   process.exit(1);
 }
@@ -101,4 +113,5 @@ console.log(
 console.log(
   `  - build/watch/<id>/index.html: ${watchIdDirs} files (expected ≥${expectedVideoIds})`,
 );
+console.log(`  - build/pbs-american-portrait/index.html: present`);
 process.exit(0);
