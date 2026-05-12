@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: unknown
-stopped_at: Completed 06-01-press-page-PLAN.md
+status: paused
+stopped_at: 06-02 paused at human-action checkpoint — awaiting IMDb + LinkedIn URLs (Vimeo seed = vimeo.com/user2149742)
 last_updated: "2026-05-12T21:44:10.212Z"
 progress:
   total_phases: 7
@@ -23,8 +23,8 @@ See: .planning/PROJECT.md (updated 2026-05-10)
 
 ## Current Position
 
-Phase: 06 (press-about-contact) — EXECUTING
-Plan: 1 of 3
+Phase: 06 (press-about-contact) — PAUSED
+Plan: 1 of 3 complete (06-01 shipped); 06-02 blocked on URLs; 06-03 blocked on 06-02
 
 ## Performance Metrics
 
@@ -142,10 +142,10 @@ None yet.
 
 ### Blockers/Concerns
 
-None yet.
+- Phase 06 paused: 06-02 requires real IMDb + LinkedIn URLs before `<ContactBlock />` can be built. Vimeo can default to `https://vimeo.com/user2149742` (PROJECT.md seed) or be replaced. PLAN.md explicitly forbids placeholder URLs (would fail tests + ship dead links). Resume with `/gsd:execute-phase 6` once URLs are in hand.
 
 ## Session Continuity
 
 Last session: 2026-05-12T21:44:10.201Z
-Stopped at: Completed 06-01-press-page-PLAN.md
-Resume file: None
+Stopped at: 06-02 human-action checkpoint — awaiting IMDb + LinkedIn URLs
+Resume file: .planning/phases/06-press-about-contact/06-02-about-contact-pages-PLAN.md (checkpoint table lines 122–134)
