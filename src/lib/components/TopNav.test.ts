@@ -70,12 +70,18 @@ describe('TopNav — NAV-01 baseline rendering (D-39, D-40)', () => {
     expect(texts).toContain('Contact');
   });
 
-  it('category links use /work/<slug> hrefs', () => {
+  it('PBS link uses /pbs-american-portrait/ href (D-02); other 7 categories use /work/<slug>', () => {
     component = mount(TopNav, { target: makeHost(), props: {} });
     const pbsLink = Array.from(host.querySelectorAll('a')).find(
       (a) => a.textContent?.trim() === 'PBS American Portrait'
     );
-    expect(pbsLink?.getAttribute('href')).toBe('/work/pbs-american-portrait');
+    // Phase 5 D-02: PBS retargeted to /pbs-american-portrait/ (special-cased; trailing slash matches D-01 trailingSlash='always').
+    // The 7 other category links still use /work/<slug>.
+    expect(pbsLink?.getAttribute('href')).toBe('/pbs-american-portrait/');
+    const reelLink = Array.from(host.querySelectorAll('a')).find(
+      (a) => a.textContent?.trim() === 'Reel'
+    );
+    expect(reelLink?.getAttribute('href')).toBe('/work/reel');
   });
 });
 
@@ -247,7 +253,7 @@ describe('TopNav — D-13 solid on non-home routes', () => {
 // RED-by-skip in Plan 05-01; Plan 05-02 Task 1 turns these green.
 // ---------------------------------------------------------------------------
 
-describe.skip('TopNav — Phase 5 PBS retarget + active-state extension', () => {
+describe('TopNav — Phase 5 PBS retarget + active-state extension', () => {
   it('D-02: PBS link href is /pbs-american-portrait/ (retargeted from /work/pbs-american-portrait; trailing slash matches D-01 trailingSlash=always)', () => {
     component = mount(TopNav, { target: makeHost(), props: {} });
     const pbsLink = Array.from(host.querySelectorAll('a')).find(

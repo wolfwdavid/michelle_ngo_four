@@ -109,7 +109,15 @@
     // endsWith on `/work/${slug}` sidesteps both: it matches the absolute
     // pathname's slug suffix regardless of `base` shape (relative or absolute
     // deployed prefix), and the trailing-slash strip handles trailingSlash.
-    return page.url.pathname.replace(/\/$/, '').endsWith(`/work/${slug}`);
+    const normalized = page.url.pathname.replace(/\/$/, '');
+    // Phase 3 D-41: standard /work/<slug> active match.
+    if (normalized.endsWith(`/work/${slug}`)) return true;
+    // Phase 5 D-03: PBS gets a flagship landing surface that also counts as "active".
+    // Slug guard prevents future categories with the same suffix from false-positive.
+    if (slug === 'pbs-american-portrait' && normalized.endsWith('/pbs-american-portrait')) {
+      return true;
+    }
+    return false;
   }
 </script>
 
@@ -121,9 +129,13 @@
     <ul class="hidden sm:flex items-center gap-4 text-xs uppercase tracking-wider">
       {#each categories as category (category)}
         {@const slug = categoryToSlug(category)}
+        {@const href =
+          slug === 'pbs-american-portrait'
+            ? `${base}/pbs-american-portrait/`
+            : `${base}/work/${slug}`}
         <li>
           <a
-            href={`${base}/work/${slug}`}
+            {href}
             data-sveltekit-preload-data="hover"
             class={isActive(slug) ? categoryAccent(category) : 'text-neutral-300 hover:text-white'}
           >
