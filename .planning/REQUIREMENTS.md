@@ -47,8 +47,8 @@
 
 ### Press
 
-- [ ] **PRES-01**: User can navigate to a dedicated `/press` page
-- [ ] **PRES-02**: Press page surfaces broadcast credits (HBO Max, PBS, Hulu, Amazon, U2 Sphere, Music Box, etc.) with network/publication names
+- [x] **PRES-01**: User can navigate to a dedicated `/press` page
+- [x] **PRES-02**: Press page surfaces broadcast credits (HBO Max, PBS, Hulu, Amazon, U2 Sphere, Music Box, etc.) with network/publication names
 
 ### About
 
@@ -131,8 +131,8 @@ Updated during roadmap creation.
 | PBS-01 | Phase 5 | Complete |
 | PBS-02 | Phase 5 | Complete |
 | PBS-03 | Phase 5 | Complete |
-| PRES-01 | Phase 6 | Pending |
-| PRES-02 | Phase 6 | Pending |
+| PRES-01 | Phase 6 | Complete |
+| PRES-02 | Phase 6 | Complete |
 | ABT-01 | Phase 6 | Pending |
 | ABT-02 | Phase 6 | Pending |
 | CONT-01 | Phase 6 | Pending |

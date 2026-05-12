@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Phase 6 context gathered
-last_updated: "2026-05-12T20:59:01.096Z"
+stopped_at: Completed 06-01-press-page-PLAN.md
+last_updated: "2026-05-12T21:44:10.212Z"
 progress:
   total_phases: 7
   completed_phases: 5
-  total_plans: 19
-  completed_plans: 19
+  total_plans: 22
+  completed_plans: 20
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-10)
 
 **Core value:** A producer can land on the site, watch the reel, click any video, and immediately see "more like this" — every interaction reinforces the depth and breadth of her video work.
-**Current focus:** Phase 05 — pbs-american-portrait
+**Current focus:** Phase 06 — press-about-contact
 
 ## Current Position
 
-Phase: 6
-Plan: Not started
+Phase: 06 (press-about-contact) — EXECUTING
+Plan: 1 of 3
 
 ## Performance Metrics
 
@@ -63,6 +63,7 @@ Plan: Not started
 | Phase 04-reel-led-home P05 | 6m | 1 tasks | 3 files |
 | Phase 05-pbs-american-portrait P01 | 9m | 3 tasks | 11 files |
 | Phase 05-pbs-american-portrait P02 | 5m | 3 tasks tasks | 11 files files |
+| Phase 06-press-about-contact P01 | 5m | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -131,6 +132,9 @@ Recent decisions affecting current work:
 - [Phase 05-pbs-american-portrait]: Plan 05-02: Coalesce video.description ?? '' at +page.svelte helper call sites — carries Plan 05-01 SUMMARY auto-fix #3 forward (Video.description is z.string().optional() per Phase 2 schema D-06); keeps pbsCollectionUrl signature pure (string) and matches the test file's coalesced approach
 - [Phase 05-pbs-american-portrait]: Plan 05-02: TopNav slug-guarded /pbs-american-portrait/ suffix-match in isActive() — explicit slug === 'pbs-american-portrait' check before endsWith prevents future categories with similar suffix from false-positive highlighting on the flagship surface
 - [Phase 05-pbs-american-portrait]: Plan 05-02: TopNav href ternary via {@const href = ...} inside #each block — pre-computes the URL in template scope; cleaner than inline ternary inside href attribute; follows Phase 4 D-13 navClass two-literal-strings discipline
+- [Phase 06-press-about-contact]: Plan 06-01: Locked prestige order verbatim from PLAN.md checkpoint table — 13 distinct non-Michelle uploaders, each with 1 credit. Audit-verified at execution time
+- [Phase 06-press-about-contact]: Plan 06-01: Press helper test lives under src/routes/** (vitest 'ui' jsdom project) — co-located with helper per Phase 5 _pbsCollectionUrl pattern; pure function so DOM isolation is harmless
+- [Phase 06-press-about-contact]: Plan 06-01: PRESTIGE_ORDER iteration + insertion-order fallback for unknown uploaders — future videos.json rows with new uploaders append at end (no crash, no silent drop)
 
 ### Pending Todos
 
@@ -142,6 +146,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-12T20:59:01.087Z
-Stopped at: Phase 6 context gathered
-Resume file: .planning/phases/06-press-about-contact/06-CONTEXT.md
+Last session: 2026-05-12T21:44:10.201Z
+Stopped at: Completed 06-01-press-page-PLAN.md
+Resume file: None
