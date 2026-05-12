@@ -42,7 +42,7 @@
 ### PBS American Portrait
 
 - [ ] **PBS-01**: User can navigate to a dedicated PBS American Portrait landing page
-- [ ] **PBS-02**: PBS page displays the 18 PBS videos with project context describing the PBS American Portrait initiative
+- [x] **PBS-02**: PBS page displays the 18 PBS videos with project context describing the PBS American Portrait initiative
 - [ ] **PBS-03**: PBS is also reachable as a regular filterable category from `/work`
 
 ### Press
@@ -129,7 +129,7 @@ Updated during roadmap creation.
 | FILT-03 | Phase 3 | Complete |
 | FILT-04 | Phase 3 | Complete |
 | PBS-01 | Phase 5 | Pending |
-| PBS-02 | Phase 5 | Pending |
+| PBS-02 | Phase 5 | Complete |
 | PBS-03 | Phase 5 | Pending |
 | PRES-01 | Phase 6 | Pending |
 | PRES-02 | Phase 6 | Pending |

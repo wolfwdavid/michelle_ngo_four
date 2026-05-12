@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Phase 5 context gathered
-last_updated: "2026-05-11T22:56:37.627Z"
+stopped_at: Completed 05-01-PLAN.md (Wave 0 scaffold + Candidate C copy lock)
+last_updated: "2026-05-12T19:33:30.561Z"
 progress:
   total_phases: 7
   completed_phases: 4
-  total_plans: 17
-  completed_plans: 17
+  total_plans: 19
+  completed_plans: 18
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-10)
 
 **Core value:** A producer can land on the site, watch the reel, click any video, and immediately see "more like this" — every interaction reinforces the depth and breadth of her video work.
-**Current focus:** Phase 04 — reel-led-home
+**Current focus:** Phase 05 — pbs-american-portrait
 
 ## Current Position
 
-Phase: 5
-Plan: Not started
+Phase: 05 (pbs-american-portrait) — EXECUTING
+Plan: 2 of 2
 
 ## Performance Metrics
 
@@ -61,6 +61,7 @@ Plan: Not started
 | Phase 04-reel-led-home PP03 | 3m | 2 tasks tasks | 2 files files |
 | Phase 04-reel-led-home P04 | 5m | 1 task tasks | 2 files files |
 | Phase 04-reel-led-home P05 | 6m | 1 tasks | 3 files |
+| Phase 05-pbs-american-portrait P01 | 9m | 3 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -121,6 +122,11 @@ Recent decisions affecting current work:
 - [Phase 04-reel-led-home]: Plan 04-04: flushSync() pattern in Vitest after mount() when asserting on $effect side effects — Svelte 5's $effect runs on a microtask queue after mount() returns synchronously, so tests that assert on observer.observe() / observer.disconnect() / other effect-driven side effects must call flushSync() before the assertion. Plan 04-01 stub assumed synchronous effect run (1 deviation Rule 1 fix). Pattern carries forward to any future test asserting on $effect side effects
 - [Phase 04-reel-led-home]: Plan 04-05: PageData-narrowed callLoad helper in page.test.ts — plan literal cast (load as () => Promise<{videos:unknown[]}>)() typed data as unknown[], which fails mount(Page,{props:{data}}) strict-prop check (Page.data is fully-typed PageData). Helper imports PageData from './$types' and returns Promise<PageData> via 'result as PageData'. Carries Phase 3 /work/page.test.ts callLoad pattern forward to the first route test that BOTH calls load() AND mounts the page.
 - [Phase 04-reel-led-home]: Plan 04-05: Featured-slice loader = videos.filter(v=>v.featured).toSorted((a,b)=>b.published.localeCompare(a.published)) — mirrors /work/+page.ts shape with one filter step inserted; featured-first comparator collapses to published-desc only when every row in the slice is featured (all 8 in Phase 4). /+page.svelte iterates data.videos with eager={true} literal boolean (not i<8) to document that all 8 are intentionally above the fold. Same /work grid markup verbatim (max-w-7xl + grid-cols-2/3/4 + gap-2/3).
+- [Phase 05-pbs-american-portrait]: Plan 05-01: Selected Candidate C (Editorial, ~50 words) at Task 1 checkpoint — most blockquote-worthy, complements <h2>Stories</h2>; embedded verbatim inline in <approved>...</approved> for Plan 05-02 to read directly
+- [Phase 05-pbs-american-portrait]: Plan 05-01: Wave 0 stubs MUST match future-GREEN return types at type level (Video[] not never[], PageData not hand-narrowed subset) — svelte-check validates describe.skip bodies; broken stub types propagate to pnpm check failures even when tests never run
+- [Phase 05-pbs-american-portrait]: Plan 05-01: PageData-narrowed callLoad helper required whenever a test BOTH calls load() AND mounts Page (mount needs strict Category enum literal — hand-narrowed {category:string,...} fails prop-type check). Pattern carried forward from Phase 4 Plan 04-05; applied to work/[category]/page.test.ts and pbs-american-portrait/page.test.ts
+- [Phase 05-pbs-american-portrait]: Plan 05-01: Entity-escape <approved>...</approved> example tags inside doc-comment in PLAN.md so Task 1 verify regex (non-greedy first-match) captures the REAL approved element, not the literal '...' placeholder example. Without this, the regex captured 3 chars and failed the length-bounded check
+- [Phase 05-pbs-american-portrait]: Plan 05-01: Per-file distinct mockPage identifiers (mockPage / mockPageW / mockPageWk) via vi.hoisted — eliminates risk of cross-suite scope collision under Vitest 4 worker pooling when multiple test files share a worker
 
 ### Pending Todos
 
@@ -132,6 +138,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-11T22:56:37.617Z
-Stopped at: Phase 5 context gathered
-Resume file: .planning/phases/05-pbs-american-portrait/05-CONTEXT.md
+Last session: 2026-05-12T19:33:30.557Z
+Stopped at: Completed 05-01-PLAN.md (Wave 0 scaffold + Candidate C copy lock)
+Resume file: None
