@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: paused
-stopped_at: 06-02 paused at human-action checkpoint — awaiting IMDb + LinkedIn URLs (Vimeo seed = vimeo.com/user2149742)
-last_updated: "2026-05-12T21:44:10.212Z"
+status: in-progress
+stopped_at: Completed 06-02-about-contact-pages-PLAN.md
+last_updated: "2026-05-13T01:41:09.206Z"
 progress:
   total_phases: 7
   completed_phases: 5
   total_plans: 22
-  completed_plans: 20
+  completed_plans: 21
 ---
 
 # Project State
@@ -23,8 +23,8 @@ See: .planning/PROJECT.md (updated 2026-05-10)
 
 ## Current Position
 
-Phase: 06 (press-about-contact) — PAUSED
-Plan: 1 of 3 complete (06-01 shipped); 06-02 blocked on URLs; 06-03 blocked on 06-02
+Phase: 06 (press-about-contact) — IN PROGRESS
+Plan: 2 of 3 complete (06-01 + 06-02 shipped); next = 06-03 footer-layout
 
 ## Performance Metrics
 
@@ -64,6 +64,7 @@ Plan: 1 of 3 complete (06-01 shipped); 06-02 blocked on URLs; 06-03 blocked on 0
 | Phase 05-pbs-american-portrait P01 | 9m | 3 tasks | 11 files |
 | Phase 05-pbs-american-portrait P02 | 5m | 3 tasks tasks | 11 files files |
 | Phase 06-press-about-contact P01 | 5m | 2 tasks | 6 files |
+| Phase 06-press-about-contact P02 | 5m | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -135,6 +136,9 @@ Recent decisions affecting current work:
 - [Phase 06-press-about-contact]: Plan 06-01: Locked prestige order verbatim from PLAN.md checkpoint table — 13 distinct non-Michelle uploaders, each with 1 credit. Audit-verified at execution time
 - [Phase 06-press-about-contact]: Plan 06-01: Press helper test lives under src/routes/** (vitest 'ui' jsdom project) — co-located with helper per Phase 5 _pbsCollectionUrl pattern; pure function so DOM isolation is harmless
 - [Phase 06-press-about-contact]: Plan 06-01: PRESTIGE_ORDER iteration + insertion-order fallback for unknown uploaders — future videos.json rows with new uploaders append at end (no crash, no silent drop)
+- [Phase 06-press-about-contact]: Plan 06-02: IMDb + LinkedIn URLs shipped as channel-homepage fallbacks per user direction (2026-05-12) — must swap to personalized profile URLs before Phase 7 cutover; tracked in Blockers/Concerns
+- [Phase 06-press-about-contact]: Plan 06-02: ContactBlock has zero props — single vertical layout reused verbatim on /about, /contact, and Plan 06-03 Footer column 1; CONT-02 satisfied by construction (mailto:mynogo@gmail.com literal lives in ONE file)
+- [Phase 06-press-about-contact]: Plan 06-02: Bio copy embedded inline in src/routes/about/+page.svelte between BEGIN/END approved-bio markers (no strings file) — i18n Out of Scope; Phase 5 D-11 verbatim-via-PLAN-checkpoint pattern carried forward
 
 ### Pending Todos
 
@@ -142,10 +146,10 @@ None yet.
 
 ### Blockers/Concerns
 
-- Phase 06 paused: 06-02 requires real IMDb + LinkedIn URLs before `<ContactBlock />` can be built. Vimeo can default to `https://vimeo.com/user2149742` (PROJECT.md seed) or be replaced. PLAN.md explicitly forbids placeholder URLs (would fail tests + ship dead links). Resume with `/gsd:execute-phase 6` once URLs are in hand.
+- Pre-production swap required: edit src/lib/components/ContactBlock.svelte (lines 36-37) to swap IMDb + LinkedIn href values from channel homepages (https://www.imdb.com/, https://www.linkedin.com/) to real personalized profile URLs before michellengo.net cutover. Single-line change each. No test changes needed if new URLs still contain imdb.com / linkedin.com. Approved as fallback by user via /gsd:execute-phase decision on 2026-05-12.
 
 ## Session Continuity
 
-Last session: 2026-05-12T21:44:10.201Z
-Stopped at: 06-02 human-action checkpoint — awaiting IMDb + LinkedIn URLs
-Resume file: .planning/phases/06-press-about-contact/06-02-about-contact-pages-PLAN.md (checkpoint table lines 122–134)
+Last session: 2026-05-13T01:40:52.252Z
+Stopped at: Completed 06-02-about-contact-pages-PLAN.md
+Resume file: None

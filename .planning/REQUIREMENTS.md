@@ -52,13 +52,13 @@
 
 ### About
 
-- [ ] **ABT-01**: User can navigate to `/about`
-- [ ] **ABT-02**: `/about` shows headshot, bio, IMDb link, LinkedIn link, and contact info
+- [x] **ABT-01**: User can navigate to `/about`
+- [x] **ABT-02**: `/about` shows headshot, bio, IMDb link, LinkedIn link, and contact info
 
 ### Contact
 
-- [ ] **CONT-01**: Footer surfaces email (`mailto:` link), phone, IMDb, LinkedIn, and Vimeo
-- [ ] **CONT-02**: `/about` mirrors the same contact information
+- [x] **CONT-01**: Footer surfaces email (`mailto:` link), phone, IMDb, LinkedIn, and Vimeo
+- [x] **CONT-02**: `/about` mirrors the same contact information
 
 ### Navigation
 
@@ -133,10 +133,10 @@ Updated during roadmap creation.
 | PBS-03 | Phase 5 | Complete |
 | PRES-01 | Phase 6 | Complete |
 | PRES-02 | Phase 6 | Complete |
-| ABT-01 | Phase 6 | Pending |
-| ABT-02 | Phase 6 | Pending |
-| CONT-01 | Phase 6 | Pending |
-| CONT-02 | Phase 6 | Pending |
+| ABT-01 | Phase 6 | Complete |
+| ABT-02 | Phase 6 | Complete |
+| CONT-01 | Phase 6 | Complete |
+| CONT-02 | Phase 6 | Complete |
 | NAV-01 | Phase 3 | Complete |
 | NAV-02 | Phase 6 | Pending |
 
