@@ -132,12 +132,14 @@ Plans:
   2. No layout shift on thumbnail load — blur-up placeholders hold their final dimensions
   3. Every route renders correctly on mobile (≤640px), tablet (~768px), and desktop (≥1280px) without horizontal scroll or broken type
   4. Production deploy is reachable on its final hosting URL with HTTPS, and the staging branch continues to deploy independently
-**Plans**: TBD
+**Plans**: 5 plans
 
 Plans:
-- [ ] 07-01: Responsive QA pass across all routes + breakpoints
-- [ ] 07-02: Perf pass — image dimensions, blur-up tuning, font loading, JS budget; meet 2s/4G target
-- [ ] 07-03: Production cutover — final hosting config, custom domain or staging promotion
+- [ ] 07-01-imdb-linkedin-swap-PLAN.md — Pre-cutover blocker: swap channel-homepage IMDb + LinkedIn URLs in `src/lib/components/ContactBlock.svelte` for Michelle's personalized profile URLs; closes 06-HUMAN-UAT Test 1 + STATE.md Blockers/Concerns entry (Wave 1, addresses FOUND-03 — D-05 pre-cutover blocker row)
+- [ ] 07-02-production-metadata-PLAN.md — Sitewide favicon set (D-11) + OG/Twitter card meta (D-12) + per-page <title> + <meta description> (D-13/D-14) + Person JSON-LD on /about + VideoObject JSON-LD on every /watch/[id] (D-15) + src/routes/sitemap.xml/+server.ts endpoint (D-17) + extended scripts/test-prerender-coverage.mjs assertions (Wave 2, depends on 07-01, addresses FOUND-03)
+- [ ] 07-03-responsive-qa-matrix-PLAN.md — D-18 21-cell QA matrix (7 routes × 3 breakpoints) walked in Chrome DevTools + iOS Safari spot-check (D-19); produces .planning/phases/07-polish-production-cutover/07-QA-MATRIX.md with numbered punch list (D-20); every item resolved (fix or accept) before cutover (Wave 3, depends on 07-02, addresses FOUND-03 — D-05 fix-list-resolved row)
+- [ ] 07-04-perf-gate-PLAN.md — Lighthouse-CI mobile audit with Slow-4G throttle against /, /work, /watch/[reel], /pbs landing; commit 07-LIGHTHOUSE.json (D-07); IF / LCP ≥ 2.0s apply D-08 hero escalation in order (a) AVIF via <picture>, (b) mobile portrait crop, (c) drop featured-grid eager (Wave 3, depends on 07-02, addresses FOUND-03 — D-05 LCP-gate row)
+- [ ] 07-05-production-cutover-PLAN.md — Create static/CNAME (D-01) + .github/workflows/deploy-production.yml with BASE_PATH='' (D-02) + GH Pages custom-domain config via UI (Task 3 human) + curl --resolve apex pre-verification (D-03) + ATOMIC noindex-removal + robots.txt open-policy commit (D-16) + production workflow trigger + final apex re-verification + user-driven DNS swap at registrar (Wave 4, depends on 07-01 + 07-02 + 07-03 + 07-04, addresses FOUND-03 — closes all D-05 rows + DNS launch event)
 
 ## Progress
 
@@ -152,7 +154,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 4. Reel-Led Home | 0/5 | Planned | - |
 | 5. PBS American Portrait | 0/2 | Planned | - |
 | 6. Press, About & Contact | 0/3 | Not started | - |
-| 7. Polish & Production Cutover | 0/3 | Not started | - |
+| 7. Polish & Production Cutover | 0/5 | Planned | - |
 
 ---
 *Roadmap created: 2026-05-10*
@@ -161,3 +163,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 *Phase 3 plans created: 2026-05-11*
 *Phase 4 plans created: 2026-05-11*
 *Phase 5 plans created: 2026-05-11*
+*Phase 7 plans created: 2026-05-13*
