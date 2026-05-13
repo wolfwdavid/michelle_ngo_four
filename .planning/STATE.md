@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: in-progress
-stopped_at: Completed 06-02-about-contact-pages-PLAN.md
-last_updated: "2026-05-13T01:41:09.206Z"
+status: unknown
+stopped_at: Completed 06-03-footer-layout-PLAN.md
+last_updated: "2026-05-13T01:52:00.421Z"
 progress:
   total_phases: 7
-  completed_phases: 5
+  completed_phases: 6
   total_plans: 22
-  completed_plans: 21
+  completed_plans: 22
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-05-10)
 ## Current Position
 
 Phase: 06 (press-about-contact) — IN PROGRESS
-Plan: 2 of 3 complete (06-01 + 06-02 shipped); next = 06-03 footer-layout
+Plan: 3 of 3 complete (06-01 + 06-02 shipped); next = 06-03 footer-layout
 
 ## Performance Metrics
 
@@ -65,6 +65,7 @@ Plan: 2 of 3 complete (06-01 + 06-02 shipped); next = 06-03 footer-layout
 | Phase 05-pbs-american-portrait P02 | 5m | 3 tasks tasks | 11 files files |
 | Phase 06-press-about-contact P01 | 5m | 2 tasks | 6 files |
 | Phase 06-press-about-contact P02 | 5m | 2 tasks | 7 files |
+| Phase 06-press-about-contact P03-footer-layout | 4m | 2 tasks tasks | 3 files files |
 
 ## Accumulated Context
 
@@ -139,6 +140,9 @@ Recent decisions affecting current work:
 - [Phase 06-press-about-contact]: Plan 06-02: IMDb + LinkedIn URLs shipped as channel-homepage fallbacks per user direction (2026-05-12) — must swap to personalized profile URLs before Phase 7 cutover; tracked in Blockers/Concerns
 - [Phase 06-press-about-contact]: Plan 06-02: ContactBlock has zero props — single vertical layout reused verbatim on /about, /contact, and Plan 06-03 Footer column 1; CONT-02 satisfied by construction (mailto:mynogo@gmail.com literal lives in ONE file)
 - [Phase 06-press-about-contact]: Plan 06-02: Bio copy embedded inline in src/routes/about/+page.svelte between BEGIN/END approved-bio markers (no strings file) — i18n Out of Scope; Phase 5 D-11 verbatim-via-PLAN-checkpoint pattern carried forward
+- [Phase 06-press-about-contact]: Plan 06-03: Footer reuses ContactBlock VERBATIM (no orientation prop, no variants) — single component instance now powers /about, /contact, and Footer column 1; pre-cutover IMDb/LinkedIn URL swap stays single-source via ContactBlock.svelte
+- [Phase 06-press-about-contact]: Plan 06-03: Footer category href ternary copies TopNav lines 132-135 VERBATIM (slug === 'pbs-american-portrait' ? /pbs-american-portrait/ : /work/<slug>) — preserves true mirror semantics for NAV-02; non-PBS uses no-trailing-slash form to match TopNav exactly
+- [Phase 06-press-about-contact]: Plan 06-03: Year-2026 copyright literal hardcoded in Footer.svelte (no Date().getFullYear()) per D-29 — site is prerendered; rollover is a one-character source edit on next deploy after Jan 1 2027; keeps the static prerender purely deterministic with zero client-side JS in the footer
 
 ### Pending Todos
 
@@ -150,6 +154,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-13T01:40:52.252Z
-Stopped at: Completed 06-02-about-contact-pages-PLAN.md
+Last session: 2026-05-13T01:52:00.411Z
+Stopped at: Completed 06-03-footer-layout-PLAN.md
 Resume file: None

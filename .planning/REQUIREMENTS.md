@@ -63,7 +63,7 @@
 ### Navigation
 
 - [x] **NAV-01**: Top text-link nav lists primary categories + secondary links (About / Press / Contact)
-- [ ] **NAV-02**: Footer mirrors the top nav for accessibility and discoverability
+- [x] **NAV-02**: Footer mirrors the top nav for accessibility and discoverability
 
 ## v2 Requirements
 
@@ -138,7 +138,7 @@ Updated during roadmap creation.
 | CONT-01 | Phase 6 | Complete |
 | CONT-02 | Phase 6 | Complete |
 | NAV-01 | Phase 3 | Complete |
-| NAV-02 | Phase 6 | Pending |
+| NAV-02 | Phase 6 | Complete |
 
 **Coverage:**
 - v1 requirements: 30 total

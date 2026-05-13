@@ -121,7 +121,7 @@ Plans:
 Plans:
 - [x] 06-01-press-page-PLAN.md — Build /press credits page + route-local press helper + tests + prerender threshold update (Wave 1, addresses PRES-01, PRES-02)
 - [x] 06-02-about-contact-pages-PLAN.md — Build /about (bio approval gate) + /contact pages + shared <ContactBlock /> component + tests + prerender threshold updates (Wave 1, addresses ABT-01, ABT-02, CONT-01, CONT-02)
-- [ ] 06-03-footer-layout-PLAN.md — Build site-wide <Footer /> component + wire into +layout.svelte + tests (Wave 2, depends on 06-02, addresses CONT-01, NAV-02)
+- [x] 06-03-footer-layout-PLAN.md — Build site-wide <Footer /> component + wire into +layout.svelte + tests (Wave 2, depends on 06-02, addresses CONT-01, NAV-02)
 
 ### Phase 7: Polish & Production Cutover
 **Goal**: A producer on a 4G connection lands on the production site and sees the hero in under 2 seconds — every interaction feels fast, every breakpoint looks intentional, and the site is live on its production URL.
