@@ -105,11 +105,25 @@ if (!pressIndexExists) {
   failures.push('Missing build/press/index.html (the broadcast credits landing route).');
 }
 
+// Phase 6 (Plan 06-02): /about — bio + contact block landing route.
+const aboutIndex = join(BUILD, 'about', 'index.html');
+const aboutIndexExists = existsSync(aboutIndex);
+if (!aboutIndexExists) {
+  failures.push('Missing build/about/index.html (the /about page).');
+}
+
+// Phase 6 (Plan 06-02): /contact — h1 + shared contact block.
+const contactIndex = join(BUILD, 'contact', 'index.html');
+const contactIndexExists = existsSync(contactIndex);
+if (!contactIndexExists) {
+  failures.push('Missing build/contact/index.html (the /contact page).');
+}
+
 if (failures.length > 0) {
   console.error('[test-prerender-coverage] FAIL:');
   for (const f of failures) console.error('  - ' + f);
   console.error(
-    `Found: build/work/index.html=${workIndexExists}, build/work/<slug>/index.html count=${workCategoryDirs}, build/watch/<id>/index.html count=${watchIdDirs}, build/pbs-american-portrait/index.html=${pbsLandingExists}, build/press/index.html=${pressIndexExists}.`,
+    `Found: build/work/index.html=${workIndexExists}, build/work/<slug>/index.html count=${workCategoryDirs}, build/watch/<id>/index.html count=${watchIdDirs}, build/pbs-american-portrait/index.html=${pbsLandingExists}, build/press/index.html=${pressIndexExists}, build/about/index.html=${aboutIndexExists}, build/contact/index.html=${contactIndexExists}.`,
   );
   process.exit(1);
 }
@@ -124,4 +138,6 @@ console.log(
 );
 console.log(`  - build/pbs-american-portrait/index.html: present`);
 console.log(`  - build/press/index.html: present`);
+console.log(`  - build/about/index.html: present`);
+console.log(`  - build/contact/index.html: present`);
 process.exit(0);
