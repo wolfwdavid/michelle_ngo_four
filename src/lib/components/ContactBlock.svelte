@@ -16,23 +16,28 @@
   Style: Phase 3 D-08 inline-link (text-white hover:underline underline-offset-2)
   on every link.
 
-  NOTE — pre-production swap required before michellengo.net cutover:
-    IMDb and LinkedIn currently point at the channel homepages
-    (https://www.imdb.com/, https://www.linkedin.com/) as approved-fallback
-    values per /gsd:execute-phase decision on 2026-05-12. The user did not
-    have personalized profile URLs ready at execution time and chose to ship
-    with the homepages rather than block Phase 6. Before Phase 7 cutover,
-    swap IMDB_URL + LINKEDIN_URL below to real profile URLs. Single-line
-    change each; no test changes needed as long as the new URLs still
-    contain 'imdb.com' / 'linkedin.com' respectively. Tracked in STATE.md
-    Blockers/Concerns until resolved.
+  NOTE — v1.0 launch acceptance (Phase 7 Plan 07-01, decision 2026-05-13):
+    IMDb and LinkedIn ship as channel-homepage fallbacks
+    (https://www.imdb.com/, https://www.linkedin.com/) at v1.0 launch per
+    explicit user decision on 2026-05-13 via /gsd:execute-phase 07-01.
+    Personalized profile URLs were not materializable in time for the
+    michellengo.net cutover window; channel homepages are functional
+    (no 404s) and pass the existing domain-contains test assertions.
+    Cutover is UNBLOCKED.
+
+    Future enhancement (post-v1.0 backlog): swap to personalized profile
+    URLs of the shape `https://www.imdb.com/name/nm{NUMERIC_ID}/` and
+    `https://www.linkedin.com/in/{HANDLE}/` when materializable. This is
+    a single-line edit per URL; no test changes needed as long as the new
+    URLs still contain 'imdb.com' / 'linkedin.com' respectively.
 -->
 <script lang="ts">
   // No props (D-32). One vertical layout everywhere.
   // Hardcoded literal URLs. If channels change, edit this file only —
   // it is the single source of truth for /about, /contact, and Footer.
 
-  // Approved at execute-time on 2026-05-12 — see comment above for swap-before-cutover note.
+  // v1.0 launch literals — channel homepages per Phase 7 Plan 07-01 deferral
+  // (2026-05-13). See NOTE above for the full decision record + backlog item.
   const IMDB_URL = 'https://www.imdb.com/';
   const LINKEDIN_URL = 'https://www.linkedin.com/';
   const VIMEO_URL = 'https://vimeo.com/user2149742';

@@ -4,11 +4,11 @@ milestone: v1.0
 milestone_name: milestone
 status: unknown
 stopped_at: Phase 7 context gathered
-last_updated: "2026-05-13T02:33:15.061Z"
+last_updated: "2026-05-14T11:09:09.185Z"
 progress:
   total_phases: 7
   completed_phases: 6
-  total_plans: 22
+  total_plans: 27
   completed_plans: 22
 ---
 
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-10)
 
 **Core value:** A producer can land on the site, watch the reel, click any video, and immediately see "more like this" — every interaction reinforces the depth and breadth of her video work.
-**Current focus:** Phase 06 — press-about-contact
+**Current focus:** Phase 07 — polish-production-cutover
 
 ## Current Position
 
-Phase: 7
-Plan: Not started
+Phase: 07 (polish-production-cutover) — EXECUTING
+Plan: 2 of 5
 
 ## Performance Metrics
 
@@ -150,7 +150,7 @@ None yet.
 
 ### Blockers/Concerns
 
-- Pre-production swap required: edit src/lib/components/ContactBlock.svelte (lines 36-37) to swap IMDb + LinkedIn href values from channel homepages (https://www.imdb.com/, https://www.linkedin.com/) to real personalized profile URLs before michellengo.net cutover. Single-line change each. No test changes needed if new URLs still contain imdb.com / linkedin.com. Approved as fallback by user via /gsd:execute-phase decision on 2026-05-12.
+- v1.0 launch accepted with channel-homepage fallbacks for IMDb + LinkedIn (decision 2026-05-13 via /gsd:execute-phase 07-01). Cutover unblocked. Backlog item: swap to personalized profile URLs post-launch when materializable (`src/lib/components/ContactBlock.svelte` IMDB_URL + LINKEDIN_URL — single-line edit each; tests pass without modification as long as new URLs still contain `imdb.com` / `linkedin.com`).
 
 ## Session Continuity
 
