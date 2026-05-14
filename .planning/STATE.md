@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Phase 7 context gathered
-last_updated: "2026-05-14T11:09:09.185Z"
+stopped_at: Completed 07-01-imdb-linkedin-swap-PLAN.md (deferred)
+last_updated: "2026-05-14T11:14:13.247Z"
 progress:
   total_phases: 7
   completed_phases: 6
   total_plans: 27
-  completed_plans: 22
+  completed_plans: 23
 ---
 
 # Project State
@@ -66,6 +66,7 @@ Plan: 2 of 5
 | Phase 06-press-about-contact P01 | 5m | 2 tasks | 6 files |
 | Phase 06-press-about-contact P02 | 5m | 2 tasks | 7 files |
 | Phase 06-press-about-contact P03-footer-layout | 4m | 2 tasks tasks | 3 files files |
+| Phase 07-polish-production-cutover P01 | 5m | 1 task (decision-deferred) tasks | 3 files files |
 
 ## Accumulated Context
 
@@ -143,6 +144,7 @@ Recent decisions affecting current work:
 - [Phase 06-press-about-contact]: Plan 06-03: Footer reuses ContactBlock VERBATIM (no orientation prop, no variants) — single component instance now powers /about, /contact, and Footer column 1; pre-cutover IMDb/LinkedIn URL swap stays single-source via ContactBlock.svelte
 - [Phase 06-press-about-contact]: Plan 06-03: Footer category href ternary copies TopNav lines 132-135 VERBATIM (slug === 'pbs-american-portrait' ? /pbs-american-portrait/ : /work/<slug>) — preserves true mirror semantics for NAV-02; non-PBS uses no-trailing-slash form to match TopNav exactly
 - [Phase 06-press-about-contact]: Plan 06-03: Year-2026 copyright literal hardcoded in Footer.svelte (no Date().getFullYear()) per D-29 — site is prerendered; rollover is a one-character source edit on next deploy after Jan 1 2027; keeps the static prerender purely deterministic with zero client-side JS in the footer
+- [Phase 07-polish-production-cutover]: Plan 07-01: User selected defer-with-fallback at Task 1 decision checkpoint (2026-05-13). Channel-homepage IMDb + LinkedIn URLs accepted at v1.0 launch; personalized URL swap moves to post-v1.0 backlog. Cutover unblocked on this dimension. SUMMARY status = accepted-deferred (NOT passed); FOUND-03 stays Pending (owned by 07-02..07-05).
 
 ### Pending Todos
 
@@ -154,6 +156,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-13T02:33:15.054Z
-Stopped at: Phase 7 context gathered
-Resume file: .planning/phases/07-polish-production-cutover/07-CONTEXT.md
+Last session: 2026-05-14T11:13:34.375Z
+Stopped at: Completed 07-01-imdb-linkedin-swap-PLAN.md (deferred)
+Resume file: None
