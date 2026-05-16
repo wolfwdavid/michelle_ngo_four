@@ -24,7 +24,7 @@
  *   1 — at least one count is below threshold (prerender broken).
  *   2 — `build/` directory doesn't exist (run `pnpm build` first).
  */
-import { existsSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, statSync, readFileSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -119,11 +119,43 @@ if (!contactIndexExists) {
   failures.push('Missing build/contact/index.html (the /contact page).');
 }
 
+// Phase 7 (Plan 07-02): sitemap.xml — D-17 build-time-generated sitemap.
+const sitemapPath = join(BUILD, 'sitemap.xml');
+const sitemapExists = existsSync(sitemapPath);
+let sitemapUrlCount = 0;
+if (!sitemapExists) {
+  failures.push('Missing build/sitemap.xml (the D-17 sitemap endpoint).');
+} else {
+  // Count <url> entries; expect at least 70 (6 static + 8 categories + 56 watch).
+  const content = readFileSync(sitemapPath, 'utf8');
+  sitemapUrlCount = (content.match(/<url>/g) ?? []).length;
+  if (sitemapUrlCount < 70) {
+    failures.push(
+      `build/sitemap.xml has only ${sitemapUrlCount} <url> entries; expected ≥70 (6 static + 8 categories + 56 watch).`,
+    );
+  }
+}
+
+// Phase 7 (Plan 07-02): D-11 favicon set + D-12 OG image binary assets.
+const requiredStaticAssets = [
+  'favicon.ico',
+  'favicon-16.png',
+  'favicon-32.png',
+  'favicon-192.png',
+  'favicon-512.png',
+  'apple-touch-icon.png',
+  'og-image.jpg',
+];
+const missingAssets = requiredStaticAssets.filter((name) => !existsSync(join(BUILD, name)));
+if (missingAssets.length > 0) {
+  failures.push(`Missing required static assets in build/: ${missingAssets.join(', ')}`);
+}
+
 if (failures.length > 0) {
   console.error('[test-prerender-coverage] FAIL:');
   for (const f of failures) console.error('  - ' + f);
   console.error(
-    `Found: build/work/index.html=${workIndexExists}, build/work/<slug>/index.html count=${workCategoryDirs}, build/watch/<id>/index.html count=${watchIdDirs}, build/pbs-american-portrait/index.html=${pbsLandingExists}, build/press/index.html=${pressIndexExists}, build/about/index.html=${aboutIndexExists}, build/contact/index.html=${contactIndexExists}.`,
+    `Found: build/work/index.html=${workIndexExists}, build/work/<slug>/index.html count=${workCategoryDirs}, build/watch/<id>/index.html count=${watchIdDirs}, build/pbs-american-portrait/index.html=${pbsLandingExists}, build/press/index.html=${pressIndexExists}, build/about/index.html=${aboutIndexExists}, build/contact/index.html=${contactIndexExists}, build/sitemap.xml=${sitemapExists} (${sitemapUrlCount} URLs).`,
   );
   process.exit(1);
 }
@@ -140,4 +172,8 @@ console.log(`  - build/pbs-american-portrait/index.html: present`);
 console.log(`  - build/press/index.html: present`);
 console.log(`  - build/about/index.html: present`);
 console.log(`  - build/contact/index.html: present`);
+console.log(`  - build/sitemap.xml: present (${sitemapUrlCount} URLs)`);
+console.log(
+  `  - build/{favicon.ico, favicon-{16,32,192,512}.png, apple-touch-icon.png, og-image.jpg}: all present`,
+);
 process.exit(0);
