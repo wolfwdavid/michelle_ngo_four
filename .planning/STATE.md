@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 07-03-responsive-qa-matrix-PLAN.md
-last_updated: "2026-05-16T14:46:23.890Z"
+stopped_at: Completed 07-04-perf-gate-PLAN.md
+last_updated: "2026-05-16T14:59:53.830Z"
 progress:
   total_phases: 7
   completed_phases: 6
   total_plans: 27
-  completed_plans: 25
+  completed_plans: 26
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-05-10)
 ## Current Position
 
 Phase: 07 (polish-production-cutover) — EXECUTING
-Plan: 4 of 5
+Plan: 5 of 5
 
 ## Performance Metrics
 
@@ -69,6 +69,7 @@ Plan: 4 of 5
 | Phase 07-polish-production-cutover P01 | 5m | 1 task (decision-deferred) tasks | 3 files files |
 | Phase 07-polish-production-cutover P02 | ~75m (2 sessions) | 7 tasks tasks | 10 files files |
 | Phase 07-polish-production-cutover P03 | 3m | 3 tasks tasks | 1 file files |
+| Phase 07-polish-production-cutover P07-04-perf-gate | 10m | 1 task (3 no-op-by-deferral) tasks | 1 file (1 created + 3 reconciled — zero source code changes) files |
 
 ## Accumulated Context
 
@@ -150,6 +151,7 @@ Recent decisions affecting current work:
 - [Phase 07-polish-production-cutover]: Plan 07-02 Task 3: Approved per-page <meta description> copy verbatim — approve-as-suggested. / (home) → 'Filmmaker and producer Michelle Ngo. PBS American Portrait, HBO Max, HBO, Hulu, U2 Sphere broadcast credits. Watch the reel.' (140 chars). /about → 'I'm Michelle Ngo, a filmmaker and producer based in New York City. I make video that helps brands and broadcasters tell stories well.' (132 chars, lossless reuse from approved bio). Other 6 routes use mechanical D-14 strings locked in CONTEXT.md.
 - [Phase 07-polish-production-cutover]: Plan 07-02: JSON-LD injection pattern locked — {@html} with eslint-disable svelte/no-at-html-tags inside <svelte:head> for both Person (/about) and VideoObject (56 /watch/[id]). Safe because payload is JSON.stringify of static-typed data (Zod-validated VideoObject; inline-literal Person). Sitemap.xml pattern: SvelteKit +server.ts endpoint with export const prerender = true + manual XML string interpolation (D-09 no new JS deps). Absolute production URLs (https://michellengo.net) hardcoded in og:image + sitemap — staging emits wrong host harmlessly (D-11 noindex).
 - [Phase 07-polish-production-cutover]: Plan 07-03: Fast-path acceptance per user direction (2026-05-16). All 21 cells of D-18 responsive QA matrix + 4 iOS spot-check rows marked pass; 0 punch-list items. Supporting evidence: Phase 6 HUMAN-UAT plus per-phase visual verification at waves 3/4/5/6 each shipped through a visual pass at completion. Aligns with the 07-01/07-02 pragmatic deferral pattern. D-05 pre-cutover blocker row 'All Phase 7 fix-list items resolved' = GREEN.
+- [Phase 07-polish-production-cutover]: Plan 07-04: Lighthouse perf gate deferred to post-launch real-user telemetry per user direction (2026-05-16). Skipped synthetic Slow-4G mobile audit for v1.0; rely on Phase 4 D-04..D-07 budget intact at source (verified: HeroPoster.svelte preserves <link rel="preload"> + fetchpriority="high" + loading="eager"; hero-poster.webp = 15.4 KB) + Phase 4 04-HUMAN-UAT reel-load smoke test. Real perf signal comes from production after DNS swap. If real-user LCP > 2.0s on /, reopen FOUND-03 and apply D-08 escalation order (AVIF -> mobile portrait crop -> drop featured-grid eager). Plan status = accepted-deferred (NOT passed); FOUND-03 reconciled from Complete -> Accepted-Deferred in REQUIREMENTS.md traceability. D-05 pre-cutover blocker row 'Lighthouse-CI LCP gate passing' = GREEN-deferred. Consistent with Phase 7 deferral chain (07-01 / 07-02 / 07-03 / 07-04).
 
 ### Pending Todos
 
@@ -159,9 +161,10 @@ None yet.
 
 - v1.0 launch accepted with channel-homepage fallbacks for IMDb + LinkedIn (decision 2026-05-13 via /gsd:execute-phase 07-01). Cutover unblocked. Backlog item: swap to personalized profile URLs post-launch when materializable (`src/lib/components/ContactBlock.svelte` IMDB_URL + LINKEDIN_URL — single-line edit each; tests pass without modification as long as new URLs still contain `imdb.com` / `linkedin.com`).
 - Plan 07-02 backlog: Author proper favicon set (favicon-{16,32,192,512}.png + apple-touch-icon.png + favicon.ico) from 512x512 MN white-on-neutral-950 master AND export 1200x630 OG image crop from hero-poster.webp to static/og-image.jpg. Drop into static/ overwriting placeholders (no source code change needed). Tracked as v1.0 launch backlog per 2026-05-14 Task 1 decision.
+- Post-launch (not a launch blocker): validate FOUND-03 LCP gate via production real-user telemetry. If > 2.0s on /, reopen FOUND-03 and apply D-08 escalation order: (a) AVIF variant via `<picture>` + WebP fallback in `src/lib/components/HeroPoster.svelte`, (b) mobile portrait crop, (c) drop `eager={true}` on featured-grid in `src/routes/+page.svelte`. Stop at first step that clears 2.0s. Telemetry source TBD: Cloudflare Pages Analytics (built-in, zero JS) is the lowest-cost option; Plausible (REQUIREMENTS.md ANLT-01 v2) would also surface LCP. Decision recorded 2026-05-16 via /gsd:execute-phase 07-04. See `.planning/phases/07-polish-production-cutover/07-LIGHTHOUSE.json` `post_launch_trigger` field.
 
 ## Session Continuity
 
-Last session: 2026-05-16T14:46:23.880Z
-Stopped at: Completed 07-03-responsive-qa-matrix-PLAN.md
+Last session: 2026-05-16T14:59:53.818Z
+Stopped at: Completed 07-04-perf-gate-PLAN.md
 Resume file: None
