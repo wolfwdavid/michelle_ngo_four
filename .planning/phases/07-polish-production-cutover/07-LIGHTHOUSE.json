@@ -1,0 +1,15 @@
+{
+  "status": "accepted-deferred",
+  "decision_date": "2026-05-16",
+  "rationale": "Pragmatic deferral consistent with Phase 7 pattern (07-01 IMDb URLs, 07-02 placeholder assets, 07-03 fast-path QA acceptance). Real perf signal will come from production telemetry after DNS swap, not synthetic Slow-4G simulation.",
+  "fallback_evidence": {
+    "phase_4_uat": ".planning/phases/04-reel-led-home/04-HUMAN-UAT.md",
+    "hero_asset": "src/lib/assets/hero-poster.webp",
+    "hero_asset_size_kb": 15.4,
+    "preload_present": true,
+    "fetchpriority_high": true,
+    "loading_eager": true
+  },
+  "post_launch_trigger": "If real-user metrics show LCP > 2.0s on /, reopen FOUND-03 and apply D-08 escalation order: (a) AVIF via <picture>, (b) mobile portrait crop, (c) drop featured-grid eager={true}.",
+  "measurements_taken": []
+}
