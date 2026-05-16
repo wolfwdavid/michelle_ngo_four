@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 07-01-imdb-linkedin-swap-PLAN.md (deferred)
-last_updated: "2026-05-14T11:14:13.247Z"
+stopped_at: Completed 07-02-production-metadata-PLAN.md
+last_updated: "2026-05-16T14:34:27.571Z"
 progress:
   total_phases: 7
   completed_phases: 6
   total_plans: 27
-  completed_plans: 23
+  completed_plans: 24
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-05-10)
 ## Current Position
 
 Phase: 07 (polish-production-cutover) — EXECUTING
-Plan: 2 of 5
+Plan: 3 of 5
 
 ## Performance Metrics
 
@@ -67,6 +67,7 @@ Plan: 2 of 5
 | Phase 06-press-about-contact P02 | 5m | 2 tasks | 7 files |
 | Phase 06-press-about-contact P03-footer-layout | 4m | 2 tasks tasks | 3 files files |
 | Phase 07-polish-production-cutover P01 | 5m | 1 task (decision-deferred) tasks | 3 files files |
+| Phase 07-polish-production-cutover P02 | ~75m (2 sessions) | 7 tasks tasks | 10 files files |
 
 ## Accumulated Context
 
@@ -145,6 +146,8 @@ Recent decisions affecting current work:
 - [Phase 06-press-about-contact]: Plan 06-03: Footer category href ternary copies TopNav lines 132-135 VERBATIM (slug === 'pbs-american-portrait' ? /pbs-american-portrait/ : /work/<slug>) — preserves true mirror semantics for NAV-02; non-PBS uses no-trailing-slash form to match TopNav exactly
 - [Phase 06-press-about-contact]: Plan 06-03: Year-2026 copyright literal hardcoded in Footer.svelte (no Date().getFullYear()) per D-29 — site is prerendered; rollover is a one-character source edit on next deploy after Jan 1 2027; keeps the static prerender purely deterministic with zero client-side JS in the footer
 - [Phase 07-polish-production-cutover]: Plan 07-01: User selected defer-with-fallback at Task 1 decision checkpoint (2026-05-13). Channel-homepage IMDb + LinkedIn URLs accepted at v1.0 launch; personalized URL swap moves to post-v1.0 backlog. Cutover unblocked on this dimension. SUMMARY status = accepted-deferred (NOT passed); FOUND-03 stays Pending (owned by 07-02..07-05).
+- [Phase 07-polish-production-cutover]: Plan 07-02 Task 3: Approved per-page <meta description> copy verbatim — approve-as-suggested. / (home) → 'Filmmaker and producer Michelle Ngo. PBS American Portrait, HBO Max, HBO, Hulu, U2 Sphere broadcast credits. Watch the reel.' (140 chars). /about → 'I'm Michelle Ngo, a filmmaker and producer based in New York City. I make video that helps brands and broadcasters tell stories well.' (132 chars, lossless reuse from approved bio). Other 6 routes use mechanical D-14 strings locked in CONTEXT.md.
+- [Phase 07-polish-production-cutover]: Plan 07-02: JSON-LD injection pattern locked — {@html} with eslint-disable svelte/no-at-html-tags inside <svelte:head> for both Person (/about) and VideoObject (56 /watch/[id]). Safe because payload is JSON.stringify of static-typed data (Zod-validated VideoObject; inline-literal Person). Sitemap.xml pattern: SvelteKit +server.ts endpoint with export const prerender = true + manual XML string interpolation (D-09 no new JS deps). Absolute production URLs (https://michellengo.net) hardcoded in og:image + sitemap — staging emits wrong host harmlessly (D-11 noindex).
 
 ### Pending Todos
 
@@ -153,9 +156,10 @@ None yet.
 ### Blockers/Concerns
 
 - v1.0 launch accepted with channel-homepage fallbacks for IMDb + LinkedIn (decision 2026-05-13 via /gsd:execute-phase 07-01). Cutover unblocked. Backlog item: swap to personalized profile URLs post-launch when materializable (`src/lib/components/ContactBlock.svelte` IMDB_URL + LINKEDIN_URL — single-line edit each; tests pass without modification as long as new URLs still contain `imdb.com` / `linkedin.com`).
+- Plan 07-02 backlog: Author proper favicon set (favicon-{16,32,192,512}.png + apple-touch-icon.png + favicon.ico) from 512x512 MN white-on-neutral-950 master AND export 1200x630 OG image crop from hero-poster.webp to static/og-image.jpg. Drop into static/ overwriting placeholders (no source code change needed). Tracked as v1.0 launch backlog per 2026-05-14 Task 1 decision.
 
 ## Session Continuity
 
-Last session: 2026-05-14T11:13:34.375Z
-Stopped at: Completed 07-01-imdb-linkedin-swap-PLAN.md (deferred)
+Last session: 2026-05-16T14:34:14.621Z
+Stopped at: Completed 07-02-production-metadata-PLAN.md
 Resume file: None

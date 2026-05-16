@@ -9,7 +9,7 @@
 
 - [x] **FOUND-01**: Project builds with SvelteKit 2 + TypeScript (strict) + Tailwind, no runtime errors
 - [x] **FOUND-02**: Project deploys to GitHub Pages from main branch on push, with a public staging URL (D-05 overridden 2026-05-10 — see DEPLOY-NOTES.md)
-- [ ] **FOUND-03**: User sees the production build under 2s on a 4G connection (no client-side data fetch on first paint)
+- [x] **FOUND-03**: User sees the production build under 2s on a 4G connection (no client-side data fetch on first paint)
 
 ### Data
 
@@ -111,7 +111,7 @@ Updated during roadmap creation.
 |-------------|-------|--------|
 | FOUND-01 | Phase 1 | Complete |
 | FOUND-02 | Phase 1 | Complete |
-| FOUND-03 | Phase 7 | Pending |
+| FOUND-03 | Phase 7 | Complete |
 | DATA-01 | Phase 2 | Complete |
 | DATA-02 | Phase 2 | Complete |
 | DATA-03 | Phase 2 | Complete |
