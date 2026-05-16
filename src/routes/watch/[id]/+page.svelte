@@ -34,6 +34,24 @@
   const rail = $derived(data.rail);
   const year = $derived(video.published.slice(0, 4)); // D-35 step 4 — 4-digit year from ISO date
   const categorySlug = $derived(categoryToSlug(video.category));
+
+  // Phase 7 Plan 07-02 D-15: VideoObject JSON-LD payload derived per video.
+  // duration is ISO 8601 (PT5M30S) and only emitted when duration_seconds is present
+  // (14 of 56 videos lack it per Phase 2 D-06 — conditional preserves field shape).
+  const videoJsonLd = $derived({
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: video.title,
+    description: video.description ?? video.title,
+    thumbnailUrl: video.thumbnail,
+    uploadDate: video.published,
+    embedUrl: video.embed,
+    ...(video.duration_seconds
+      ? {
+          duration: `PT${Math.floor(video.duration_seconds / 60)}M${video.duration_seconds % 60}S`,
+        }
+      : {}),
+  });
 </script>
 
 <svelte:head>
@@ -44,6 +62,12 @@
       ? video.description.slice(0, 150)
       : `${video.title} — by Michelle Ngo`}
   />
+  <!-- D-15 VideoObject JSON-LD for Google video-rich-snippet eligibility.
+       {@html} is safe here: videoJsonLd is JSON.stringify of a derived object
+       whose values come from videos.json (build-time validated by Zod schema in
+       Phase 2 D-15). No runtime user input flows into the JSON payload. -->
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+  {@html `<script type="application/ld+json">${JSON.stringify(videoJsonLd)}<` + `/script>`}
 </svelte:head>
 
 <article class="mx-auto px-4 sm:px-6 lg:px-8 py-6">

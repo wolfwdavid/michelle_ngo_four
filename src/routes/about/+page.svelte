@@ -16,6 +16,29 @@
 -->
 <script lang="ts">
   import ContactBlock from '$lib/components/ContactBlock.svelte';
+
+  // Phase 7 Plan 07-02 D-15 Person JSON-LD sameAs values. MUST match the literals in
+  // src/lib/components/ContactBlock.svelte (single source of truth for the visible
+  // links; this duplication is intentional because ContactBlock does not export its
+  // URL constants). Update both files together if URLs change.
+  //
+  // v1.0 launch state (per Plan 07-01 deferral, 2026-05-13): IMDb + LinkedIn ship as
+  // channel-homepage fallbacks — personalized profile URLs were not materializable
+  // before cutover. Post-launch backlog item: swap to personalized URLs of the shape
+  // `https://www.imdb.com/name/nm{NUMERIC_ID}/` and `https://www.linkedin.com/in/{HANDLE}/`
+  // — single-line edit in BOTH this file AND ContactBlock.svelte.
+  const IMDB_URL = 'https://www.imdb.com/';
+  const LINKEDIN_URL = 'https://www.linkedin.com/';
+  const VIMEO_URL = 'https://vimeo.com/user2149742';
+
+  const personJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Michelle Ngo',
+    jobTitle: 'Filmmaker, Producer',
+    url: 'https://michellengo.net/about/',
+    sameAs: [IMDB_URL, LINKEDIN_URL, VIMEO_URL],
+  };
 </script>
 
 <svelte:head>
@@ -24,6 +47,11 @@
     name="description"
     content="I'm Michelle Ngo, a filmmaker and producer based in New York City. I make video that helps brands and broadcasters tell stories well."
   />
+  <!-- D-15 Person JSON-LD for SEO knowledge-panel candidacy.
+       {@html} is safe here: personJsonLd is JSON.stringify of a hardcoded
+       static object literal — no user input flows in. -->
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+  {@html `<script type="application/ld+json">${JSON.stringify(personJsonLd)}<` + `/script>`}
 </svelte:head>
 
 <main class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 py-12 md:py-16">
