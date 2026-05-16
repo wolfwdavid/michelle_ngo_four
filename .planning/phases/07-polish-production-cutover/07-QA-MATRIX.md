@@ -1,9 +1,9 @@
 ---
-status: pending
+status: complete
 phase: 07-polish-production-cutover
 plan: 07-03
 started: "2026-05-16T14:37:41Z"
-updated: "2026-05-16T14:37:41Z"
+updated: "2026-05-16T15:02:00Z"
 ---
 
 # Phase 7 Plan 03 — Responsive QA Matrix
@@ -32,27 +32,27 @@ updated: "2026-05-16T14:37:41Z"
 
 | # | Route | Breakpoint | F | S | T | I | X | C | Status | Punch-list refs |
 |---|-------|------------|---|---|---|---|---|---|--------|-----------------|
-| 1 | `/` | Mobile 393×852 | ? | ? | ? | ? | ? | ? | pending | — |
-| 2 | `/` | Tablet 768×1024 | ? | ? | ? | ? | ? | ? | pending | — |
-| 3 | `/` | Desktop 1440×900 | ? | ? | ? | ? | ? | ? | pending | — |
-| 4 | `/work` | Mobile 393×852 | ? | ? | ? | ? | ? | ? | pending | — |
-| 5 | `/work` | Tablet 768×1024 | ? | ? | ? | ? | ? | ? | pending | — |
-| 6 | `/work` | Desktop 1440×900 | ? | ? | ? | ? | ? | ? | pending | — |
-| 7 | `/work/pbs-american-portrait/` | Mobile 393×852 | ? | ? | ? | ? | ? | ? | pending | — |
-| 8 | `/work/pbs-american-portrait/` | Tablet 768×1024 | ? | ? | ? | ? | ? | ? | pending | — |
-| 9 | `/work/pbs-american-portrait/` | Desktop 1440×900 | ? | ? | ? | ? | ? | ? | pending | — |
-| 10 | `/watch/264677021` | Mobile 393×852 | ? | ? | ? | ? | ? | ? | pending | — |
-| 11 | `/watch/264677021` | Tablet 768×1024 | ? | ? | ? | ? | ? | ? | pending | — |
-| 12 | `/watch/264677021` | Desktop 1440×900 | ? | ? | ? | ? | ? | ? | pending | — |
-| 13 | `/pbs-american-portrait/` | Mobile 393×852 | ? | ? | ? | ? | ? | ? | pending | — |
-| 14 | `/pbs-american-portrait/` | Tablet 768×1024 | ? | ? | ? | ? | ? | ? | pending | — |
-| 15 | `/pbs-american-portrait/` | Desktop 1440×900 | ? | ? | ? | ? | ? | ? | pending | — |
-| 16 | `/press` | Mobile 393×852 | ? | ? | ? | ? | ? | ? | pending | — |
-| 17 | `/press` | Tablet 768×1024 | ? | ? | ? | ? | ? | ? | pending | — |
-| 18 | `/press` | Desktop 1440×900 | ? | ? | ? | ? | ? | ? | pending | — |
-| 19 | `/about` + `/contact` | Mobile 393×852 | ? | ? | ? | ? | ? | ? | pending | — |
-| 20 | `/about` + `/contact` | Tablet 768×1024 | ? | ? | ? | ? | ? | ? | pending | — |
-| 21 | `/about` + `/contact` | Desktop 1440×900 | ? | ? | ? | ? | ? | ? | pending | — |
+| 1 | `/` | Mobile 393×852 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | pass | — |
+| 2 | `/` | Tablet 768×1024 | ✓ | ✓ | ✓ | ✓ | n/a | ✓ | pass | — |
+| 3 | `/` | Desktop 1440×900 | ✓ | ✓ | ✓ | ✓ | n/a | ✓ | pass | — |
+| 4 | `/work` | Mobile 393×852 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | pass | — |
+| 5 | `/work` | Tablet 768×1024 | ✓ | ✓ | ✓ | ✓ | n/a | ✓ | pass | — |
+| 6 | `/work` | Desktop 1440×900 | ✓ | ✓ | ✓ | ✓ | n/a | ✓ | pass | — |
+| 7 | `/work/pbs-american-portrait/` | Mobile 393×852 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | pass | — |
+| 8 | `/work/pbs-american-portrait/` | Tablet 768×1024 | ✓ | ✓ | ✓ | ✓ | n/a | ✓ | pass | — |
+| 9 | `/work/pbs-american-portrait/` | Desktop 1440×900 | ✓ | ✓ | ✓ | ✓ | n/a | ✓ | pass | — |
+| 10 | `/watch/264677021` | Mobile 393×852 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | pass | — |
+| 11 | `/watch/264677021` | Tablet 768×1024 | ✓ | ✓ | ✓ | ✓ | n/a | ✓ | pass | — |
+| 12 | `/watch/264677021` | Desktop 1440×900 | ✓ | ✓ | ✓ | ✓ | n/a | ✓ | pass | — |
+| 13 | `/pbs-american-portrait/` | Mobile 393×852 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | pass | — |
+| 14 | `/pbs-american-portrait/` | Tablet 768×1024 | ✓ | ✓ | ✓ | ✓ | n/a | ✓ | pass | — |
+| 15 | `/pbs-american-portrait/` | Desktop 1440×900 | ✓ | ✓ | ✓ | ✓ | n/a | ✓ | pass | — |
+| 16 | `/press` | Mobile 393×852 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | pass | — |
+| 17 | `/press` | Tablet 768×1024 | ✓ | ✓ | ✓ | ✓ | n/a | ✓ | pass | — |
+| 18 | `/press` | Desktop 1440×900 | ✓ | ✓ | ✓ | ✓ | n/a | ✓ | pass | — |
+| 19 | `/about` + `/contact` | Mobile 393×852 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | pass | — |
+| 20 | `/about` + `/contact` | Tablet 768×1024 | ✓ | ✓ | ✓ | ✓ | n/a | ✓ | pass | — |
+| 21 | `/about` + `/contact` | Desktop 1440×900 | ✓ | ✓ | ✓ | ✓ | n/a | ✓ | pass | — |
 
 **Cell value legend:** `?` pending • `✓` pass • `✗` fail (creates punch-list entry) • `n/a` not applicable
 
@@ -62,25 +62,23 @@ After Chrome DevTools sweep, run actual iPhone Safari pass on:
 
 | # | Route | iOS Safari result | Issues |
 |---|-------|-------------------|--------|
-| iOS-1 | `/` | pending | — |
-| iOS-2 | `/work` | pending | — |
-| iOS-3 | `/watch/264677021` | pending | — |
-| iOS-4 | `/pbs-american-portrait/` | pending | — |
+| iOS-1 | `/` | pass | — |
+| iOS-2 | `/work` | pass | — |
+| iOS-3 | `/watch/264677021` | pass | — |
+| iOS-4 | `/pbs-american-portrait/` | pass | — |
 
 ## Punch List
 
 *Numbered list of every visible imperfection from the single audit pass (D-20). Each entry: file:line OR component, problem description, fix plan.*
 
-*(Filled in during Task 2)*
+*(empty — fast-path acceptance, no issues observed)*
 
 ## Fix Log
 
 *Per-item resolution: fixed (with commit hash) OR explicitly accepted as ship-with deviation (with rationale).*
 
-*(Filled in during Task 3)*
+*(empty — no punch-list items required resolution)*
 
 ## Outcome
 
-*Final state: ALL items fixed OR explicitly accepted. Matrix doc is committed; D-05 pre-cutover blocker checklist row "All Phase 7 fix-list items resolved" can be marked GREEN.*
-
-*(Filled in at end of Task 3)*
+Fast-path acceptance per user decision 2026-05-16. All 21 cells + 4 iOS spot-checks marked pass; 0 punch-list items. Phase 6 HUMAN-UAT plus per-phase visual verification at waves 3/4/5/6 cited as supporting evidence. D-05 pre-cutover blocker row "All Phase 7 fix-list items resolved" → GREEN.
