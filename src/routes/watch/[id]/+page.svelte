@@ -37,7 +37,13 @@
 </script>
 
 <svelte:head>
-  <title>Michelle Ngo — {video.title}</title>
+  <title>{video.title} — Michelle Ngo</title>
+  <meta
+    name="description"
+    content={video.description
+      ? video.description.slice(0, 150)
+      : `${video.title} — by Michelle Ngo`}
+  />
 </svelte:head>
 
 <article class="mx-auto px-4 sm:px-6 lg:px-8 py-6">

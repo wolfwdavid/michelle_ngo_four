@@ -34,13 +34,17 @@
 </script>
 
 <svelte:head>
-  <title>Michelle Ngo — PBS American Portrait</title>
+  <title>PBS American Portrait — Michelle Ngo</title>
+  <meta
+    name="description"
+    content="Michelle Ngo's PBS American Portrait work: 18 short documentary portraits broadcast on PBS."
+  />
 </svelte:head>
 
 <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
   <h1
     class="text-3xl md:text-5xl font-bold uppercase tracking-wider {categoryAccent(
-      'PBS American Portrait',
+      'PBS American Portrait'
     )}"
   >
     PBS American Portrait

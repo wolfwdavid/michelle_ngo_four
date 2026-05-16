@@ -23,7 +23,11 @@
 </script>
 
 <svelte:head>
-  <title>Michelle Ngo — Filmmaker &amp; Producer</title>
+  <title>Michelle Ngo</title>
+  <meta
+    name="description"
+    content="Filmmaker and producer Michelle Ngo. PBS American Portrait, HBO Max, HBO, Hulu, U2 Sphere broadcast credits. Watch the reel."
+  />
 </svelte:head>
 
 <HeroPoster />

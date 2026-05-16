@@ -13,7 +13,8 @@
 </script>
 
 <svelte:head>
-  <title>Michelle Ngo — Contact</title>
+  <title>Contact — Michelle Ngo</title>
+  <meta name="description" content="Reach Michelle Ngo by email or phone." />
 </svelte:head>
 
 <main class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 py-12 md:py-16">

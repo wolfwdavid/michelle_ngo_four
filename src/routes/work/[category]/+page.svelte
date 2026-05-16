@@ -13,13 +13,17 @@
 </script>
 
 <svelte:head>
-  <title>Michelle Ngo — {data.category}</title>
+  <title>{data.category} — Michelle Ngo</title>
+  <meta
+    name="description"
+    content="{data.videos.length} videos by Michelle Ngo in {data.category}."
+  />
 </svelte:head>
 
 <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
   <h1
     class="text-2xl md:text-3xl font-bold uppercase tracking-wider mb-6 {categoryAccent(
-      data.category,
+      data.category
     )}"
   >
     {data.category} ({data.videos.length})

@@ -14,7 +14,11 @@
 </script>
 
 <svelte:head>
-  <title>Michelle Ngo — Work</title>
+  <title>Work — Michelle Ngo</title>
+  <meta
+    name="description"
+    content="All 56 videos by filmmaker Michelle Ngo, organized by category."
+  />
 </svelte:head>
 
 <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">

@@ -19,7 +19,11 @@
 </script>
 
 <svelte:head>
-  <title>Michelle Ngo — About</title>
+  <title>About — Michelle Ngo</title>
+  <meta
+    name="description"
+    content="I'm Michelle Ngo, a filmmaker and producer based in New York City. I make video that helps brands and broadcasters tell stories well."
+  />
 </svelte:head>
 
 <main class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 py-12 md:py-16">

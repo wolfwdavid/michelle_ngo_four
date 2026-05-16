@@ -23,7 +23,11 @@
 </script>
 
 <svelte:head>
-  <title>Michelle Ngo — Press</title>
+  <title>Press — Michelle Ngo</title>
+  <meta
+    name="description"
+    content="Broadcast credits: HBO Max, HBO, PBS, ABC News, U2, Amazon News, Music Box, and more."
+  />
 </svelte:head>
 
 <main class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12 md:py-16">
